@@ -55,7 +55,7 @@ const agents = [
 
 export default function AgentsPage() {
     return (
-        <div className="bg-white py-24 sm:py-32">
+        <div className="relative min-h-screen py-16 sm:py-24">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl text-center">
                     <h2 className="text-base font-semibold leading-7 text-brand-blue">Agents</h2>
@@ -66,9 +66,9 @@ export default function AgentsPage() {
                         Deploy autonomous agents to handle the repetitive parts of your sales process.
                     </p>
                 </div>
-                <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+                <div className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                     {agents.map((agent) => (
-                        <div key={agent.name} className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200">
+                        <div key={agent.name} className="flex flex-col overflow-hidden rounded-2xl bg-white/60 shadow-sm ring-1 ring-gray-200 backdrop-blur-sm transition-all hover:bg-white/80 hover:shadow-md">
                             <div className="p-8">
                                 <div className="flex items-center gap-x-3">
                                     <div className="rounded-md bg-brand-blue/10 p-2">
@@ -78,7 +78,7 @@ export default function AgentsPage() {
                                 </div>
                                 <p className="mt-4 text-base leading-7 text-gray-600">{agent.description}</p>
 
-                                <div className="mt-6 rounded-lg bg-gray-50 p-4 text-sm">
+                                <div className="mt-6 rounded-lg bg-white/50 p-4 text-sm ring-1 ring-gray-100">
                                     <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-2 text-center">
                                         <div className="rounded bg-white p-2 shadow-sm ring-1 ring-gray-200">
                                             <span className="block text-xs font-medium text-gray-500">Input</span>
@@ -95,7 +95,7 @@ export default function AgentsPage() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-auto border-t border-gray-100 bg-gray-50 p-6">
+                            <div className="mt-auto border-t border-gray-100 bg-white/40 p-6">
                                 <Button className="w-full" asChild>
                                     <Link href="/contact">Request Access</Link>
                                 </Button>

@@ -112,6 +112,36 @@ h6 {
   animation: glow 3s ease-in-out infinite;
 }
 
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration) linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--duration) linear infinite;
+  will-change: transform;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;

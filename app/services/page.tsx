@@ -43,7 +43,7 @@ const services = [
 
 export default function ServicesPage() {
     return (
-        <div className="bg-white py-24 sm:py-32">
+        <div className="relative min-h-screen py-16 sm:py-24">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl text-center">
                     <h2 className="text-base font-semibold leading-7 text-brand-blue">Services</h2>
@@ -54,18 +54,18 @@ export default function ServicesPage() {
                         We don't just run campaigns. We build the infrastructure that powers your revenue engine.
                     </p>
                 </div>
-                <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                <div className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                     {services.map((service) => (
-                        <article key={service.title} className="flex flex-col items-start justify-between rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-200 hover:shadow-md transition-shadow">
+                        <article key={service.title} className="flex flex-col items-start justify-between rounded-2xl bg-white/60 p-8 shadow-sm ring-1 ring-gray-200 backdrop-blur-sm transition-all hover:bg-white/80 hover:shadow-md">
                             <div className="w-full">
                                 <h3 className="text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
                                     {service.title}
                                 </h3>
-                                <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{service.description}</p>
+                                <p className="mt-4 line-clamp-3 text-sm leading-6 text-gray-600">{service.description}</p>
                                 <ul className="mt-6 space-y-3">
                                     {service.deliverables.map((item) => (
                                         <li key={item} className="flex gap-x-3 text-sm leading-6 text-gray-600">
-                                            <CheckCircle2 className="h-6 w-5 flex-none text-brand-blue" aria-hidden="true" />
+                                            <CheckCircle2 className="h-5 w-5 flex-none text-brand-blue" aria-hidden="true" />
                                             {item}
                                         </li>
                                     ))}

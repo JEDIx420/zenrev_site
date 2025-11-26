@@ -186,7 +186,26 @@ export function Chatbot() {
                                                 : "bg-white text-gray-900 ring-1 ring-gray-200"
                                         )}
                                     >
-                                        {m.content}
+                                        {m.content.split(/(\[.*?\]\(.*?\))/g).map((part, i) => {
+                                            const match = part.match(/\[(.*?)\]\((.*?)\)/)
+                                            if (match) {
+                                                return (
+                                                    <a
+                                                        key={i}
+                                                        href={match[2]}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className={cn(
+                                                            "font-medium underline underline-offset-2",
+                                                            m.role === "user" ? "text-white" : "text-brand-blue"
+                                                        )}
+                                                    >
+                                                        {match[1]}
+                                                    </a>
+                                                )
+                                            }
+                                            return part
+                                        })}
                                     </div>
                                 </motion.div>
                             ))}
