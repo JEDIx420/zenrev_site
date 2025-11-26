@@ -1,0 +1,42 @@
+import type { Metadata } from "next";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import "./globals.css";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { Chatbot } from "@/components/Chatbot";
+import { ParticleBackground } from "@/components/ParticleBackground";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "zenrev | from signals to revenue",
+  description: "AI-powered GTM engineering for B2B SaaS teams.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${inter.variable} ${plusJakartaSans.variable} antialiased font-sans flex min-h-screen flex-col bg-background text-foreground transition-colors`}
+      >
+        <ParticleBackground />
+        <Header />
+        <main className="relative z-10 flex-1">{children}</main>
+        <Footer />
+        <Chatbot />
+      </body>
+    </html>
+  );
+}
