@@ -43,6 +43,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://zenrev.ai",
   },
+  verification: {
+    google: "wiXoC7FHkT39p84dLITiXmYnXUtOdT7Mp-NCB3sGv3s",
+  },
 };
 
 const jsonLd = {
