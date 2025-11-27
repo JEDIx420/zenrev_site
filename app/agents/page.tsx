@@ -96,7 +96,7 @@ export default function AgentsPage() {
                             </div>
                             <div className="mt-auto border-t border-gray-100 bg-white/40 p-6">
                                 <Button className="w-full" asChild>
-                                    <Link href="/contact">Request Access</Link>
+                                    <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">Request Access</Link>
                                 </Button>
                             </div>
                         </div>

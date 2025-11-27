@@ -1,10 +1,11 @@
 "use client"
 
 import * as React from "react"
-import { MessageSquare, X, Send, Sparkles } from "lucide-react"
+import { MessageSquare, X, Send, Sparkles, Bot } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion"
+import { marked } from "marked"
 
 type Message = {
     id: string
@@ -94,7 +95,7 @@ export function Chatbot() {
                     id: Date.now().toString(),
                     role: "assistant",
                     content:
-                        "Sorry, I'm having trouble connecting. Please try again or visit /contact to book a consultation.",
+                        "Sorry, I'm having trouble connecting. Please try again or visit https://cal.com/jayanand-j-ywq8ls/30min to book a consultation.",
                 },
             ])
         } finally {
@@ -111,7 +112,7 @@ export function Chatbot() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed bottom-24 right-4 z-50 w-full max-w-sm overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-2xl sm:right-8 sm:w-[420px]"
+                        className="fixed bottom-24 right-4 z-50 w-[calc(100vw-2rem)] max-w-[350px] overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-2xl sm:right-8 sm:w-[420px] sm:max-w-none"
                     >
                         {/* Header */}
                         <div className="relative overflow-hidden border-b border-gray-100 bg-gradient-to-br from-brand-blue to-brand-dark p-6">
@@ -136,95 +137,82 @@ export function Chatbot() {
                         </div>
 
                         {/* Messages */}
-                        <div className="h-[450px] overflow-y-auto bg-gradient-to-b from-gray-50/50 to-white p-6">
-                            {messages.length === 0 && (
-                                <div className="flex h-full flex-col items-center justify-center text-center">
-                                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue to-brand-dark shadow-lg">
-                                        <MessageSquare className="h-8 w-8 text-white" />
-                                    </div>
-                                    <h4 className="text-lg font-semibold text-gray-900">Hi there! 👋</h4>
-                                    <p className="mt-2 max-w-xs text-sm text-gray-600">
-                                        Ask me about GTM automation, our agents, or how zenrev can help scale your outbound.
-                                    </p>
-                                    <div className="mt-6 flex flex-wrap justify-center gap-2">
-                                        {["What is zenrev?", "Tell me about your agents", "How does pricing work?"].map((q) => (
-                                            <button
-                                                key={q}
-                                                onClick={() => {
-                                                    setInput(q)
-                                                    setTimeout(() => {
-                                                        const form = document.querySelector("form")
-                                                        if (form) {
-                                                            const event = new Event("submit", { bubbles: true, cancelable: true })
-                                                            form.dispatchEvent(event)
-                                                        }
-                                                    }, 100)
-                                                }}
-                                                className="rounded-full bg-white px-4 py-2 text-xs font-medium text-gray-700 shadow-sm ring-1 ring-gray-200 transition-all hover:bg-brand-blue/5 hover:ring-brand-blue/50"
-                                            >
-                                                {q}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                            {messages.map((m) => (
-                                <motion.div
-                                    key={m.id}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className={cn(
-                                        "mb-4 flex",
-                                        m.role === "user" ? "justify-end" : "justify-start"
-                                    )}
-                                >
-                                    <div
-                                        className={cn(
-                                            "max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm",
-                                            m.role === "user"
-                                                ? "bg-gradient-to-br from-brand-blue to-brand-dark text-white"
-                                                : "bg-white text-gray-900 ring-1 ring-gray-200"
-                                        )}
-                                    >
-                                        {m.content.split(/(\[.*?\]\(.*?\))/g).map((part, i) => {
-                                            const match = part.match(/\[(.*?)\]\((.*?)\)/)
-                                            if (match) {
-                                                return (
-                                                    <a
-                                                        key={i}
-                                                        href={match[2]}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className={cn(
-                                                            "font-medium underline underline-offset-2",
-                                                            m.role === "user" ? "text-white" : "text-brand-blue"
-                                                        )}
-                                                    >
-                                                        {match[1]}
-                                                    </a>
-                                                )
-                                            }
-                                            return part
-                                        })}
-                                    </div>
-                                </motion.div>
-                            ))}
-                            {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    className="mb-4 flex justify-start"
-                                >
-                                    <div className="max-w-[85%] rounded-2xl bg-white px-4 py-3 text-sm text-gray-900 shadow-sm ring-1 ring-gray-200">
-                                        <div className="flex items-center gap-1">
-                                            <div className="h-2 w-2 animate-bounce rounded-full bg-brand-blue" style={{ animationDelay: "0ms" }}></div>
-                                            <div className="h-2 w-2 animate-bounce rounded-full bg-brand-blue" style={{ animationDelay: "150ms" }}></div>
-                                            <div className="h-2 w-2 animate-bounce rounded-full bg-brand-blue" style={{ animationDelay: "300ms" }}></div>
+                        <div className="h-[400px] overflow-y-auto bg-gradient-to-b from-gray-50/50 to-white p-6 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
+                            <div className="space-y-4">
+                                {messages.length === 0 && (
+                                    <div className="flex h-full flex-col items-center justify-center text-center">
+                                        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue to-brand-dark shadow-lg">
+                                            <MessageSquare className="h-8 w-8 text-white" />
+                                        </div>
+                                        <h4 className="text-lg font-semibold text-gray-900">Hi there! 👋</h4>
+                                        <p className="mt-2 max-w-xs text-sm text-gray-600">
+                                            Ask me about GTM automation, our agents, or how zenrev can help scale your outbound.
+                                        </p>
+                                        <div className="mt-6 flex flex-wrap justify-center gap-2">
+                                            {["What is zenrev?", "Tell me about your agents", "How does pricing work?"].map((q) => (
+                                                <button
+                                                    key={q}
+                                                    onClick={() => {
+                                                        setInput(q)
+                                                        setTimeout(() => {
+                                                            const form = document.querySelector("form")
+                                                            if (form) {
+                                                                const event = new Event("submit", { bubbles: true, cancelable: true })
+                                                                form.dispatchEvent(event)
+                                                            }
+                                                        }, 100)
+                                                    }}
+                                                    className="rounded-full bg-white px-4 py-2 text-xs font-medium text-gray-700 shadow-sm ring-1 ring-gray-200 transition-all hover:bg-brand-blue/5 hover:ring-brand-blue/50"
+                                                >
+                                                    {q}
+                                                </button>
+                                            ))}
                                         </div>
                                     </div>
-                                </motion.div>
-                            )}
-                            <div ref={messagesEndRef} />
+                                )}
+                                {messages.map((m) => (
+                                    <motion.div
+                                        key={m.id}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className={cn(
+                                            "mb-4 flex",
+                                            m.role === "user" ? "justify-end" : "justify-start"
+                                        )}
+                                    >
+                                        <div
+                                            className={cn(
+                                                "max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm",
+                                                m.role === "user"
+                                                    ? "bg-gradient-to-br from-brand-blue to-brand-dark text-white"
+                                                    : "bg-white text-gray-900 ring-1 ring-gray-200"
+                                            )}
+                                        >
+                                            {m.role === "assistant" ? (
+                                                <div className="prose prose-sm max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: marked(m.content) }} />
+                                            ) : (
+                                                m.content
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                ))}
+                                {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        className="mb-4 flex justify-start"
+                                    >
+                                        <div className="max-w-[85%] rounded-2xl bg-white px-4 py-3 text-sm text-gray-900 shadow-sm ring-1 ring-gray-200">
+                                            <div className="flex items-center gap-1">
+                                                <div className="h-2 w-2 animate-bounce rounded-full bg-brand-blue" style={{ animationDelay: "0ms" }}></div>
+                                                <div className="h-2 w-2 animate-bounce rounded-full bg-brand-blue" style={{ animationDelay: "150ms" }}></div>
+                                                <div className="h-2 w-2 animate-bounce rounded-full bg-brand-blue" style={{ animationDelay: "300ms" }}></div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                )}
+                                <div ref={messagesEndRef} />
+                            </div>
                         </div>
 
                         {/* Input */}
@@ -247,7 +235,7 @@ export function Chatbot() {
                                 </Button>
                             </div>
                             <p className="mt-2 text-center text-xs text-gray-500">
-                                Powered by Gemini • <a href="/contact" className="text-brand-blue hover:underline">Book a call</a>
+                                Powered by Gemini • <a href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank" className="text-brand-blue hover:underline">Book a call</a>
                             </p>
                         </form>
                     </motion.div>

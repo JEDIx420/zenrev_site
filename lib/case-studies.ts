@@ -64,7 +64,7 @@ export const caseStudies: CaseStudy[] = [
       <div class="my-8 p-6 bg-blue-50 rounded-xl border border-blue-100">
         <h4 class="text-lg font-bold text-brand-blue mb-2">Ready to engineer your revenue?</h4>
         <p class="mb-4 text-sm text-gray-600">Stop relying on brute force. Build a system that scales.</p>
-        <a href="/contact" class="inline-block bg-brand-blue text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">Book a GTM Audit</a>
+        <a href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank" class="inline-block bg-brand-blue text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">Book a GTM Audit</a>
       </div>
 
       <h2>The Solution: Agentic Workflows</h2>
@@ -212,7 +212,7 @@ export const caseStudies: CaseStudy[] = [
       <div class="my-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
         <h4 class="text-lg font-bold text-gray-900 mb-2">Ready to scale your outreach?</h4>
         <p class="mb-4 text-sm text-gray-600">Book a consultation to see how we can automate your pipeline.</p>
-        <a href="/contact" class="inline-block bg-white border border-gray-300 text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">Book Consultation</a>
+        <a href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank" class="inline-block bg-white border border-gray-300 text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">Book Consultation</a>
       </div>
 
       <h2>Conclusion</h2>

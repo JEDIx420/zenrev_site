@@ -136,7 +136,7 @@ export default async function CaseStudyPage({ params }: Props) {
                         Ready to achieve similar results?
                     </h3>
                     <Button size="lg" asChild>
-                        <Link href="/contact">Book Your Consultation</Link>
+                        <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">Book Your Consultation</Link>
                     </Button>
                 </div>
             </article>

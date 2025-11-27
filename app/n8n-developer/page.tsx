@@ -76,7 +76,7 @@ export default function N8nDeveloperPage() {
                         </p>
                         <div className="mt-10 flex items-center justify-center gap-x-6">
                             <Button size="lg" asChild>
-                                <Link href="/contact">
+                                <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
                                     Hire an n8n Developer <ArrowRight className="ml-2 h-4 w-4" />
                                 </Link>
                             </Button>
@@ -287,7 +287,7 @@ return results;`}
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
                         <Button size="lg" className="bg-white text-brand-dark hover:bg-gray-100" asChild>
-                            <Link href="/contact">Book Consultation</Link>
+                            <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">Book Consultation</Link>
                         </Button>
                     </div>
                 </div>

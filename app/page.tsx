@@ -36,7 +36,7 @@ export default function Home() {
 
 
           <motion.h1
-            className="bg-gradient-to-br from-brand-dark via-brand-blue to-brand-dark bg-clip-text text-5xl font-bold tracking-tight text-transparent sm:text-7xl lg:text-8xl"
+            className="bg-gradient-to-br from-brand-dark via-brand-blue to-brand-dark bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-7xl lg:text-8xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -46,14 +46,14 @@ export default function Home() {
           </motion.h1>
 
           <motion.p
-            className="mt-8 text-xl leading-relaxed text-gray-600 sm:text-2xl"
+            className="mt-8 text-lg leading-relaxed text-gray-600 sm:text-2xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             The premier <span className="font-semibold text-brand-blue">GTM Engineering</span> firm. We build agentic workflows that turn signals into revenue.
             <br />
-            <span className="text-lg text-gray-500">Clay • n8n • Custom AI Agents</span>
+            <span className="text-base sm:text-lg text-gray-500">Clay • n8n • Custom AI Agents</span>
           </motion.p>
 
           <motion.div
@@ -62,15 +62,15 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <Button size="lg" className="group relative overflow-hidden shadow-lg shadow-brand-blue/25 hover:shadow-xl hover:shadow-brand-blue/40 transition-all" asChild>
-              <Link href="/contact">
-                <span className="relative z-10 flex items-center gap-2">
+            <Button size="lg" className="group relative overflow-hidden shadow-lg shadow-brand-blue/25 hover:shadow-xl hover:shadow-brand-blue/40 transition-all w-full sm:w-auto" asChild>
+              <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                <span className="relative z-10 flex items-center justify-center gap-2">
                   Book 30-min Consultation
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>
             </Button>
-            <Button variant="outline" size="lg" className="border-2 hover:bg-brand-blue/5" asChild>
+            <Button variant="outline" size="lg" className="border-2 hover:bg-brand-blue/5 w-full sm:w-auto" asChild>
               <Link href="/agents">View Our Agents</Link>
             </Button>
           </motion.div>
@@ -220,7 +220,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-blue to-brand-dark px-8 py-16 shadow-2xl sm:px-16"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-blue to-brand-dark px-6 py-12 shadow-2xl sm:px-16 sm:py-16"
           >
             <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
             <div className="relative mx-auto max-w-2xl text-center">
@@ -231,8 +231,8 @@ export default function Home() {
                 Book a 30-minute consultation and we'll show you exactly how to deploy agents in your stack.
               </p>
               <div className="mt-10">
-                <Button size="lg" variant="secondary" className="bg-white text-brand-blue hover:bg-gray-100" asChild>
-                  <Link href="/contact">
+                <Button size="lg" variant="secondary" className="bg-white text-brand-blue hover:bg-gray-100 w-full sm:w-auto" asChild>
+                  <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
                     Book Your Consultation
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>

@@ -47,7 +47,7 @@ export default function AboutPage() {
                         </ul>
                         <div className="mt-10">
                             <Button asChild>
-                                <Link href="/contact">Work With Us</Link>
+                                <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">Work With Us</Link>
                             </Button>
                         </div>
                     </div>

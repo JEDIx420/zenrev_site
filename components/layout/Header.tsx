@@ -103,7 +103,7 @@ export function Header() {
                                 </div>
                                 <div className="py-6">
                                     <Button className="w-full justify-center" asChild>
-                                        <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+                                        <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank" onClick={() => setMobileMenuOpen(false)}>
                                             Book Consultation
                                         </Link>
                                     </Button>
