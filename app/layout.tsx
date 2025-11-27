@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "zenrev | from signals to revenue",
     description: "AI-powered GTM engineering for B2B SaaS. Automate revenue with agentic AI, n8n workflows, and custom automation infrastructure.",
-    url: "https://zenrev.ai",
+    url: "https://zenrev.org",
     siteName: "zenrev",
     locale: "en_US",
     type: "website",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "https://zenrev.ai",
+    canonical: "https://zenrev.org",
   },
   verification: {
     google: "wiXoC7FHkT39p84dLITiXmYnXUtOdT7Mp-NCB3sGv3s",
@@ -52,7 +52,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "zenrev",
-  "url": "https://zenrev.ai",
+  "url": "https://zenrev.org",
   "description": "AI-powered GTM engineering for B2B SaaS teams.",
   "sameAs": [
     "https://twitter.com/zenrev",

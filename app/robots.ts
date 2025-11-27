@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: '*',
             allow: '/',
         },
-        sitemap: 'https://zenrev.ai/sitemap.xml',
+        sitemap: 'https://zenrev.org/sitemap.xml',
     }
 }
