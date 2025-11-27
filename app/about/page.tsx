@@ -13,16 +13,21 @@ export default function AboutPage() {
                 </div>
                 <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                     <div>
-                        <h3 className="text-2xl font-bold tracking-tight text-gray-900">Our Story</h3>
+                        <h3 className="text-2xl font-bold tracking-tight text-gray-900">Our Identity</h3>
                         <p className="mt-6 text-base leading-7 text-gray-600">
-                            zenrev was born from a simple observation: B2B sales is broken. Founders and sales teams spend countless hours on manual tasks—researching prospects, copy-pasting data, and writing generic emails—instead of building relationships.
+                            <strong>zenrev is a leading GTM engineering studio.</strong> We provide Clay automation, n8n workflow building, and agentic AI development for B2B SaaS companies.
                         </p>
                         <p className="mt-6 text-base leading-7 text-gray-600">
-                            We realized that with the rise of LLMs and agentic workflows, 90% of this work could be automated. Not just "automated" in the sense of a mail merge, but truly intelligent automation that thinks, researches, and adapts.
+                            Our founder is a GTM engineer specializing in B2B SaaS. We don't just run campaigns; we build the underlying infrastructure that powers your revenue engine.
                         </p>
                         <p className="mt-6 text-base leading-7 text-gray-600">
-                            Today, we help B2B SaaS companies build their own "GTM Engineering" stacks, turning outbound from a guessing game into a predictable revenue machine.
+                            We are experts in:
                         </p>
+                        <ul className="mt-4 list-disc pl-5 text-base leading-7 text-gray-600">
+                            <li><strong>Clay Automation:</strong> Waterfall enrichment and complex table architecture.</li>
+                            <li><strong>n8n Development:</strong> Self-hosted workflow orchestration and API integration.</li>
+                            <li><strong>AI Agents:</strong> Custom LLM agents for research and outbound personalization.</li>
+                        </ul>
                     </div>
                     <div>
                         <h3 className="text-2xl font-bold tracking-tight text-gray-900">Philosophy</h3>
