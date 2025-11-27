@@ -4,7 +4,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight, Bot, Database, Zap, Search, Mail, Users, BarChart, Sparkles, TrendingUp, Target } from "lucide-react"
 import { Button } from "@/components/ui/Button"
-import { Marquee } from "@/components/ui/Marquee"
+
 import { ProcessScroll } from "@/components/ProcessScroll"
 
 const fadeIn = {
@@ -77,43 +77,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Tech Stack Marquee */}
-      <section className="border-y border-gray-100 bg-white py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="text-center text-sm font-semibold uppercase tracking-wider text-gray-500 mb-8">
-            The most advanced GTM tech stack
-          </h2>
-          <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-            <Marquee pauseOnHover className="[--duration:30s]">
-              {[
-                "Salesforce",
-                "HubSpot",
-                "Clay",
-                "n8n",
-                "Outreach",
-                "Gong",
-                "ZoomInfo",
-                "Apollo",
-                "LinkedIn",
-                "Pipedrive",
-                "Close",
-                "Lemlist",
-              ].map((tech) => (
-                <div
-                  key={tech}
-                  className="mx-2 flex items-center justify-center rounded-xl border border-gray-100 bg-white px-6 py-3 shadow-sm transition-all hover:border-brand-blue/20 hover:shadow-md"
-                >
-                  <span className="text-lg font-bold text-gray-600 hover:text-brand-blue transition-colors">
-                    {tech}
-                  </span>
-                </div>
-              ))}
-            </Marquee>
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background"></div>
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Three Pillars - Premium Cards */}
       <section className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50 py-24 sm:py-32">
