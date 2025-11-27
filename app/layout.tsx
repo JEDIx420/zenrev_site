@@ -23,6 +23,11 @@ export const metadata: Metadata = {
   },
   description: "AI-powered GTM engineering for B2B SaaS. Automate revenue with agentic AI, n8n workflows, and custom automation infrastructure.",
   keywords: ["GTM engineering", "agentic AI", "automation", "B2B SaaS", "n8n", "Clay", "AI agents", "revenue operations", "sales automation"],
+  icons: {
+    icon: "/zrlogo.png",
+    shortcut: "/zrlogo.png",
+    apple: "/zrlogo.png",
+  },
   openGraph: {
     title: "zenrev | from signals to revenue",
     description: "AI-powered GTM engineering for B2B SaaS. Automate revenue with agentic AI, n8n workflows, and custom automation infrastructure.",
@@ -30,11 +35,20 @@ export const metadata: Metadata = {
     siteName: "zenrev",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "https://zenrev.org/zrlogo.png",
+        width: 800,
+        height: 600,
+        alt: "zenrev logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "zenrev | from signals to revenue",
     description: "AI-powered GTM engineering for B2B SaaS. Automate revenue with agentic AI, n8n workflows, and custom automation infrastructure.",
+    images: ["https://zenrev.org/zrlogo.png"],
   },
   robots: {
     index: true,
