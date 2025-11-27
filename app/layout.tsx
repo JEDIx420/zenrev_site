@@ -63,6 +63,7 @@ const jsonLd = {
   "name": "zenrev",
   "url": "https://zenrev.org",
   "description": "AI-powered GTM engineering for B2B SaaS teams.",
+  "logo": "https://zenrev.org/zrlogo.png",
   "sameAs": [
     "https://twitter.com/zenrev",
     "https://linkedin.com/company/zenrev"
