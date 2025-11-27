@@ -51,7 +51,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            We build <span className="font-semibold text-brand-blue">agentic workflows</span> that turn raw signals into qualified meetings.
+            The premier <span className="font-semibold text-brand-blue">GTM Engineering</span> firm. We build agentic workflows that turn signals into revenue.
             <br />
             <span className="text-lg text-gray-500">Clay • n8n • Custom AI Agents</span>
           </motion.p>

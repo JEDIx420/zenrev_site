@@ -17,8 +17,44 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "zenrev | from signals to revenue",
-  description: "AI-powered GTM engineering for B2B SaaS teams.",
+  title: {
+    default: "zenrev | from signals to revenue",
+    template: "zenrev | %s",
+  },
+  description: "AI-powered GTM engineering for B2B SaaS. Automate revenue with agentic AI, n8n workflows, and custom automation infrastructure.",
+  keywords: ["GTM engineering", "agentic AI", "automation", "B2B SaaS", "n8n", "Clay", "AI agents", "revenue operations", "sales automation"],
+  openGraph: {
+    title: "zenrev | from signals to revenue",
+    description: "AI-powered GTM engineering for B2B SaaS. Automate revenue with agentic AI, n8n workflows, and custom automation infrastructure.",
+    url: "https://zenrev.ai",
+    siteName: "zenrev",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "zenrev | from signals to revenue",
+    description: "AI-powered GTM engineering for B2B SaaS. Automate revenue with agentic AI, n8n workflows, and custom automation infrastructure.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://zenrev.ai",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "zenrev",
+  "url": "https://zenrev.ai",
+  "description": "AI-powered GTM engineering for B2B SaaS teams.",
+  "sameAs": [
+    "https://twitter.com/zenrev",
+    "https://linkedin.com/company/zenrev"
+  ]
 };
 
 export default function RootLayout({
@@ -31,6 +67,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${plusJakartaSans.variable} antialiased font-sans flex min-h-screen flex-col bg-background text-foreground transition-colors`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ParticleBackground />
         <Header />
         <main className="relative z-10 flex-1">{children}</main>

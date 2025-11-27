@@ -43,10 +43,9 @@ const services = [
 
 export default function ServicesPage() {
     return (
-        <div className="relative min-h-screen py-16 sm:py-24">
+        <div className="relative min-h-screen pt-12 pb-16 sm:pt-16 sm:pb-24">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl text-center">
-                    <h2 className="text-base font-semibold leading-7 text-brand-blue">Services</h2>
                     <p className="mt-2 text-3xl font-bold tracking-tight text-brand-dark sm:text-4xl font-heading">
                         GTM Engineering for Scale
                     </p>
