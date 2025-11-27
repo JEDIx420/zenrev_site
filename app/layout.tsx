@@ -23,11 +23,6 @@ export const metadata: Metadata = {
   },
   description: "AI-powered GTM engineering for B2B SaaS. Automate revenue with agentic AI, n8n workflows, and custom automation infrastructure.",
   keywords: ["GTM engineering", "agentic AI", "automation", "B2B SaaS", "n8n", "Clay", "AI agents", "revenue operations", "sales automation"],
-  icons: {
-    icon: "/zrlogo.png",
-    shortcut: "/zrlogo.png",
-    apple: "/zrlogo.png",
-  },
   openGraph: {
     title: "zenrev | from signals to revenue",
     description: "AI-powered GTM engineering for B2B SaaS. Automate revenue with agentic AI, n8n workflows, and custom automation infrastructure.",
