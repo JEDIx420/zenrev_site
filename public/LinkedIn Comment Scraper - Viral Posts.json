@@ -1,0 +1,1231 @@
+{
+  "name": "LinkedIn Comment Scraper - Viral Posts",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Apify scrapers\n\nPost\nhttps://console.apify.com/actors/d0DhjXPjkkwm4W5xK/input\n\nComments\nhttps://console.apify.com/actors/2XnpwxfhSW1fAWElp/input\n\nUser Profile\nhttps://console.apify.com/actors/GOvL4O4RwFqsdIqXF/input\n\nCompany Profile\nhttps://console.apify.com/actors/AjfNXEI9qTA2IdaAX/input",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1728,
+        992
+      ],
+      "id": "2813f373-b871-4e13-95d4-ebc94bc5cffe",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/2XnpwxfhSW1fAWElp/run-sync-get-dataset-items",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"postIds\": [\n    \"{{$('getPost').item.json.post.url}}\"\n  ],\n  \"page_number\": 1,\n  \"sortOrder\": \"most recent\",\n  \"limit\": 100\n}",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1440,
+        544
+      ],
+      "id": "f82468b6-faef-42d5-a51f-bac6ff7a7d06",
+      "name": "getComments"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/GOvL4O4RwFqsdIqXF/run-sync-get-dataset-items",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"usernames\": [\n        \"{{ $('Loop Over Items').item.json.commenterUrl }}\"\n    ]\n} ",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          },
+          "timeout": 30000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        48,
+        144
+      ],
+      "id": "1dea252a-f9a0-48b1-9a79-1769c40760fe",
+      "name": "getProfile",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b27b467-abae-47ad-a7a3-fc77185380c9",
+              "name": "commenterName",
+              "value": "={{ $('getComments').item.json.author.name }}",
+              "type": "string"
+            },
+            {
+              "id": "2f477a3f-f109-4db8-b916-61a5cec6417a",
+              "name": "commenterUrl",
+              "value": "={{ $('getComments').item.json.author.profile_url }}",
+              "type": "string"
+            },
+            {
+              "id": "ab99b327-bfb7-4fc5-8f87-ed3c38f48015",
+              "name": "commenterHeadline",
+              "value": "={{ $('getComments').item.json.author.headline }}",
+              "type": "string"
+            },
+            {
+              "id": "f5ab3d10-d1fa-45f7-91c8-ad22ff2117c4",
+              "name": "commentText",
+              "value": "={{ $('getComments').item.json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1008,
+        544
+      ],
+      "id": "a2a66350-e277-4ee0-82da-276742366663",
+      "name": "commenterInfo"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/AjfNXEI9qTA2IdaAX/run-sync-get-dataset-items",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"profileUrls\": [\n    \"{{ $('getProfile').item.json.experience[0].company_linkedin_url }}\"\n  ]\n}",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        704,
+        144
+      ],
+      "id": "072348c3-7b8c-4926-9b4c-b1fe6c407927",
+      "name": "getCompany",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "77e72c3b-0703-4aee-ace9-cd28733d404b",
+              "name": "companyName",
+              "value": "={{ $('getCompany').item.json.companyName }}",
+              "type": "string"
+            },
+            {
+              "id": "31a726e7-6f05-4523-ad97-58e6f1bf1991",
+              "name": "websiteUrl",
+              "value": "={{ $('getCompany').item.json.websiteUrl }}",
+              "type": "string"
+            },
+            {
+              "id": "f12f0449-bdcf-4faf-9604-635d1a85b219",
+              "name": "url",
+              "value": "={{ $('getCompany').item.json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "b6dcc152-f6f5-4c99-ad2c-c1e317086ad8",
+              "name": "industry",
+              "value": "={{ $json.output.type }}",
+              "type": "string"
+            },
+            {
+              "id": "ed45cab1-a2d6-436c-b2e9-61ae1188d9a2",
+              "name": "employeeCount",
+              "value": "={{ $('getCompany').item.json.employeeCount }}",
+              "type": "number"
+            },
+            {
+              "id": "60202439-7da2-4532-80ef-0d6871e3c852",
+              "name": "tagline",
+              "value": "={{ $json.output.description }}",
+              "type": "string"
+            },
+            {
+              "id": "3e657877-cc52-491f-a386-0aebad2f4af0",
+              "name": "followerCount",
+              "value": "={{ $('getCompany').item.json.followerCount }}",
+              "type": "number"
+            },
+            {
+              "id": "135bde4f-9115-47d6-9de3-267b4b296af6",
+              "name": "industryV2Taxonomy",
+              "value": "={{ $('getCompany').item.json.industryV2Taxonomy }}",
+              "type": "string"
+            },
+            {
+              "id": "63a6664b-ea58-4576-9786-73ede8d2f37b",
+              "name": "headquarter.country",
+              "value": "={{ $('getCompany').item.json.headquarter.country }}",
+              "type": "string"
+            },
+            {
+              "id": "fbbcd03d-8104-4e69-a54a-b7f5d052f6fd",
+              "name": "commenterRole",
+              "value": "={{ $('getProfile').item.json.experience[0].title }}",
+              "type": "string"
+            },
+            {
+              "id": "d740cce9-455a-4929-80a6-9779f824bf07",
+              "name": "qualified",
+              "value": "={{ $json.output.qualified }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1296,
+        144
+      ],
+      "id": "1bf5cd64-ca86-4bf0-b836-49eb8f1cca0e",
+      "name": "companyInfo"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -528,
+        368
+      ],
+      "id": "3d80492d-f67c-4f3e-bbdf-e8d0d84a325d",
+      "name": "Google Gemini Chat Model"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserAutofixing",
+      "typeVersion": 1,
+      "position": [
+        928,
+        368
+      ],
+      "id": "0c1d0b49-63f6-4022-97b7-eca0874ebf83",
+      "name": "Auto-fixing Output Parser"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"description\": \"one line description\",\n\t\"type\": \"SaaS\",\n    \"qualified\" : \"YES\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        1008,
+        560
+      ],
+      "id": "3589082e-3e65-4b4a-9b85-fc0a52b0d02c",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -784,
+        544
+      ],
+      "id": "eb676a48-f518-42e5-9ae1-601fd179f3c8",
+      "name": "Loop Over Items",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/d0DhjXPjkkwm4W5xK/run-sync-get-dataset-items",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"post_url\": \"{{ $json.Post }}\"\n}",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1664,
+        544
+      ],
+      "id": "c1c8f58b-1362-4ada-9528-4194a30bc73b",
+      "name": "getPost"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8885bc0b-7465-4350-a641-4142c22808ad",
+              "leftValue": "={{ $('getComments').item.json.author.name}}",
+              "rightValue": "={{ $('getPost').item.json.author.name }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "7c96cc84-3cf4-42e1-bf94-5a86729c676e",
+              "leftValue": "={{ $('getComments').item.json.author.name}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -1216,
+        544
+      ],
+      "id": "e9116da0-d2f9-4f54-b113-0c78dd684b37",
+      "name": "filterAuthor"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "base": {
+          "__rl": true,
+          "value": "apprh4AI6D3qVzN7A",
+          "mode": "list",
+          "cachedResultName": "Linkedin Comments",
+          "cachedResultUrl": "https://airtable.com/apprh4AI6D3qVzN7A"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblHgzisK8xfCO0Kz",
+          "mode": "list",
+          "cachedResultName": "Results",
+          "cachedResultUrl": "https://airtable.com/apprh4AI6D3qVzN7A/tblHgzisK8xfCO0Kz"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "User": "={{ $('commenterInfo').item.json.commenterName }}",
+            "Company": "={{ $('companyInfo').item.json.companyName }}",
+            "Industry": "={{ $('companyInfo').item.json.industry }}",
+            "Employees": "={{ $('companyInfo').item.json.employeeCount }}",
+            "Country": "={{ $('companyInfo').item.json.headquarter.country }}",
+            "Tagline": "={{ $('companyInfo').item.json.tagline }}",
+            "Website": "={{ $('companyInfo').item.json.websiteUrl }}",
+            "CompanyLinkedin": "={{ $('companyInfo').item.json.url }}",
+            "UserLinkedin": "={{ $('getProfile').item.json.profileUrl }}",
+            "Post": "={{ $('getPost').item.json.post.url }}",
+            "Comment": "={{ $('commenterInfo').item.json.commentText }}",
+            "Role": "={{ $('companyInfo').item.json.commenterRole }}",
+            "Qualified?": "={{ $('companyInfo').item.json.qualified.toUpperCase() }}",
+            "Script": "={{ $json.text }}"
+          },
+          "matchingColumns": [
+            "UserLinkedin"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "User",
+              "displayName": "User",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Role",
+              "displayName": "Role",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Industry",
+              "displayName": "Industry",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Employees",
+              "displayName": "Employees",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Qualified?",
+              "displayName": "Qualified?",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "YES",
+                  "value": "YES"
+                },
+                {
+                  "name": "NO",
+                  "value": "NO"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Tagline",
+              "displayName": "Tagline",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "CompanyLinkedin",
+              "displayName": "CompanyLinkedin",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UserLinkedin",
+              "displayName": "UserLinkedin",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Comment",
+              "displayName": "Comment",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Post",
+              "displayName": "Post",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Script",
+              "displayName": "Script",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1888,
+        320
+      ],
+      "id": "1eae356e-8d0b-479e-b19c-b5c3c2dc72bd",
+      "name": "addLead"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "f23190ff-f2c2-46dd-8d15-af00e14e2968",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -2096,
+        544
+      ],
+      "id": "63386352-d280-4521-a69f-d72ac9cb81fd",
+      "name": "Webhook",
+      "webhookId": "f23190ff-f2c2-46dd-8d15-af00e14e2968"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "apprh4AI6D3qVzN7A",
+          "mode": "list",
+          "cachedResultName": "Linkedin Comments",
+          "cachedResultUrl": "https://airtable.com/apprh4AI6D3qVzN7A"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblHgzisK8xfCO0Kz",
+          "mode": "list",
+          "cachedResultName": "Results",
+          "cachedResultUrl": "https://airtable.com/apprh4AI6D3qVzN7A/tblHgzisK8xfCO0Kz"
+        },
+        "filterByFormula": "={User}='{{ $('commenterInfo').item.json.commenterName }}'",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        256,
+        144
+      ],
+      "id": "e104893d-3ff3-488c-8f03-9c140510e4e4",
+      "name": "isDuplicate",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3fe999a0-fe75-49b1-b23a-ab672a75687e",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "5be8bd65-2f8b-443a-abdd-215f29163a4e",
+              "leftValue": "={{ $('getProfile').item.json.experience[0].company_linkedin_url }}",
+              "rightValue": "linkedin.com/company/",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        144
+      ],
+      "id": "6ded1005-896e-47e9-85d0-5cfc8656e5ee",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=### INPUTS \n\n\"prospectFullName\": {{ $('commenterInfo').item.json.commenterName }},\n\"author\": {{ $('getPost').item.json.author.name }}\n\"postContent\": {{ $('getPost').item.json.post.text }},\n\"triggerKeyword\": Extract from postContent,\n\n  \n\"ourCredibility\": \"We’ve deployed similar GTM systems on 25 successful product launches\",\n  \n\"bonusOffer\": \"a 1‑click prompt pack that auto‑fills the checklist + a blocker‑tracking sheet\",\n  \n\"companyCTA\": \"Want me to shoot it over?\"\n",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "### ROLE\nYou are a SaaS growth operator who writes concise, friendly LinkedIn DMs that convert\n“lead‑magnet commenters” into warm conversations without sounding spammy.\n\n### TASK\n1. Open with the prospect’s first name (IMPORTANT TO USE FIRST NAME ONLY) and acknowledge that they commented with **{triggerKeyword} on {author} post* (don't pretend that you are author. Just be helpful)\n2. Compliment the original asset in one short line, showing you actually read the post.\n3. Establish credibility using **{ourCredibility}** ( keep it to one clause ).\n4. Offer the **{bonusOffer}** for free, stressing it helps whether they’ve started or not.\n5. End with a soft yes/no question (“Want me to shoot it over?”).\n6. Add *one* unobtrusive line for the **{companyCTA}** only after the ask.\n7. Keep total length ≤ 80 words. Use plain language—no emojis unless the trigger keyword contains one.\n8. Return **only** the final DM text, no explanations.\n\n### OUTPUT\n<DM script>\n"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        1520,
+        144
+      ],
+      "id": "866f3c32-7b4e-4f47-be1d-a776ac014229",
+      "name": "writeScript"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Company inputs:\nCompany name: {{ $json.companyName }}\nTagline: {{ $json.tagline }}\nDescription: {{ $json.description }}\nIndustry: {{ $json.industry }}\nTaxonomy: {{ $json.industryV2Taxonomy }}\nNumber of employees: {{ $json.employeeCount }}\nLocation: {{ $json.headquarter.country }} + {{ $json.headquarter.city }}\n\nPerson inputs:\nName: {{ $('commenterInfo').item.json.commenterName }}\nHow they describe themselves: {{ $('commenterInfo').item.json.commenterHeadline }}\nRole: {{ $('getProfile').item.json.experience[0].title }}\n\nQualification criteria:\nThe person is considered qualified if all of the following are true:\n\n- The company is in one of these industries:\n-- Any industry\n\n- The company is located in:\n-- United states\n-- Canada\n-- Anywhere in Europe\n\n- The company has between: \n-- 10 and 500 employees\n\n- The person holds:\n-- Any position\n\nReturn YES or NO\n",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Based on the LinkedIn company data provided below, write a concise one-liner that includes:\n\nBusiness Type: Classify the company (e.g., SaaS, Marketing Agency, E-commerce, Recruitment Agency, Freelancer).\n\nDescription: A single, clear sentence summarizing what the company does.\n\nQualification: YES or NO\n\nEnsure the output is brief, accurate, and strictly follows this structure."
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        928,
+        144
+      ],
+      "id": "181f66b8-b175-41d7-8b87-919ea30a83f4",
+      "name": "qualifyLead"
+    },
+    {
+      "parameters": {
+        "base": {
+          "__rl": true,
+          "value": "apprh4AI6D3qVzN7A",
+          "mode": "list",
+          "cachedResultName": "Linkedin Comments",
+          "cachedResultUrl": "https://airtable.com/apprh4AI6D3qVzN7A"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblaUPVjCSk1v2yGK",
+          "mode": "list",
+          "cachedResultName": "Posts",
+          "cachedResultUrl": "https://airtable.com/apprh4AI6D3qVzN7A/tblaUPVjCSk1v2yGK"
+        },
+        "id": "={{ $json.body.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -1888,
+        544
+      ],
+      "id": "2a29b815-44bb-422f-9081-76427e4a3221",
+      "name": "getPostUrl"
+    },
+    {
+      "parameters": {
+        "content": "![](https://i.postimg.cc/T3sSC7qH/liflow.png#full-width)\n",
+        "width": 740,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1728,
+        768
+      ],
+      "id": "45570cff-31f6-415f-9117-ad420fc693fa",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Airtable Base\nhttps://airtable.com/apprh4AI6D3qVzN7A/shrAlmkVmhheHOOfN\n\n## Airtable Script\n\nlet config = input.config();\n\nlet payload = {\n  id: config.recordId\n};\n\nawait fetch(\"Your Webhook URL\", {\n  method: \"POST\",\n  headers: { \"Content-Type\": \"application/json\" },\n  body: JSON.stringify(payload)\n});\n",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1264,
+        992
+      ],
+      "id": "8ea6e9b5-5213-48d4-9279-7af7800651d0",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"answer\": \"YES\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        -336,
+        368
+      ],
+      "id": "7e61ecde-fe26-4407-8a75-7ab882f8eaec",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a93b8244-3324-4ca5-83f5-976e2da7aeea",
+              "leftValue": "={{ $json.output.answer }}",
+              "rightValue": "YES",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -192,
+        144
+      ],
+      "id": "daa876a8-b764-4877-bf69-17fdd45bc5cc",
+      "name": "IfLead"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Post: {{ $('getPost').item.json.post.text }}\nComment: {{ $('getComments').item.json.text }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are a helpful assistant.\nYour task is to analyze a post and a comment.\n\nIf the post explicitly asks for a keyword, and the comment includes that keyword, return YES.\n\nIn all other cases—whether the post doesn’t ask for a keyword, or the comment doesn’t mention it—return NO."
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        -560,
+        144
+      ],
+      "id": "04005f4f-7b0e-4069-9ef0-7716540a2542",
+      "name": "hasIntent"
+    },
+    {
+      "parameters": {
+        "content": "### Update API key",
+        "height": 400,
+        "width": 180,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        672,
+        0
+      ],
+      "id": "b6a753ec-d712-416c-8dca-e95dfc93eee6",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "### Update API key",
+        "height": 400,
+        "width": 180,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6331256b-2d81-45b5-90ff-c4628dc0db9e",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "### Update API key",
+        "height": 400,
+        "width": 400,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1696,
+        368
+      ],
+      "id": "ddde4b12-70da-4c04-8c1e-32e93de9bc27",
+      "name": "Sticky Note5"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "getComments": {
+      "main": [
+        [
+          {
+            "node": "filterAuthor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "commenterInfo": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getProfile": {
+      "main": [
+        [
+          {
+            "node": "isDuplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getCompany": {
+      "main": [
+        [
+          {
+            "node": "qualifyLead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "companyInfo": {
+      "main": [
+        [
+          {
+            "node": "writeScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "qualifyLead",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Auto-fixing Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "writeScript",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "hasIntent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Auto-fixing Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "qualifyLead",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Auto-fixing Output Parser",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "hasIntent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getPost": {
+      "main": [
+        [
+          {
+            "node": "getComments",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "filterAuthor": {
+      "main": [
+        [
+          {
+            "node": "commenterInfo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "addLead": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "getPostUrl",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "isDuplicate": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "getCompany",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "writeScript": {
+      "main": [
+        [
+          {
+            "node": "addLead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "qualifyLead": {
+      "main": [
+        [
+          {
+            "node": "companyInfo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getPostUrl": {
+      "main": [
+        [
+          {
+            "node": "getPost",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "hasIntent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IfLead": {
+      "main": [
+        [
+          {
+            "node": "getProfile",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "hasIntent": {
+      "main": [
+        [
+          {
+            "node": "IfLead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a720cd78-1e4e-4ee2-91e5-d38eb46e5084",
+  "meta": {
+    "instanceId": "e8d5d3c793044974044ac40ebfc05ca36add08e0322b22ed8648412f6f9e17bf"
+  },
+  "id": "XP8xZ780IbmG5zvu",
+  "tags": [
+    {
+      "updatedAt": "2025-11-27T15:34:31.654Z",
+      "createdAt": "2025-11-27T15:34:31.654Z",
+      "id": "sqcZlHe0wWzYiWIB",
+      "name": "Free Resource"
+    }
+  ]
+}

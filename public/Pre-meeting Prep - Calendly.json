@@ -1,0 +1,704 @@
+{
+  "name": "Pre-meeting Prep - Calendly",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Calendly Research Tool Workflow\n\nThis workflow automatically researches meeting attendees when they book via Calendly:\n\n1. **Webhook Trigger**: Receives Calendly booking data\n2. **Extract Details**: Pulls out attendee name, email, company, and additional details\n3. **Research Individual**: Uses HTTP Request to Perplexity AI for professional background\n4. **Research Company**: Uses HTTP Request to Perplexity AI for company information\n5. **Analyze Goals**: Uses OpenAI to analyze booking details and infer meeting goals\n6. **Create Briefing**: Compiles all research into a structured report\n7. **Generate Audio**: Converts report to speech using OpenAI TTS\n8. **Send Results**: Emails report with audio attachment to your email\n\n**Required Credentials**:\n- Perplexity AI API\n- OpenAI API\n- Gmail OAuth2 (for email)\n",
+        "height": 500,
+        "width": 400,
+        "color": 7
+      },
+      "id": "be442332-5fdf-4e7e-8b5e-da5fa906f2c5",
+      "name": "Workflow Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -4528,
+        528
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "name-field",
+              "name": "name",
+              "value": "={{ $json.payload.name }}",
+              "type": "string"
+            },
+            {
+              "id": "email-field",
+              "name": "email",
+              "value": "={{ $json.payload.email }}",
+              "type": "string"
+            },
+            {
+              "id": "company-field",
+              "name": "companyName",
+              "value": "={{ $json.payload.questions_and_answers[0].answer }}",
+              "type": "string"
+            },
+            {
+              "id": "details-field",
+              "name": "additionalDetails",
+              "value": "={{ $json.payload.questions_and_answers[1].answer }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "37703860-74a7-40d6-b8e2-5260854f03d4",
+      "name": "Extract Booking Details",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2800,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Configuration Notes\n\n**Credentials Required:**\n1. **Perplexity AI**: Add Bearer token in HTTP Header Auth\n2. **OpenAI**: Standard API key\n3. **Gmail**: OAuth2 connection\n\n**Webhook Setup:**\n- Configure Calendly to send webhook to the n8n webhook URL\n- Configure the event type in Calendly to have a \"Company Name\" field in the booking form. \n- Ensure webhook sends questions_and_answers array - including company name.\n\n**Customization:**\n- Adjust research prompts based on your industry\n- Modify email template in Format Email node\n- Change audio voice in Generate Audio node\n- Add error handling nodes as needed",
+        "height": 420,
+        "width": 250,
+        "color": 5
+      },
+      "id": "03ba7590-6a19-4f1f-88f7-f3cb821ea56c",
+      "name": "Configuration Notes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "scope": "organization",
+        "events": [
+          "invitee.created"
+        ]
+      },
+      "type": "n8n-nodes-base.calendlyTrigger",
+      "typeVersion": 1,
+      "position": [
+        -3024,
+        560
+      ],
+      "id": "0632be09-497e-4ec9-85df-636446121e93",
+      "name": "Calendly Trigger",
+      "webhookId": "ad0e0cf7-c1de-42ef-8597-b737daf5de53"
+    },
+    {
+      "parameters": {
+        "sendTo": "mark@promptadvisers.com",
+        "subject": "=Meeting Prep - {{ $json.name }}",
+        "message": "={{ $json.choices[0].message.content }}",
+        "options": {
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {
+                "property": "={{ 'data' }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -384,
+        880
+      ],
+      "id": "e4b96ce7-d9a5-43fe-9642-6fb9f94fea15",
+      "name": "Gmail",
+      "webhookId": "1cebcf99-25d5-464b-bd47-eb5b33142cac"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "o3-mini",
+          "mode": "list",
+          "cachedResultName": "O3-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a meeting assistant for an AI Agency that consults with clients to implement AI into their business systems.\n\nAnalyze the following calendar booking details to identify the requester's possible goals, pain points, and expectations for our upcoming meeting. Summarize their likely needs and suggest a few tailored questions or prep points I should consider before the call.\n\nAdditional details from booking: {{ $json.additionalDetails }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -2544,
+        480
+      ],
+      "id": "7f2e7552-cacc-46a3-9a5a-00704b250ed7",
+      "name": "Meeting Goal Analysis"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "o3-mini",
+          "mode": "list",
+          "cachedResultName": "O3-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a meeting prep assistant helping me consolidate research into a single, easy-to-read report.\n\nPlease compile the following information into a structured briefing report that flows naturally when read aloud (for use with a text-to-speech tool later). The report should be concise (under 1500 characters)\n\nThe report should include:\n- A brief summary of the individual (title, background, accomplishments, communication style)\n- A summary of the company (industry, mission, recent news, market position)\n- Key insights or red flags from both\n- Inferred goals, needs, or expectations for the meeting (from calendar data)\n- 3-5 personalized questions I could ask to show preparedness and build rapport\n\n### Research on the individual\n{{ $json.individualResearch[0] }}\n\n### Research on the company\n{{ $json.companyResearch[0] }}\n\n### Booking detail analysis\n{{ $json.goalsAnalysis[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -1552,
+        480
+      ],
+      "id": "56d7ef49-33b4-4f48-b962-517565627ce6",
+      "name": "Meeting Prep Report Generator"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "o4-mini",
+          "mode": "list",
+          "cachedResultName": "O4-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Summarize the content here into concise bullet points to be sent in an email.\n\n* The output should use HTML for readable formatting\n* The introduction to the email can be simple.\n\nExample:\n\"Hello,\n\nHere is a summary of the meeting cheat sheet prepared for your upcoming meeting.\"\n\n* No signature is required.\n* Include ONLY the HTML body of the email. Do not include any leading commentary.\n\nContent to summarize:\n{{ $json.message.content }}"
+            }
+          ]
+        },
+        "simplify": false,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -1040,
+        240
+      ],
+      "id": "c1738966-a39c-49dc-9647-52a5ff6920df",
+      "name": "Meeting Brief Email Formatter"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.perplexity.ai/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"sonar-deep-research\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Summarize the professional background and relevant information about this individual:\\n\\nName: {{ $json.name }} \\nEmail: {{ $json.email }} \\nCompany Name: {{ $json.companyName }} \\n\\nFocus on job title, industry, notable press mentions, and any interesting professional highlights.\"\n    }\n  ],\n  \"web_search_options\": {\n    \"search_context_size\": \"medium\"\n  }\n}",
+        "options": {}
+      },
+      "id": "244ad0b3-d3ca-45e7-a17b-e12e85cda763",
+      "name": "Perplexity: Research Attendee",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2496,
+        288
+      ],
+      "notes": "Uses Perplexity AI to research the individual's professional background"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.perplexity.ai/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"sonar-deep-research\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Provide a comprehensive analysis of:\\n\\nCompany: {{ $json.companyName }} \\n\\nInclude its mission, key products or services, leadership team, company history, recent news or developments, and funding history (if applicable). Highlight what makes the company notable and any strategic initiatives or challenges it may be facing.\"\n    }\n  ],\n  \"web_search_options\": {\n    \"search_context_size\": \"medium\"\n  }\n}",
+        "options": {}
+      },
+      "id": "a57f383d-1a3a-4420-8ebf-4a9b12ae281d",
+      "name": "Perplexity: Research Company Info",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2496,
+        784
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3ff2c7fe-81dd-4fbf-9527-5966e0ca854e",
+              "name": "individualResearch",
+              "value": "={{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2208,
+        288
+      ],
+      "id": "d019d989-881a-4ae2-a600-ed05cf973bf4",
+      "name": "Extract Attendee Research"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "54cb21c8-f80e-41f3-a45e-7c3d7ae283dd",
+              "name": "goalsAnalysis",
+              "value": "={{ $json.message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2208,
+        480
+      ],
+      "id": "ef60d878-0be6-4bed-b6c5-c3b6c5b57719",
+      "name": "Extract Meeting Goals"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6402853b-4101-4e05-96c3-87c0d9a5682b",
+              "name": "companyResearch",
+              "value": "={{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2208,
+        784
+      ],
+      "id": "8b5fd04d-63c2-44cf-bd5f-eec53cdc4dce",
+      "name": "Extract Company Research"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        -1984,
+        480
+      ],
+      "id": "dccd3874-f349-449c-b0ec-a10a0002fdee",
+      "name": "Combine Research Results"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "individualResearch"
+            },
+            {
+              "fieldToAggregate": "goalsAnalysis"
+            },
+            {
+              "fieldToAggregate": "companyResearch"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -1760,
+        480
+      ],
+      "id": "a1f60105-15ba-462c-887b-4e684adb5eb4",
+      "name": "Consolidate Research Data"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "input": "={{ $json.message.content }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -1168,
+        480
+      ],
+      "id": "7611c30a-5a81-46cd-820e-e54c8b4d8096",
+      "name": "Generate Audio Briefing"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "11810997-b14b-44ca-a807-ba2bf9b688df",
+              "name": "data",
+              "value": "={{ $binary }}",
+              "type": "string"
+            },
+            {
+              "id": "a597e109-1ded-4aa1-a172-fa86cfaedbf5",
+              "name": "Mime Type",
+              "value": "={{ $json.mimeType }}",
+              "type": "string"
+            },
+            {
+              "id": "e85b5ee1-b58d-4850-aeb9-3fdfdd91adad",
+              "name": "File Name",
+              "value": "={{ $json.fileName }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -864,
+        480
+      ],
+      "id": "dc526476-dd36-4b7d-ac4f-247284fdc5f0",
+      "name": "Prepare Audio Attachment"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        -608,
+        880
+      ],
+      "id": "9f697525-4088-4a8e-96aa-cfd951d09fb8",
+      "name": "Assemble Email Package"
+    }
+  ],
+  "pinData": {
+    "Calendly Trigger": [
+      {
+        "json": {
+          "created_at": "2025-06-22T14:26:54.000000Z",
+          "created_by": "https://api.calendly.com/users/851c0b6b-8b8b-4853-9567-86449e6e2c9c",
+          "event": "invitee.created",
+          "payload": {
+            "cancel_url": "https://calendly.com/cancellations/8fc8f57b-bae5-4f8f-9871-05707d4138d5",
+            "created_at": "2025-06-22T14:26:53.409214Z",
+            "email": "mark@promptadvisers.com",
+            "event": "https://api.calendly.com/scheduled_events/8be1d909-220c-4d69-8276-6822d93343b7",
+            "first_name": null,
+            "invitee_scheduled_by": null,
+            "last_name": null,
+            "name": "Marwan Kashef",
+            "new_invitee": null,
+            "no_show": null,
+            "old_invitee": null,
+            "payment": null,
+            "questions_and_answers": [
+              {
+                "answer": "Prompt Advisers",
+                "position": 0,
+                "question": "Company Name"
+              },
+              {
+                "answer": "needing a chatbot",
+                "position": 1,
+                "question": "Please share anything that will help prepare for our meeting."
+              }
+            ],
+            "reconfirmation": null,
+            "reschedule_url": "https://calendly.com/reschedulings/8fc8f57b-bae5-4f8f-9871-05707d4138d5",
+            "rescheduled": false,
+            "routing_form_submission": null,
+            "scheduled_event": {
+              "created_at": "2025-06-22T14:26:53.393101Z",
+              "end_time": "2025-06-30T18:15:00.000000Z",
+              "event_guests": [],
+              "event_memberships": [
+                {
+                  "user": "https://api.calendly.com/users/851c0b6b-8b8b-4853-9567-86449e6e2c9c",
+                  "user_email": "mark@promptadvisers.com",
+                  "user_name": "Mark"
+                }
+              ],
+              "event_type": "https://api.calendly.com/event_types/f50a3105-e144-4ba1-a1fa-f8212a0ad8bd",
+              "invitees_counter": {
+                "total": 1,
+                "active": 1,
+                "limit": 1
+              },
+              "location": {
+                "join_url": "https://calendly.com/events/8be1d909-220c-4d69-8276-6822d93343b7/google_meet",
+                "status": "processing",
+                "type": "google_conference"
+              },
+              "meeting_notes_html": null,
+              "meeting_notes_plain": null,
+              "name": "15-min Touchbase",
+              "start_time": "2025-06-30T18:00:00.000000Z",
+              "status": "active",
+              "updated_at": "2025-06-22T14:26:53.393101Z",
+              "uri": "https://api.calendly.com/scheduled_events/8be1d909-220c-4d69-8276-6822d93343b7"
+            },
+            "scheduling_method": null,
+            "status": "active",
+            "text_reminder_number": null,
+            "timezone": "America/New_York",
+            "tracking": {
+              "utm_campaign": null,
+              "utm_source": null,
+              "utm_medium": null,
+              "utm_content": null,
+              "utm_term": null,
+              "salesforce_uuid": null
+            },
+            "updated_at": "2025-06-22T14:26:53.409214Z",
+            "uri": "https://api.calendly.com/scheduled_events/8be1d909-220c-4d69-8276-6822d93343b7/invitees/8fc8f57b-bae5-4f8f-9871-05707d4138d5"
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Extract Booking Details": {
+      "main": [
+        [
+          {
+            "node": "Perplexity: Research Attendee",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Meeting Goal Analysis",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Perplexity: Research Company Info",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Assemble Email Package",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calendly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Booking Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meeting Goal Analysis": {
+      "main": [
+        [
+          {
+            "node": "Extract Meeting Goals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meeting Prep Report Generator": {
+      "main": [
+        [
+          {
+            "node": "Generate Audio Briefing",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Meeting Brief Email Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meeting Brief Email Formatter": {
+      "main": [
+        [
+          {
+            "node": "Assemble Email Package",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Perplexity: Research Attendee": {
+      "main": [
+        [
+          {
+            "node": "Extract Attendee Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perplexity: Research Company Info": {
+      "main": [
+        [
+          {
+            "node": "Extract Company Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Attendee Research": {
+      "main": [
+        [
+          {
+            "node": "Combine Research Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Meeting Goals": {
+      "main": [
+        [
+          {
+            "node": "Combine Research Results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Extract Company Research": {
+      "main": [
+        [
+          {
+            "node": "Combine Research Results",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Combine Research Results": {
+      "main": [
+        [
+          {
+            "node": "Consolidate Research Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consolidate Research Data": {
+      "main": [
+        [
+          {
+            "node": "Meeting Prep Report Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Audio Briefing": {
+      "main": [
+        [
+          {
+            "node": "Prepare Audio Attachment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Audio Attachment": {
+      "main": [
+        [
+          {
+            "node": "Assemble Email Package",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Assemble Email Package": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5405cccb-1343-4994-a01d-029788685201",
+  "meta": {
+    "instanceId": "e8d5d3c793044974044ac40ebfc05ca36add08e0322b22ed8648412f6f9e17bf"
+  },
+  "id": "C4BqHOHSIQib1eVE",
+  "tags": [
+    {
+      "updatedAt": "2025-11-27T15:34:31.654Z",
+      "createdAt": "2025-11-27T15:34:31.654Z",
+      "id": "sqcZlHe0wWzYiWIB",
+      "name": "Free Resource"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+[
+    {
+        "title": "LinkedIn Content Automation",
+        "description": "Automated LinkedIn content generation pipeline. Fetches news from RSS feeds, filters for relevance, generates high-signal posts using AI, and manages an approval workflow via Telegram before posting.",
+        "jsonPath": "/LinkedIn Content Automation.json",
+        "nodeCount": 15,
+        "tags": [
+            "Content Marketing",
+            "LinkedIn",
+            "AI Agent",
+            "Approval Workflow"
+        ]
+    },
+    {
+        "title": "Community Messages",
+        "description": "Crypto community engagement bot. Monitors multiple crypto news sources, filters for high-impact updates, and broadcasts summaries to Telegram communities. Includes rate limiting and duplicate detection.",
+        "jsonPath": "/Community Messages.json",
+        "nodeCount": 18,
+        "tags": [
+            "Community Management",
+            "Telegram",
+            "Crypto",
+            "News Aggregation"
+        ]
+    },
+    {
+        "title": "X Content Automation - Crypto",
+        "description": "High-frequency X (Twitter) bot for crypto analysis. Ingests market news, uses AI to identify key narratives, and generates sharp, high-signal tweets. Features memory buffers to avoid repetition.",
+        "jsonPath": "/X Content Automation - Crypto.json",
+        "nodeCount": 18,
+        "tags": [
+            "Social Media",
+            "X/Twitter",
+            "Crypto Analysis",
+            "AI Persona"
+        ]
+    },
+    {
+        "title": "AI Facebook Ad Spy Tool",
+        "description": "Automated Facebook Ad Library scraper and analyzer. Fetches competitor ads, downloads media, uses Gemini 1.5 Pro to analyze visuals and video content, and saves structured insights to Google Sheets.",
+        "jsonPath": "/AI Facebook Ad Spy Tool.json",
+        "nodeCount": 22,
+        "tags": [
+            "Marketing Automation",
+            "Competitor Analysis",
+            "Gemini AI",
+            "Facebook Ads"
+        ]
+    },
+    {
+        "title": "Email Inbox Manager",
+        "description": "Intelligent email classification and drafting system. Categorizes incoming Gmail messages (Internal, Support, Promotions), uses OpenAI to draft context-aware responses, and notifies Slack for high-priority items.",
+        "jsonPath": "/Email Inbox Manager.json",
+        "nodeCount": 15,
+        "tags": [
+            "Email Automation",
+            "Productivity",
+            "OpenAI",
+            "Gmail"
+        ]
+    },
+    {
+        "title": "Firecrawl Search",
+        "description": "Advanced web search agent using Firecrawl. Converts natural language queries into complex search operators, scrapes full-page content, and returns structured markdown results for research or monitoring.",
+        "jsonPath": "/Firecrawl Search.json",
+        "nodeCount": 10,
+        "tags": [
+            "Web Scraping",
+            "Research Agent",
+            "Firecrawl",
+            "Search"
+        ]
+    },
+    {
+        "title": "HeyGen Avatar",
+        "description": "Automated video generation pipeline. Scrapes news content, generates a concise script using AI, and produces a professional avatar video using HeyGen's API.",
+        "jsonPath": "/HeyGen Avatar.json",
+        "nodeCount": 12,
+        "tags": [
+            "Video Generation",
+            "Content Creation",
+            "HeyGen",
+            "News Automation"
+        ]
+    },
+    {
+        "title": "LinkedIn Comment Scraper",
+        "description": "Viral post lead generation system. Scrapes LinkedIn comments, enriches profiles with company data, qualifies leads based on industry/size, and drafts personalized DM outreach scripts.",
+        "jsonPath": "/LinkedIn Comment Scraper - Viral Posts.json",
+        "nodeCount": 18,
+        "tags": [
+            "Lead Generation",
+            "LinkedIn",
+            "Sales Automation",
+            "Data Enrichment"
+        ]
+    },
+    {
+        "title": "Live Search Grok API",
+        "description": "Real-time X (Twitter) intelligence agent. Uses Grok API to monitor tech leaders, breaking news, and viral trends, providing balanced summaries and citations from live social data.",
+        "jsonPath": "/Live Search Grok API (Webhook).json",
+        "nodeCount": 10,
+        "tags": [
+            "Social Intelligence",
+            "Grok API",
+            "X/Twitter",
+            "Trend Monitoring"
+        ]
+    },
+    {
+        "title": "Pre-meeting Prep - Calendly",
+        "description": "Automated meeting preparation agent. Triggers on Calendly bookings, researches attendees and companies using Perplexity AI, analyzes meeting goals, and emails a comprehensive briefing with an audio summary.",
+        "jsonPath": "/Pre-meeting Prep - Calendly.json",
+        "nodeCount": 16,
+        "tags": [
+            "Meeting Prep",
+            "Research Agent",
+            "Perplexity AI",
+            "Calendly"
+        ]
+    },
+    {
+        "title": "Ultimate Browser Agent",
+        "description": "Comprehensive browser automation suite for ad intelligence. An advanced version of the Ad Spy tool with enhanced error handling, multi-format media processing, and deeper analysis capabilities.",
+        "jsonPath": "/Ultimate Browser Agent.json",
+        "nodeCount": 25,
+        "tags": [
+            "Browser Automation",
+            "Ad Intelligence",
+            "Advanced Scraping",
+            "Gemini AI"
+        ]
+    },
+    {
+        "title": "iMessage Automation",
+        "description": "SMS/iMessage automation bridge. Receives messages via webhook, uses an AI agent with memory to generate context-aware replies, and sends responses back via Twilio.",
+        "jsonPath": "/iMessage automation - Needs Twillio.json",
+        "nodeCount": 12,
+        "tags": [
+            "SMS Automation",
+            "Customer Support",
+            "Twilio",
+            "AI Agent"
+        ]
+    }
+]

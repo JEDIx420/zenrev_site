@@ -1,33 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { WorkflowCard } from "@/components/WorkflowCard"
-import { Bot, Sparkles } from "lucide-react"
+import { AgentSearch } from "@/components/AgentSearch"
+import { Sparkles } from "lucide-react"
 
 export default function AgentsPage() {
-    const workflows = [
-        {
-            title: "LinkedIn Content Automation",
-            description: "Automated LinkedIn content generation pipeline. Fetches news from RSS feeds, filters for relevance, generates high-signal posts using AI, and manages an approval workflow via Telegram before posting.",
-            jsonPath: "/LinkedIn Content Automation.json",
-            nodeCount: 15,
-            tags: ["Content Marketing", "LinkedIn", "AI Agent", "Approval Workflow"]
-        },
-        {
-            title: "Community Messages",
-            description: "Crypto community engagement bot. Monitors multiple crypto news sources, filters for high-impact updates, and broadcasts summaries to Telegram communities. Includes rate limiting and duplicate detection.",
-            jsonPath: "/Community Messages.json",
-            nodeCount: 18,
-            tags: ["Community Management", "Telegram", "Crypto", "News Aggregation"]
-        },
-        {
-            title: "X Content Automation - Crypto",
-            description: "High-frequency X (Twitter) bot for crypto analysis. Ingests market news, uses AI to identify key narratives, and generates sharp, high-signal tweets. Features memory buffers to avoid repetition.",
-            jsonPath: "/X Content Automation - Crypto.json",
-            nodeCount: 18,
-            tags: ["Social Media", "X/Twitter", "Crypto Analysis", "AI Persona"]
-        }
-    ]
 
     return (
         <div className="flex min-h-screen flex-col">
@@ -69,15 +46,7 @@ export default function AgentsPage() {
             {/* Workflows Grid */}
             <section className="bg-gray-50 py-24 sm:py-32">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        {workflows.map((workflow, index) => (
-                            <WorkflowCard
-                                key={`${workflow.title}-${index}`}
-                                {...workflow}
-                                index={index}
-                            />
-                        ))}
-                    </div>
+                    <AgentSearch />
                 </div>
             </section>
         </div>

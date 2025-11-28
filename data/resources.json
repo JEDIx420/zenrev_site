@@ -1,0 +1,107 @@
+[
+    {
+        "slug": "zenrev-story",
+        "title": "Entropy is the Enemy, Efficiency is the Goal",
+        "description": "How zenrev built the GTM engineering framework that powers modern revenue teams.",
+        "client": "zenrev Internal",
+        "industry": "GTM Engineering",
+        "metrics": [
+            {
+                "label": "Efficiency Gain",
+                "value": "10x"
+            },
+            {
+                "label": "Manual Work",
+                "value": "0%"
+            },
+            {
+                "label": "Revenue Impact",
+                "value": "Infinite"
+            }
+        ],
+        "quote": "Entropy is the enemy, Efficiency is the goal.",
+        "author": "zenrev Philosophy",
+        "outcomeSnapshot": "zenrev transitioned from a chaotic, manual sales process to a fully automated GTM engine. By treating revenue as an engineering problem, we achieved 10x efficiency and eliminated manual data entry.",
+        "metadata": {
+            "title": "The zenrev Story | GTM Engineering Philosophy",
+            "description": "Discover the philosophy behind zenrev's GTM engineering approach. Entropy is the enemy, efficiency is the goal.",
+            "keywords": [
+                "GTM engineering",
+                "efficiency",
+                "revenue operations",
+                "zenrev story",
+                "sales automation"
+            ]
+        }
+    },
+    {
+        "slug": "ai-in-gtm",
+        "title": "The AI Revolution in GTM Engineering",
+        "description": "Why the future of sales is agentic, and how early adopters are winning.",
+        "client": "Industry Analysis",
+        "industry": "Artificial Intelligence",
+        "metrics": [
+            {
+                "label": "Adoption Rate",
+                "value": "+300%"
+            },
+            {
+                "label": "Cost Reduction",
+                "value": "60%"
+            },
+            {
+                "label": "Speed to Lead",
+                "value": "Instant"
+            }
+        ],
+        "quote": "AI isn't just a tool; it's the new infrastructure of revenue.",
+        "author": "GTM Insights",
+        "outcomeSnapshot": "AI is shifting from generative text to agentic workflows. Early adopters are seeing 60% cost reductions and instant speed-to-lead by deploying '10x SDR' agents.",
+        "metadata": {
+            "title": "AI in GTM | The Agentic Revolution",
+            "description": "Explore how AI agents are transforming GTM strategies. Learn why the future of sales is automated and intelligent.",
+            "keywords": [
+                "AI in sales",
+                "agentic GTM",
+                "sales automation",
+                "future of work",
+                "AI agents"
+            ]
+        }
+    },
+    {
+        "slug": "b2b-outreach-mastery",
+        "title": "Mastering B2B Outreach in 2025",
+        "description": "Strategies for cutting through the noise and getting replies from decision makers.",
+        "client": "Outreach Strategy",
+        "industry": "Sales Development",
+        "metrics": [
+            {
+                "label": "Reply Rate",
+                "value": "15%"
+            },
+            {
+                "label": "Meeting Booked",
+                "value": "+40%"
+            },
+            {
+                "label": "Spam Rate",
+                "value": "<0.1%"
+            }
+        ],
+        "quote": "Relevance is the only currency that matters in the inbox.",
+        "author": "Sales Playbook",
+        "outcomeSnapshot": "Generic templates are dead. The new standard is 'Signal-Based Prospecting' and 'Point of View' emails. This strategy yields 15% reply rates and 40% more meetings.",
+        "metadata": {
+            "title": "B2B Outreach Mastery | Strategies for 2025",
+            "description": "Learn the secrets of high-converting B2B outreach. Move beyond templates and embrace hyper-personalization.",
+            "keywords": [
+                "B2B outreach",
+                "cold email strategy",
+                "sales prospecting",
+                "lead generation",
+                "signal based selling"
+            ]
+        }
+    }
+]

@@ -1,0 +1,2583 @@
+{
+  "name": "Ultimate Browser Agent",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        32,
+        432
+      ],
+      "id": "c43a1372-00e9-4104-a2cc-fa48e45cc9d6",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.snapshot.videos[0].video_sd_url }}",
+                    "rightValue": "=https://video-",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "9dbbe6e7-fd80-44ab-88f0-ab438cfd997e"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Video"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0b7cee75-ca57-4946-971e-1f526b49324f",
+                    "leftValue": "={{ $json.snapshot.images[0].original_image_url }}",
+                    "rightValue": "https://scontent-ho",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Image"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "Text"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        688,
+        432
+      ],
+      "id": "d35ec142-582e-439b-9785-70f070b1552e",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1d74591-13e8-4c79-9a34-117cc6816dfb",
+              "leftValue": "={{ $json.advertiser.ad_library_page_info.page_info.likes }}",
+              "rightValue": 1000,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        464,
+        432
+      ],
+      "id": "921ca3ce-5b77-40fe-9925-53147e4ec23f",
+      "name": "Filter For Likes"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1712,
+        720
+      ],
+      "id": "83e3ec33-dcc3-4a83-9144-0d1eb42fee38",
+      "name": "Wait",
+      "webhookId": "1cda7407-6321-4d8d-b532-19f42514eb63"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1968,
+        432
+      ],
+      "id": "f01f97cc-4b9c-4310-879d-1baa3915c74d",
+      "name": "Wait1",
+      "webhookId": "1cda7407-6321-4d8d-b532-19f42514eb63"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.snapshot.videos[0].video_sd_url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        48
+      ],
+      "id": "b18f986d-3482-4937-8376-b6ef6b43a6d3",
+      "name": "Download Video"
+    },
+    {
+      "parameters": {
+        "name": "Example File",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1424,
+        48
+      ],
+      "id": "a740694c-7b52-4842-bd86-358fb26bc22f",
+      "name": "Upload Video to Drive"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3424,
+        128
+      ],
+      "id": "c4d016af-3c7c-4afd-827d-745ecef70dc3",
+      "name": "Wait2",
+      "webhookId": "1cda7407-6321-4d8d-b532-19f42514eb63"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/XtaWFhbtfxyzqrFmd/run-sync-get-dataset-items",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer <yourApiKey>"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n    \"count\": 200,\n    \"period\": \"last7d\",\n    \"scrapeAdDetails\": true,\n    \"scrapePageAds.activeStatus\": \"active\",\n    \"urls\": [\n        {\n            \"url\": \"https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&q=%22ai%20automation%22&search_type=keyword_exact_phrase&start_date[min]=2025-06-12&start_date[max]\",\n            \"method\": \"GET\"\n        }\n    ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        432
+      ],
+      "id": "932136d8-eab5-48c7-9fe5-09dd1b458a41",
+      "name": "Run Ad Library Scraper"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        912,
+        432
+      ],
+      "id": "d1b3769b-5915-4e8e-8748-c63b9886d02f",
+      "name": "Loop Over Image Ads"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        912,
+        720
+      ],
+      "id": "fc742722-bf81-41c1-b1c1-c00431d5e843",
+      "name": "Loop Over Text Ads"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        912,
+        128
+      ],
+      "id": "1c77b46a-d54c-4fc9-ab80-39af7dd94a6b",
+      "name": "Loop Over Video Ads"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/upload/v1beta/files",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "<yourApiKey>"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Goog-Upload-Protocol",
+              "value": "resumable"
+            },
+            {
+              "name": "X-Goog-Upload-Command",
+              "value": "start"
+            },
+            {
+              "name": "X-Goog-Upload-Header-Content-Length",
+              "value": "={{ $json.size }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1632,
+        48
+      ],
+      "id": "b2acc6e5-c6e5-4e1f-9f23-73e6d5d644f3",
+      "name": "Begin Gemini Upload Session"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Upload Video to Drive').item.json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1840,
+        48
+      ],
+      "id": "6735d64e-1888-4010-92c9-9580d2708237",
+      "name": "Redownload Video"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.headers['x-goog-upload-url'] }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "<yourApiKey>"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Length",
+              "value": "={{ $('Upload Video to Drive').item.json.size }}"
+            },
+            {
+              "name": "X-Goog-Upload-Offset",
+              "value": "0"
+            },
+            {
+              "name": "X-Goog-Upload-Command",
+              "value": "upload, finalize"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2064,
+        48
+      ],
+      "id": "89ce27a0-f2e7-4b19-804d-4810e435c732",
+      "name": "Upload Video to Gemini"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "<yourApiKey>"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"Describe this video in excruciating detail. Do not output anything but the description of the video.\"\n        },\n        {\n          \"file_data\": {\n            \"mime_type\": \"{{ $json.file.mimeType }}\",\n            \"file_uri\": \"{{ $json.file.uri }}\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2544,
+        48
+      ],
+      "id": "0831b52b-5327-459b-b71f-7b212354e9cd",
+      "name": "Analyze Video with Gemini",
+      "retryOnFail": true,
+      "waitBetweenTries": 15
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You're a helpful, intelligent advertisement analysis bot. You analyze advertisements.",
+              "role": "system"
+            },
+            {
+              "content": "Your task is to take as input a scraped javascript object from an advertisement in the FB ad library, and then summarize it + spin (repurpose, rewrite) the ad copy. \n\nYou're doing this for strategic intelligence. We run an advertising agency and we're always looking at what our competitor advertisers are doing.\n\nOutput your results in this JSON format:\n\n{\"summary\":\"\",\"rewrittenAdCopy\":\"\"}\n\nRules:\n- The intended style and attitude is generally analytical, inquisitive, and precise, despite exploring complex topics, in the “classic style” of Western writing.\nthe level of formality should be inverse to the topic’s novelty: the weirder something is, the more formal. For ‘safer’ topics, one should cut loose with the humor, epigraphs, typographical stunts and experiments, etc.\n- Avoid hedging and qualifying, even at the risk of making overly-strong claims. It is a slippery slope.\n- Use casual abbreviations (like San Francisco -> SF, thanks -> thx, question -> q ), casual contractions (like \"I've\"), shortened forms of common nouns (like \"info\", \"vid\", \"app\") as this signals more human written speech. Do not use em dashes (eliminate — from your vocabulary completely!\n- No rhetorical questions.\n- Make your summary extremely comprehensive and analytical."
+            },
+            {
+              "content": "=JSON scrape:\n\n{{ $('Loop Over Video Ads').item.json.toJsonString() }}\n\nVideo description:\n\n{{ $json.candidates[0].content.parts[0].text }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        2832,
+        48
+      ],
+      "id": "3bbfdcff-1c2a-4f43-959b-c162f9941a63",
+      "name": "Output Video Summary"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Cgm0DfKQxgtsjdw6h2LFVBtZnLAioTntzdXgfJCJIqo",
+          "mode": "list",
+          "cachedResultName": "Facebook Ad Library Analyzer DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cgm0DfKQxgtsjdw6h2LFVBtZnLAioTntzdXgfJCJIqo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Ads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cgm0DfKQxgtsjdw6h2LFVBtZnLAioTntzdXgfJCJIqo/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ad_archive_id": "={{ $('Loop Over Video Ads').item.json.ad_archive_id }}",
+            "page_id": "={{ $('Loop Over Video Ads').item.json.page_id }}",
+            "date_added": "={{ $now }}",
+            "page_name": "={{ $('Loop Over Video Ads').item.json.snapshot.page_name }}",
+            "summary": "={{ $json.message.content.summary }}",
+            "rewritten_ad_copy": "={{ $json.message.content.rewrittenAdCopy }}",
+            "page_url": "={{ $('Loop Over Video Ads').item.json.snapshot.page_profile_uri }}",
+            "image_prompt": "=",
+            "type": "video",
+            "video_prompt": "={{ $('Analyze Video with Gemini').item.json.candidates[0].content.parts[0].text }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ad_archive_id",
+              "displayName": "ad_archive_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "page_id",
+              "displayName": "page_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date_added",
+              "displayName": "date_added",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "page_name",
+              "displayName": "page_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "page_url",
+              "displayName": "page_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "rewritten_ad_copy",
+              "displayName": "rewritten_ad_copy",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "video_prompt",
+              "displayName": "video_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        3184,
+        48
+      ],
+      "id": "104666cf-ed69-43de-8c93-048c0e2990ae",
+      "name": "Add as Type = Video"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "text": "What's in this image? Be extremely comprehensive.",
+        "imageUrls": "={{ $json.snapshot.images[0].original_image_url }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1200,
+        352
+      ],
+      "id": "90db781b-00e6-4976-b784-86a344a2a5d8",
+      "name": "Analyze Image"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You're a helpful, intelligent advertisement analysis bot. You analyze advertisements.",
+              "role": "system"
+            },
+            {
+              "content": "Your task is to take as input a scraped javascript object from an advertisement in the FB ad library, and then summarize it + spin (repurpose, rewrite) the ad copy. \n\nYou're doing this for strategic intelligence. We run an advertising agency and we're always looking at what our competitor advertisers are doing.\n\nOutput your results in this JSON format:\n\n{\"summary\":\"\",\"rewrittenAdCopy\":\"\"}\n\nRules:\n- The intended style and attitude is generally analytical, inquisitive, and precise, despite exploring complex topics, in the “classic style” of Western writing.\nthe level of formality should be inverse to the topic’s novelty: the weirder something is, the more formal. For ‘safer’ topics, one should cut loose with the humor, epigraphs, typographical stunts and experiments, etc.\n- Avoid hedging and qualifying, even at the risk of making overly-strong claims. It is a slippery slope.\n- Use casual abbreviations (like San Francisco -> SF, thanks -> thx, question -> q ), casual contractions (like \"I've\"), shortened forms of common nouns (like \"info\", \"vid\", \"app\") as this signals more human written speech. Do not use em dashes (eliminate — from your vocabulary completely!\n- No rhetorical questions.\n- Make your summary extremely comprehensive and analytical."
+            },
+            {
+              "content": "=JSON scrape:\n\n{{ $('Loop Over Image Ads').item.json.toJsonString() }}\n\nImage description:\n\n{{ $json.content }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1408,
+        352
+      ],
+      "id": "e602b417-e9e5-49bf-937c-1c4d1220bad5",
+      "name": "Output Image Summary"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Cgm0DfKQxgtsjdw6h2LFVBtZnLAioTntzdXgfJCJIqo",
+          "mode": "list",
+          "cachedResultName": "Facebook Ad Library Analyzer DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cgm0DfKQxgtsjdw6h2LFVBtZnLAioTntzdXgfJCJIqo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Ads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cgm0DfKQxgtsjdw6h2LFVBtZnLAioTntzdXgfJCJIqo/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ad_archive_id": "={{ $('Loop Over Image Ads').item.json.ad_archive_id }}",
+            "page_id": "={{ $('Loop Over Image Ads').item.json.page_id }}",
+            "date_added": "={{ $now }}",
+            "page_name": "={{ $('Loop Over Image Ads').item.json.snapshot.page_name }}",
+            "summary": "={{ $json.message.content.summary }}",
+            "rewritten_ad_copy": "={{ $json.message.content.rewrittenAdCopy }}",
+            "page_url": "={{ $('Loop Over Image Ads').item.json.snapshot.page_profile_uri }}",
+            "image_prompt": "={{ $('Analyze Image').item.json.content }}",
+            "type": "image"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ad_archive_id",
+              "displayName": "ad_archive_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "page_id",
+              "displayName": "page_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date_added",
+              "displayName": "date_added",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "page_name",
+              "displayName": "page_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "page_url",
+              "displayName": "page_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "rewritten_ad_copy",
+              "displayName": "rewritten_ad_copy",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "video_prompt",
+              "displayName": "video_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1760,
+        352
+      ],
+      "id": "4b02a4b6-37e3-494d-b411-e564f55c48bc",
+      "name": "Add as Type = Image"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You're a helpful, intelligent advertisement analysis bot. You analyze advertisements.",
+              "role": "system"
+            },
+            {
+              "content": "Your task is to take as input a scraped javascript object from an advertisement in the FB ad library, and then summarize it + spin (repurpose, rewrite) the ad copy. \n\nYou're doing this for strategic intelligence. We run an advertising agency and we're always looking at what our competitor advertisers are doing.\n\nOutput your results in this JSON format:\n\n{\"summary\":\"\",\"rewrittenAdCopy\":\"\"}\n\nRules:\n- The intended style and attitude is generally analytical, inquisitive, and precise, despite exploring complex topics, in the “classic style” of Western writing.\nthe level of formality should be inverse to the topic’s novelty: the weirder something is, the more formal. For ‘safer’ topics, one should cut loose with the humor, epigraphs, typographical stunts and experiments, etc.\n- Avoid hedging and qualifying, even at the risk of making overly-strong claims. It is a slippery slope.\n- Use casual abbreviations (like San Francisco -> SF, thanks -> thx, question -> q ), casual contractions (like \"I've\"), shortened forms of common nouns (like \"info\", \"vid\", \"app\") as this signals more human written speech. Do not use em dashes (eliminate — from your vocabulary completely!\n- No rhetorical questions.\n- Make your summary extremely comprehensive and analytical."
+            },
+            {
+              "content": "={{ $json.toJsonString() }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1120,
+        640
+      ],
+      "id": "0c56227a-3354-48f2-9cbf-1b9485115746",
+      "name": "Output Text Summary"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Cgm0DfKQxgtsjdw6h2LFVBtZnLAioTntzdXgfJCJIqo",
+          "mode": "list",
+          "cachedResultName": "Facebook Ad Library Analyzer DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cgm0DfKQxgtsjdw6h2LFVBtZnLAioTntzdXgfJCJIqo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Ads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cgm0DfKQxgtsjdw6h2LFVBtZnLAioTntzdXgfJCJIqo/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ad_archive_id": "={{ $('Loop Over Text Ads').item.json.ad_archive_id }}",
+            "page_id": "={{ $('Loop Over Text Ads').item.json.page_id }}",
+            "type": "text",
+            "date_added": "={{ $now }}",
+            "page_name": "={{ $('Loop Over Text Ads').item.json.snapshot.page_name }}",
+            "summary": "={{ $json.message.content.summary }}",
+            "rewritten_ad_copy": "={{ $json.message.content.rewrittenAdCopy }}",
+            "page_url": "={{ $('Loop Over Text Ads').item.json.snapshot.page_profile_uri }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ad_archive_id",
+              "displayName": "ad_archive_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "page_id",
+              "displayName": "page_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date_added",
+              "displayName": "date_added",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "page_name",
+              "displayName": "page_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "page_url",
+              "displayName": "page_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "rewritten_ad_copy",
+              "displayName": "rewritten_ad_copy",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "video_prompt",
+              "displayName": "video_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1488,
+        640
+      ],
+      "id": "68b7d382-ffea-4f68-9d36-50520de8ff61",
+      "name": "Add as Type = Text"
+    },
+    {
+      "parameters": {
+        "content": "## AI Facebook Ad Spy Tool\n\nSteps:\n1. Add API key to \"Run Ad Library Scraper\" node\n2. Add filtering threshold in \"Filter For Likes\" node\n3. Add Gemini API key to \"Begin Gemini Upload Session\", \"Upload Video to Gemini\", and \"Analyze Video with Gemini\" nodes\n4. Adjust prompts to AI as needed and swap in your Google Sheet in the Google Sheets nodes.\n\n\n### Happy building!",
+        "height": 260,
+        "width": 700
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "cd0e6f70-faee-49b3-be4e-5ecd0d3e032c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2288,
+        48
+      ],
+      "id": "94d0f088-9ca6-4ed2-abea-fcba2fd75e30",
+      "name": "Wait3",
+      "webhookId": "ac11c85a-5b73-4a29-9667-615e811a5ad8"
+    },
+    {
+      "parameters": {
+        "content": "## Calendly Research Tool Workflow\n\nThis workflow automatically researches meeting attendees when they book via Calendly:\n\n1. **Webhook Trigger**: Receives Calendly booking data\n2. **Extract Details**: Pulls out attendee name, email, company, and additional details\n3. **Research Individual**: Uses HTTP Request to Perplexity AI for professional background\n4. **Research Company**: Uses HTTP Request to Perplexity AI for company information\n5. **Analyze Goals**: Uses OpenAI to analyze booking details and infer meeting goals\n6. **Create Briefing**: Compiles all research into a structured report\n7. **Generate Audio**: Converts report to speech using OpenAI TTS\n8. **Send Results**: Emails report with audio attachment to your email\n\n**Required Credentials**:\n- Perplexity AI API\n- OpenAI API\n- Gmail OAuth2 (for email)\n",
+        "height": 500,
+        "width": 400,
+        "color": 7
+      },
+      "id": "cf29e675-b9d2-4830-914a-0d93a05ba9e9",
+      "name": "Workflow Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2800,
+        1024
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "name-field",
+              "name": "name",
+              "value": "={{ $json.payload.name }}",
+              "type": "string"
+            },
+            {
+              "id": "email-field",
+              "name": "email",
+              "value": "={{ $json.payload.email }}",
+              "type": "string"
+            },
+            {
+              "id": "company-field",
+              "name": "companyName",
+              "value": "={{ $json.payload.questions_and_answers[0].answer }}",
+              "type": "string"
+            },
+            {
+              "id": "details-field",
+              "name": "additionalDetails",
+              "value": "={{ $json.payload.questions_and_answers[1].answer }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "54fd0432-3c3e-409e-a877-c6681814ae00",
+      "name": "Extract Booking Details",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1072,
+        1056
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Configuration Notes\n\n**Credentials Required:**\n1. **Perplexity AI**: Add Bearer token in HTTP Header Auth\n2. **OpenAI**: Standard API key\n3. **Gmail**: OAuth2 connection\n\n**Webhook Setup:**\n- Configure Calendly to send webhook to the n8n webhook URL\n- Configure the event type in Calendly to have a \"Company Name\" field in the booking form. \n- Ensure webhook sends questions_and_answers array - including company name.\n\n**Customization:**\n- Adjust research prompts based on your industry\n- Modify email template in Format Email node\n- Change audio voice in Generate Audio node\n- Add error handling nodes as needed",
+        "height": 420,
+        "width": 250,
+        "color": 5
+      },
+      "id": "61348dbb-7e0d-433e-9a61-0ec29855313d",
+      "name": "Configuration Notes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1728,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "scope": "organization",
+        "events": [
+          "invitee.created"
+        ]
+      },
+      "type": "n8n-nodes-base.calendlyTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1296,
+        1056
+      ],
+      "id": "eba1aa3c-8350-4f20-8d52-b247183e8787",
+      "name": "Calendly Trigger",
+      "webhookId": "ad0e0cf7-c1de-42ef-8597-b737daf5de53"
+    },
+    {
+      "parameters": {
+        "sendTo": "mark@promptadvisers.com",
+        "subject": "=Meeting Prep - {{ $json.name }}",
+        "message": "={{ $json.choices[0].message.content }}",
+        "options": {
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {
+                "property": "={{ 'data' }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1360,
+        1376
+      ],
+      "id": "8d71b0f3-18a5-4421-9326-140d6418de66",
+      "name": "Gmail",
+      "webhookId": "1cebcf99-25d5-464b-bd47-eb5b33142cac"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "o3-mini",
+          "mode": "list",
+          "cachedResultName": "O3-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a meeting assistant for an AI Agency that consults with clients to implement AI into their business systems.\n\nAnalyze the following calendar booking details to identify the requester's possible goals, pain points, and expectations for our upcoming meeting. Summarize their likely needs and suggest a few tailored questions or prep points I should consider before the call.\n\nAdditional details from booking: {{ $json.additionalDetails }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -816,
+        976
+      ],
+      "id": "383647ba-0e70-4f6b-9091-c01793694597",
+      "name": "Meeting Goal Analysis"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "o3-mini",
+          "mode": "list",
+          "cachedResultName": "O3-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a meeting prep assistant helping me consolidate research into a single, easy-to-read report.\n\nPlease compile the following information into a structured briefing report that flows naturally when read aloud (for use with a text-to-speech tool later). The report should be concise (under 1500 characters)\n\nThe report should include:\n- A brief summary of the individual (title, background, accomplishments, communication style)\n- A summary of the company (industry, mission, recent news, market position)\n- Key insights or red flags from both\n- Inferred goals, needs, or expectations for the meeting (from calendar data)\n- 3-5 personalized questions I could ask to show preparedness and build rapport\n\n### Research on the individual\n{{ $json.individualResearch[0] }}\n\n### Research on the company\n{{ $json.companyResearch[0] }}\n\n### Booking detail analysis\n{{ $json.goalsAnalysis[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        192,
+        976
+      ],
+      "id": "b1a4e366-991f-48bc-b377-79bed5b52ac8",
+      "name": "Meeting Prep Report Generator"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "o4-mini",
+          "mode": "list",
+          "cachedResultName": "O4-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Summarize the content here into concise bullet points to be sent in an email.\n\n* The output should use HTML for readable formatting\n* The introduction to the email can be simple.\n\nExample:\n\"Hello,\n\nHere is a summary of the meeting cheat sheet prepared for your upcoming meeting.\"\n\n* No signature is required.\n* Include ONLY the HTML body of the email. Do not include any leading commentary.\n\nContent to summarize:\n{{ $json.message.content }}"
+            }
+          ]
+        },
+        "simplify": false,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        688,
+        736
+      ],
+      "id": "0df3a79e-5e85-4396-abd7-e1855e7cb683",
+      "name": "Meeting Brief Email Formatter"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.perplexity.ai/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"sonar-deep-research\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Summarize the professional background and relevant information about this individual:\\n\\nName: {{ $json.name }} \\nEmail: {{ $json.email }} \\nCompany Name: {{ $json.companyName }} \\n\\nFocus on job title, industry, notable press mentions, and any interesting professional highlights.\"\n    }\n  ],\n  \"web_search_options\": {\n    \"search_context_size\": \"medium\"\n  }\n}",
+        "options": {}
+      },
+      "id": "74febda5-030d-4709-a329-a0f652ff3b45",
+      "name": "Perplexity: Research Attendee",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -768,
+        784
+      ],
+      "notes": "Uses Perplexity AI to research the individual's professional background"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.perplexity.ai/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"sonar-deep-research\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Provide a comprehensive analysis of:\\n\\nCompany: {{ $json.companyName }} \\n\\nInclude its mission, key products or services, leadership team, company history, recent news or developments, and funding history (if applicable). Highlight what makes the company notable and any strategic initiatives or challenges it may be facing.\"\n    }\n  ],\n  \"web_search_options\": {\n    \"search_context_size\": \"medium\"\n  }\n}",
+        "options": {}
+      },
+      "id": "89884552-829c-49bc-9d34-3a3318f15362",
+      "name": "Perplexity: Research Company Info",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -768,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3ff2c7fe-81dd-4fbf-9527-5966e0ca854e",
+              "name": "individualResearch",
+              "value": "={{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -480,
+        784
+      ],
+      "id": "34e5a217-4260-46a7-bb73-a186a63982af",
+      "name": "Extract Attendee Research"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "54cb21c8-f80e-41f3-a45e-7c3d7ae283dd",
+              "name": "goalsAnalysis",
+              "value": "={{ $json.message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -480,
+        976
+      ],
+      "id": "7d415f8d-39ab-4cd4-b8f8-be4d297a8073",
+      "name": "Extract Meeting Goals"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6402853b-4101-4e05-96c3-87c0d9a5682b",
+              "name": "companyResearch",
+              "value": "={{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -480,
+        1280
+      ],
+      "id": "7c442b14-b50a-4365-8825-b58069b1a1f9",
+      "name": "Extract Company Research"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        -256,
+        976
+      ],
+      "id": "08d6cf38-8fa4-4ad4-b10b-15097a38f5a6",
+      "name": "Combine Research Results"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "individualResearch"
+            },
+            {
+              "fieldToAggregate": "goalsAnalysis"
+            },
+            {
+              "fieldToAggregate": "companyResearch"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        976
+      ],
+      "id": "30b584fe-2db2-4064-a58d-cf9ed689fb54",
+      "name": "Consolidate Research Data"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "input": "={{ $json.message.content }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        560,
+        976
+      ],
+      "id": "bab184d8-5333-4a5f-972b-7df62023180d",
+      "name": "Generate Audio Briefing"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "11810997-b14b-44ca-a807-ba2bf9b688df",
+              "name": "data",
+              "value": "={{ $binary }}",
+              "type": "string"
+            },
+            {
+              "id": "a597e109-1ded-4aa1-a172-fa86cfaedbf5",
+              "name": "Mime Type",
+              "value": "={{ $json.mimeType }}",
+              "type": "string"
+            },
+            {
+              "id": "e85b5ee1-b58d-4850-aeb9-3fdfdd91adad",
+              "name": "File Name",
+              "value": "={{ $json.fileName }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        864,
+        976
+      ],
+      "id": "c9f5e2a7-aa84-4438-a405-2f56a801783b",
+      "name": "Prepare Audio Attachment"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1136,
+        1376
+      ],
+      "id": "d384bbb6-2b9b-4564-9f18-6beff11d6da3",
+      "name": "Assemble Email Package"
+    },
+    {
+      "parameters": {
+        "resource": "extraction",
+        "operation": "query",
+        "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Session_ID', \"The `sessionId` returned by the `Start_Browser` tool\", 'string') }}",
+        "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Window_ID', \"The `windowId` returned by the `Start_Browser` tool\", 'string') }}",
+        "prompt": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "id": "2e49aa34-9294-4bcb-8465-5e76c4b34a48",
+      "name": "Query",
+      "type": "n8n-nodes-base.airtopTool",
+      "position": [
+        2640,
+        -416
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "window",
+        "operation": "load",
+        "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Session_ID', \"The `sessionId` returned by the `Start_Browser` tool\", 'string') }}",
+        "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Window_ID', \"The `windowId` returned by the `Start_Browser` tool\", 'string') }}",
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "id": "49f44960-c05a-48bd-93a4-ee96e068734e",
+      "name": "Load URL",
+      "type": "n8n-nodes-base.airtopTool",
+      "position": [
+        2768,
+        -416
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "interaction",
+        "operation": "type",
+        "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Session_ID', \"The `sessionId` returned by the `Start_Browser` tool\", 'string') }}",
+        "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Window_ID', \"The `windowId` returned by the `Start_Browser` tool\", 'string') }}",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Text', ``, 'string') }}",
+        "pressEnterKey": true,
+        "elementDescription": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Element_Description', `Search bars usually contain a placeholder that says \"search\"`, 'string') }}",
+        "additionalFields": {}
+      },
+      "id": "c88d1ac4-2fd4-4368-9ca4-39471afc3702",
+      "name": "Type",
+      "type": "n8n-nodes-base.airtopTool",
+      "position": [
+        2528,
+        -416
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "text": "=Watch your agent work!\n\n{{ $json.data.liveViewUrl }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "a1905075-8641-4564-919e-acc39521caa3",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "position": [
+        2608,
+        -192
+      ],
+      "webhookId": "72d47d9c-6860-4248-8e83-7790264fdaf2",
+      "typeVersion": 2.3
+    },
+    {
+      "parameters": {
+        "profileName": "={{ $json.profile_name }}",
+        "additionalFields": {}
+      },
+      "id": "858ed71f-2773-4d70-94b0-039c038c078e",
+      "name": "Session",
+      "type": "n8n-nodes-base.airtop",
+      "position": [
+        2240,
+        -192
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "window",
+        "url": "={{ $('When Executed by Another Workflow').item.json.url }}",
+        "getLiveView": true,
+        "additionalFields": {}
+      },
+      "id": "6305ea9d-2ab1-46be-afb3-774761c4c956",
+      "name": "Window",
+      "type": "n8n-nodes-base.airtop",
+      "position": [
+        2432,
+        -192
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0a0680af-39bd-4bc7-b9cd-84c1766c79a1",
+              "name": "sessionId",
+              "type": "string",
+              "value": "={{ $('Session').item.json.sessionId }}"
+            },
+            {
+              "id": "13940ee8-c1d4-4718-a7b4-176c44c097b7",
+              "name": "windowId",
+              "type": "string",
+              "value": "={{ $('Window').item.json.data.windowId }}"
+            },
+            {
+              "id": "a0f2005c-2cd2-4a8d-891b-a4759b72a124",
+              "name": "output",
+              "type": "string",
+              "value": "Session and window created successfully"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2e965f38-efe9-4845-994b-716449fe28f8",
+      "name": "Return IDs",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2784,
+        -192
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "url"
+            },
+            {
+              "name": "profile_name"
+            }
+          ]
+        }
+      },
+      "id": "1b2a485d-16f8-40ab-8eda-c02df850da68",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        2064,
+        -192
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "name": "Start_Browser",
+        "description": "Start a new browser session and window",
+        "workflowId": {
+          "__rl": true,
+          "value": "YOUR WORKFLOW ID",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "id": "73ff0bac-e818-4116-9be5-a45b61744aba",
+      "name": "Start Browser",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "position": [
+        2288,
+        -416
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        2320,
+        -672
+      ],
+      "id": "a7b8bdde-2019-4512-b05b-dc54b89134d7",
+      "name": "When chat message received",
+      "webhookId": "5098f362-c62a-4b7b-9370-0129f90e8553"
+    },
+    {
+      "parameters": {
+        "operation": "terminate",
+        "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Session_ID', \"The `sessionId` returned by the `Start_Browser` tool\", 'string') }}"
+      },
+      "id": "6bebfa3c-1676-4b67-b211-182260b37ff8",
+      "name": "End Session",
+      "type": "n8n-nodes-base.airtopTool",
+      "position": [
+        2880,
+        -416
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        2064,
+        -416
+      ],
+      "id": "0ccd81da-0f0e-493f-8020-aea74c922eec",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\nYou are a smart, advanced web agent connected to tools that let you control a remote web browser. Your primary goal is to fulfill the human's request accurately and efficiently by interacting with web pages using your tools.\n\n## Tools\n\n### Start_Browser\n- Always begin with this tool.\n- It returns a `sessionId` and `windowId` which are **required** for all other tools.\n- You must include these IDs in every subsequent tool call.\n\n### Load URL\n- Loads a website in the browser window.\n- Pass the `sessionId`, `windowId`, and the desired URL (e.g., `\"https://www.bestbuy.com\"`).\n\n### Query\n- You don't have access to the browser screen but you can call this tool to get knowledge and hints of the current browser window.\n- Use this tool to retrieve information that the human asked for.\n\n### Click\n- Use this tool to click on elements like buttons.\n\n### Type\n- Use this to type text into a visible input field. This tool clicks Enter after typing the text so don't send [ENTER] commandes.\n\n### End Session\n- When the task is fully complete, use this tool to properly close the browser session.\n- You must ALWAYS USE THIS TOOL BEFORE RESPONDING TO THE HUMAN\n\n### Think\n- Use when you need to reflect on what you've done and think about what steps to take next\n\n\n## Important\n- Always think step-by-step. Use `Query` whenever you’re unsure what’s on the screen or what to click/type next.\n- You will NEVER need to login",
+          "maxIterations": 20,
+          "returnIntermediateSteps": false,
+          "passthroughBinaryImages": true
+        }
+      },
+      "id": "577c77b4-4e3e-4622-98d7-011877526943",
+      "name": "Browser Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        2512,
+        -672
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1.8,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "content": "## Browser Tools\n",
+        "height": 220,
+        "width": 760,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        -496
+      ],
+      "id": "7eaf8182-63be-42e5-87e0-932b5e01fbc8",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Think",
+        "height": 220,
+        "width": 260
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1968,
+        -496
+      ],
+      "id": "d55f71e9-3706-4823-8a47-8a80ab5b4fa0",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Model / Memory",
+        "height": 240,
+        "width": 260,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1968,
+        -752
+      ],
+      "id": "7af9e22c-833c-4f25-9d02-21a9802b300b",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 200,
+        "width": 160,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3024,
+        -480
+      ],
+      "id": "dabdd8e4-9bd7-43e9-854e-4e8aeac8742b",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## Start Browser Tool",
+        "height": 240,
+        "width": 1040,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1968,
+        -256
+      ],
+      "id": "e0ee407b-c13b-4ea2-a6c8-5e7e9d850f62",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "model": "anthropic/claude-3.5-sonnet",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        -656
+      ],
+      "id": "91f76bdb-99fd-41f1-bc80-9fc25107886a",
+      "name": "3.5 Sonnet"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        2112,
+        -656
+      ],
+      "id": "0c3733b7-36a0-4108-bb2a-d9b4084ec869",
+      "name": "Memory"
+    },
+    {
+      "parameters": {
+        "resource": "interaction",
+        "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Session_ID', \"The `sessionId` returned by the `Start_Browser` tool\", 'string') }}",
+        "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Window_ID', \"The `windowId` returned by the `Start_Browser` tool\", 'string') }}",
+        "elementDescription": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Element_Description', `Describe in detail the element to click on, e.g. The menu item \"about us\" at the top of the page`, 'string') }}",
+        "additionalFields": {
+          "waitForNavigation": "domcontentloaded"
+        }
+      },
+      "id": "4ea082aa-340d-46f6-a05e-964b2c096edc",
+      "name": "ClickTool",
+      "type": "n8n-nodes-base.airtopTool",
+      "position": [
+        3072,
+        -416
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "toolDescription": "Use this tool to click on an element",
+        "method": "POST",
+        "url": "=https://api.airtop.ai/api/v1/sessions/{{ $fromAI('sessionId') }}/windows/{{ $fromAI('windowId') }}/click",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "elementDescription",
+              "value": "={{ $fromAI('elementDescription', `the element to click on in as much detail as possible`, 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        2400,
+        -416
+      ],
+      "id": "0c13c682-96c8-48bd-94ed-d3b7dcbbfa62",
+      "name": "Click"
+    },
+    {
+      "parameters": {
+        "content": "# 🛠️ Setup Guide\n### 👤 Author: [Nate Herk](https://www.youtube.com/@nateherk)\n\n### 🔌 Steps to Connect:\n1. **Airtop Setup**  \n   - Visit [Airtop](https://www.airtop.ai/) to generate your API key and connect to the Airtop tools/nodes.  \n   - Set up a profile with credentials (if automating websites like X, \nLinkedIn, or Amazon).  \n   - Connect your profile in the Start Browser tool.\n   - 💸 Use code **`NateHalfOff`** for **50% off Airtop for 3 months**.\n\n2. **OpenRouter API Key**  \n   - Go to [OpenRouter](https://openrouter.ai/) and generate your API key.  \n   - Paste this key into your **Chat Model** node in n8n.\n\n3. **Start Browser Tool Setup**  \n   - Link your **Start Browser workflow** to the **Start Browser Tool**:\n     - Either link it using the **ID method** (explained in the YouTube video).\n     - Or paste the **Start Browser Tool** workflow into a separate n8n workflow and link it directly.\n\n4. **(Optional) Live Agent Browser View**  \n   - Connect additional services like:\n     - [Slack](https://slack.com/)\n     - [Telegram](https://telegram.org/)\n     - [Gmail](https://mail.google.com/)\n   - This allows you to **receive a live browser link** while your agent is running automations.\n\n---\n💡 Need help? Ask questions in the [AI Automation Society Community](https://www.skool.com/ai-automation-society/about) or check out Nate’s [YouTube Tutorials](https://www.youtube.com/@nateherk) .\n",
+        "height": 740,
+        "width": 660
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        -752
+      ],
+      "id": "45f92678-8b5c-4e7e-9f6f-ff5420fca1ce",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "# Browser Agent\n",
+        "height": 240,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        -752
+      ],
+      "id": "c3f57774-4693-459c-b598-47a04089a0d5",
+      "name": "Sticky Note7"
+    }
+  ],
+  "pinData": {
+    "Calendly Trigger": [
+      {
+        "json": {
+          "created_at": "2025-06-22T14:26:54.000000Z",
+          "created_by": "https://api.calendly.com/users/851c0b6b-8b8b-4853-9567-86449e6e2c9c",
+          "event": "invitee.created",
+          "payload": {
+            "cancel_url": "https://calendly.com/cancellations/8fc8f57b-bae5-4f8f-9871-05707d4138d5",
+            "created_at": "2025-06-22T14:26:53.409214Z",
+            "email": "mark@promptadvisers.com",
+            "event": "https://api.calendly.com/scheduled_events/8be1d909-220c-4d69-8276-6822d93343b7",
+            "first_name": null,
+            "invitee_scheduled_by": null,
+            "last_name": null,
+            "name": "Marwan Kashef",
+            "new_invitee": null,
+            "no_show": null,
+            "old_invitee": null,
+            "payment": null,
+            "questions_and_answers": [
+              {
+                "answer": "Prompt Advisers",
+                "position": 0,
+                "question": "Company Name"
+              },
+              {
+                "answer": "needing a chatbot",
+                "position": 1,
+                "question": "Please share anything that will help prepare for our meeting."
+              }
+            ],
+            "reconfirmation": null,
+            "reschedule_url": "https://calendly.com/reschedulings/8fc8f57b-bae5-4f8f-9871-05707d4138d5",
+            "rescheduled": false,
+            "routing_form_submission": null,
+            "scheduled_event": {
+              "created_at": "2025-06-22T14:26:53.393101Z",
+              "end_time": "2025-06-30T18:15:00.000000Z",
+              "event_guests": [],
+              "event_memberships": [
+                {
+                  "user": "https://api.calendly.com/users/851c0b6b-8b8b-4853-9567-86449e6e2c9c",
+                  "user_email": "mark@promptadvisers.com",
+                  "user_name": "Mark"
+                }
+              ],
+              "event_type": "https://api.calendly.com/event_types/f50a3105-e144-4ba1-a1fa-f8212a0ad8bd",
+              "invitees_counter": {
+                "total": 1,
+                "active": 1,
+                "limit": 1
+              },
+              "location": {
+                "join_url": "https://calendly.com/events/8be1d909-220c-4d69-8276-6822d93343b7/google_meet",
+                "status": "processing",
+                "type": "google_conference"
+              },
+              "meeting_notes_html": null,
+              "meeting_notes_plain": null,
+              "name": "15-min Touchbase",
+              "start_time": "2025-06-30T18:00:00.000000Z",
+              "status": "active",
+              "updated_at": "2025-06-22T14:26:53.393101Z",
+              "uri": "https://api.calendly.com/scheduled_events/8be1d909-220c-4d69-8276-6822d93343b7"
+            },
+            "scheduling_method": null,
+            "status": "active",
+            "text_reminder_number": null,
+            "timezone": "America/New_York",
+            "tracking": {
+              "utm_campaign": null,
+              "utm_source": null,
+              "utm_medium": null,
+              "utm_content": null,
+              "utm_term": null,
+              "salesforce_uuid": null
+            },
+            "updated_at": "2025-06-22T14:26:53.409214Z",
+            "uri": "https://api.calendly.com/scheduled_events/8be1d909-220c-4d69-8276-6822d93343b7/invitees/8fc8f57b-bae5-4f8f-9871-05707d4138d5"
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Run Ad Library Scraper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter For Likes": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Video Ads",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Image Ads",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Text Ads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Text Ads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Image Ads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video": {
+      "main": [
+        [
+          {
+            "node": "Upload Video to Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Video to Drive": {
+      "main": [
+        [
+          {
+            "node": "Begin Gemini Upload Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Video Ads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Ad Library Scraper": {
+      "main": [
+        [
+          {
+            "node": "Filter For Likes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Image Ads": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Analyze Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Text Ads": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Output Text Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Video Ads": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Download Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Begin Gemini Upload Session": {
+      "main": [
+        [
+          {
+            "node": "Redownload Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redownload Video": {
+      "main": [
+        [
+          {
+            "node": "Upload Video to Gemini",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Video to Gemini": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Video with Gemini": {
+      "main": [
+        [
+          {
+            "node": "Output Video Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output Video Summary": {
+      "main": [
+        [
+          {
+            "node": "Add as Type = Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add as Type = Video": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Image": {
+      "main": [
+        [
+          {
+            "node": "Output Image Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output Image Summary": {
+      "main": [
+        [
+          {
+            "node": "Add as Type = Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add as Type = Image": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output Text Summary": {
+      "main": [
+        [
+          {
+            "node": "Add as Type = Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add as Type = Text": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "Analyze Video with Gemini",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Booking Details": {
+      "main": [
+        [
+          {
+            "node": "Perplexity: Research Attendee",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Meeting Goal Analysis",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Perplexity: Research Company Info",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Assemble Email Package",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calendly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Booking Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meeting Goal Analysis": {
+      "main": [
+        [
+          {
+            "node": "Extract Meeting Goals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meeting Prep Report Generator": {
+      "main": [
+        [
+          {
+            "node": "Generate Audio Briefing",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Meeting Brief Email Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meeting Brief Email Formatter": {
+      "main": [
+        [
+          {
+            "node": "Assemble Email Package",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Perplexity: Research Attendee": {
+      "main": [
+        [
+          {
+            "node": "Extract Attendee Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perplexity: Research Company Info": {
+      "main": [
+        [
+          {
+            "node": "Extract Company Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Attendee Research": {
+      "main": [
+        [
+          {
+            "node": "Combine Research Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Meeting Goals": {
+      "main": [
+        [
+          {
+            "node": "Combine Research Results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Extract Company Research": {
+      "main": [
+        [
+          {
+            "node": "Combine Research Results",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Combine Research Results": {
+      "main": [
+        [
+          {
+            "node": "Consolidate Research Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consolidate Research Data": {
+      "main": [
+        [
+          {
+            "node": "Meeting Prep Report Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Audio Briefing": {
+      "main": [
+        [
+          {
+            "node": "Prepare Audio Attachment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Audio Attachment": {
+      "main": [
+        [
+          {
+            "node": "Assemble Email Package",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Assemble Email Package": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Type": {
+      "ai_tool": [
+        [
+          {
+            "node": "Browser Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query": {
+      "ai_tool": [
+        [
+          {
+            "node": "Browser Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack": {
+      "main": [
+        [
+          {
+            "node": "Return IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Session": {
+      "main": [
+        [
+          {
+            "node": "Window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load URL": {
+      "ai_tool": [
+        [
+          {
+            "node": "Browser Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Browser": {
+      "ai_tool": [
+        [
+          {
+            "node": "Browser Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Browser Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "End Session": {
+      "ai_tool": [
+        [
+          {
+            "node": "Browser Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Browser Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3.5 Sonnet": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Browser Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Browser Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Click": {
+      "ai_tool": [
+        [
+          {
+            "node": "Browser Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f8bd17a9-65a7-412d-b3e7-ff271afa0065",
+  "meta": {
+    "instanceId": "e8d5d3c793044974044ac40ebfc05ca36add08e0322b22ed8648412f6f9e17bf"
+  },
+  "id": "6egbsKGZuXN6ykTR",
+  "tags": [
+    {
+      "updatedAt": "2025-11-27T15:34:31.654Z",
+      "createdAt": "2025-11-27T15:34:31.654Z",
+      "id": "sqcZlHe0wWzYiWIB",
+      "name": "Free Resource"
+    }
+  ]
+}

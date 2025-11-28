@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Download, Copy, Check, FileJson, Activity } from "lucide-react"
+import { Download, FileJson, Activity } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { motion } from "framer-motion"
 
@@ -15,20 +15,7 @@ interface WorkflowCardProps {
 }
 
 export function WorkflowCard({ title, description, jsonPath, nodeCount, tags, index = 0 }: WorkflowCardProps) {
-    const [copied, setCopied] = React.useState(false)
     const [downloading, setDownloading] = React.useState(false)
-
-    const handleCopy = async () => {
-        try {
-            const response = await fetch(jsonPath)
-            const data = await response.text()
-            await navigator.clipboard.writeText(data)
-            setCopied(true)
-            setTimeout(() => setCopied(false), 2000)
-        } catch (err) {
-            console.error("Failed to copy workflow:", err)
-        }
-    }
 
     const handleDownload = async () => {
         try {
@@ -85,12 +72,13 @@ export function WorkflowCard({ title, description, jsonPath, nodeCount, tags, in
 
             <div className="mt-8 flex gap-3">
                 <Button
-                    variant="outline"
-                    className="flex-1 gap-2"
-                    onClick={handleCopy}
+                    className="flex-1 gap-2 bg-gradient-to-r from-brand-blue to-blue-600 text-white shadow-md hover:shadow-2xl hover:shadow-brand-blue/40 hover:scale-[1.02] transition-all duration-500 ease-out"
+                    asChild
                 >
-                    {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                    {copied ? "Copied" : "Copy JSON"}
+                    <a href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank" rel="noopener noreferrer">
+                        <Activity className="h-4 w-4" />
+                        Implement
+                    </a>
                 </Button>
                 <Button
                     className="flex-1 gap-2"

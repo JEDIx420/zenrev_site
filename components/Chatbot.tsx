@@ -189,7 +189,7 @@ export function Chatbot() {
                                             )}
                                         >
                                             {m.role === "assistant" ? (
-                                                <div className="prose prose-sm max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: marked(m.content) }} />
+                                                <div className="prose prose-sm max-w-none dark:prose-invert [&_a]:text-brand-blue [&_a]:underline [&_a]:font-medium [&_ul]:list-disc [&_ul]:pl-4 [&_ol]:list-decimal [&_ol]:pl-4" dangerouslySetInnerHTML={{ __html: marked.parse(m.content) as string }} />
                                             ) : (
                                                 m.content
                                             )}
