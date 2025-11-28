@@ -93,7 +93,7 @@ export function ParticleBackground() {
     return (
         <canvas
             ref={canvasRef}
-            className="pointer-events-none fixed inset-0 z-50"
+            className="pointer-events-none fixed inset-0 z-0"
         />
     )
 }

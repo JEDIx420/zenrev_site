@@ -11,9 +11,10 @@ interface WorkflowCardProps {
     jsonPath: string
     nodeCount: number
     tags: string[]
+    index?: number
 }
 
-export function WorkflowCard({ title, description, jsonPath, nodeCount, tags }: WorkflowCardProps) {
+export function WorkflowCard({ title, description, jsonPath, nodeCount, tags, index = 0 }: WorkflowCardProps) {
     const [copied, setCopied] = React.useState(false)
     const [downloading, setDownloading] = React.useState(false)
 
@@ -51,9 +52,8 @@ export function WorkflowCard({ title, description, jsonPath, nodeCount, tags }: 
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
             className="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200 transition-all hover:shadow-xl hover:ring-brand-blue/30"
         >
             <div>

@@ -73,10 +73,8 @@ export default function ServicesPage() {
                         {services.map((service, index) => (
                             <motion.article
                                 key={service.title}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1, duration: 0.5 }}
                                 className="flex flex-col items-start justify-between rounded-3xl bg-white p-8 shadow-lg ring-1 ring-gray-200 transition-all hover:shadow-xl hover:ring-brand-blue/30"
                             >
                                 <div className="w-full">
