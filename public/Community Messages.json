@@ -1,0 +1,705 @@
+{
+  "name": "Community Messages",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 5
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -96,
+        272
+      ],
+      "id": "48babe51-1418-47e2-97ab-1a0ab6bc6cc4",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://cointelegraph.com/rss",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        256,
+        -144
+      ],
+      "id": "c708673d-78a1-4483-86c4-1da0b3d23449",
+      "name": "Coin Telegraph RSS",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://cryptonews.com/news/altcoin-news/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        256,
+        16
+      ],
+      "id": "df4aaede-c57d-4695-893c-97ccb082fe3e",
+      "name": "Altcoin Blast",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://cryptoslate.com/memecoins/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        256,
+        192
+      ],
+      "id": "45f61ce3-2df4-46da-be66-cd598b81156c",
+      "name": "Crypto Slate Pull",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "disabled": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * n8n Code node:\n * Sort by most recent → take top 2 → clean to title + snippet\n */\n\n// Normalize date parsing\nfunction getDate(i) {\n  const d = i.isoDate || i.pubDate || \"\";\n  return new Date(d).getTime() || 0;\n}\n\n// Flatten the data\nlet all = items.map(i => i.json || i);\n\n// Sort newest → oldest\nall.sort((a, b) => getDate(b) - getDate(a));\n\n// Take top 2\nall = all.slice(0, 1);\n\n// Clean each item\nconst cleaned = all.map(d => {\n  const snippet =\n    d[\"content:encodedSnippet\"] ||\n    d.contentEncodedSnippet ||\n    d.contentSnippet ||\n    \"\";\n\n  return {\n    json: {\n      title: d.title || \"\",\n      contentSnippet: snippet\n    }\n  };\n});\n\nreturn cleaned;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        -144
+      ],
+      "id": "3475205c-4c39-4fea-aef3-d2aed335de5c",
+      "name": "CU1"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * n8n Code node:\n * Sort by most recent → take top 2 → clean to title + snippet\n */\n\n// Normalize date parsing\nfunction getDate(i) {\n  const d = i.isoDate || i.pubDate || \"\";\n  return new Date(d).getTime() || 0;\n}\n\n// Flatten the data\nlet all = items.map(i => i.json || i);\n\n// Sort newest → oldest\nall.sort((a, b) => getDate(b) - getDate(a));\n\n// Take top 2\nall = all.slice(0, 1);\n\n// Clean each item\nconst cleaned = all.map(d => {\n  const snippet =\n    d[\"content:encodedSnippet\"] ||\n    d.contentEncodedSnippet ||\n    d.contentSnippet ||\n    \"\";\n\n  return {\n    json: {\n      title: d.title || \"\",\n      contentSnippet: snippet\n    }\n  };\n});\n\nreturn cleaned;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        16
+      ],
+      "id": "01bfedbb-689b-4098-a2ca-5ff575e4c391",
+      "name": "CU2"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * n8n Code node:\n * Sort by most recent → take top 2 → clean to title + snippet\n */\n\n// Normalize date parsing\nfunction getDate(i) {\n  const d = i.isoDate || i.pubDate || \"\";\n  return new Date(d).getTime() || 0;\n}\n\n// Flatten the data\nlet all = items.map(i => i.json || i);\n\n// Sort newest → oldest\nall.sort((a, b) => getDate(b) - getDate(a));\n\n// Take top 2\nall = all.slice(0, 1);\n\n// Clean each item\nconst cleaned = all.map(d => {\n  const snippet =\n    d[\"content:encodedSnippet\"] ||\n    d.contentEncodedSnippet ||\n    d.contentSnippet ||\n    \"\";\n\n  return {\n    json: {\n      title: d.title || \"\",\n      contentSnippet: snippet\n    }\n  };\n});\n\nreturn cleaned;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        192
+      ],
+      "id": "f57a393a-7fc3-4a10-aa6e-e539edb121e4",
+      "name": "CU3"
+    },
+    {
+      "parameters": {
+        "numberInputs": 6
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        816,
+        224
+      ],
+      "id": "b4b9b095-2f03-49e1-a4d1-16e40ec8f9da",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 11
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        1040,
+        288
+      ],
+      "id": "c61c20a4-9580-4aea-b15c-d829eeaf2176",
+      "name": "Schedule Trigger1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1HpdBQsKICNnz6gYyiYPUIn0a7gN6IzW3dYQCA3cXSoM",
+          "mode": "list",
+          "cachedResultName": "TG news Blast",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HpdBQsKICNnz6gYyiYPUIn0a7gN6IzW3dYQCA3cXSoM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HpdBQsKICNnz6gYyiYPUIn0a7gN6IzW3dYQCA3cXSoM/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1248,
+        288
+      ],
+      "id": "beeed9ef-b25c-4742-8fb9-5e442da6b11d",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "imnxFscJCvrRXF8T",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1664,
+        288
+      ],
+      "id": "bcec77dc-9f74-4700-9825-c533af0ecb32",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.Content }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1872,
+        384
+      ],
+      "id": "73d43a74-0067-4fd2-8610-a91ff4cf8106",
+      "name": "Spam group",
+      "webhookId": "48ac3d56-27a7-4e92-bb7e-8780a9a1deb3",
+      "credentials": {
+        "telegramApi": {
+          "id": "1jnxdfGPjPuWzaOu",
+          "name": "zenrev_main"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1HpdBQsKICNnz6gYyiYPUIn0a7gN6IzW3dYQCA3cXSoM",
+          "mode": "list",
+          "cachedResultName": "TG news Blast",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HpdBQsKICNnz6gYyiYPUIn0a7gN6IzW3dYQCA3cXSoM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HpdBQsKICNnz6gYyiYPUIn0a7gN6IzW3dYQCA3cXSoM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $('Loop Over Items').item.json.row_number }}",
+            "Status": "Done"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Content",
+              "displayName": "Content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2080,
+        384
+      ],
+      "id": "956ac6db-bf11-4123-9b7f-ac1d318d3334",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "imnxFscJCvrRXF8T",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 15,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2288,
+        384
+      ],
+      "id": "98dadb2d-22d6-4267-ac86-d160e167b611",
+      "name": "Wait",
+      "webhookId": "171fd5f3-5309-4be9-9793-fcd51a7a9bde"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "baef10ba-a066-4f2b-b121-21e2803da5e6",
+              "leftValue": "={{ $json.Status }}",
+              "rightValue": "Done",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1424,
+        288
+      ],
+      "id": "c2827b5e-0f69-4b9a-abf4-c7df1cbb2218",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * n8n Code node:\n * Sort by most recent → take top 2 → clean to title + snippet\n */\n\n// Normalize date parsing\nfunction getDate(i) {\n  const d = i.isoDate || i.pubDate || \"\";\n  return new Date(d).getTime() || 0;\n}\n\n// Flatten the data\nlet all = items.map(i => i.json || i);\n\n// Sort newest → oldest\nall.sort((a, b) => getDate(b) - getDate(a));\n\n// Take top 2\nall = all.slice(0, 1);\n\n// Clean each item\nconst cleaned = all.map(d => {\n  const snippet =\n    d[\"content:encodedSnippet\"] ||\n    d.contentEncodedSnippet ||\n    d.contentSnippet ||\n    \"\";\n\n  return {\n    json: {\n      title: d.title || \"\",\n      contentSnippet: snippet\n    }\n  };\n});\n\nreturn cleaned;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        368
+      ],
+      "id": "cf99cd52-166f-4d84-98f9-e2353c71c70e",
+      "name": "CU"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * n8n Code node:\n * Sort by most recent → take top 2 → clean to title + snippet\n */\n\n// Normalize date parsing\nfunction getDate(i) {\n  const d = i.isoDate || i.pubDate || \"\";\n  return new Date(d).getTime() || 0;\n}\n\n// Flatten the data\nlet all = items.map(i => i.json || i);\n\n// Sort newest → oldest\nall.sort((a, b) => getDate(b) - getDate(a));\n\n// Take top 2\nall = all.slice(0, 1);\n\n// Clean each item\nconst cleaned = all.map(d => {\n  const snippet =\n    d[\"content:encodedSnippet\"] ||\n    d.contentEncodedSnippet ||\n    d.contentSnippet ||\n    \"\";\n\n  return {\n    json: {\n      title: d.title || \"\",\n      contentSnippet: snippet\n    }\n  };\n});\n\nreturn cleaned;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        528
+      ],
+      "id": "752a984f-ef7a-4456-bba0-cdb748ac209f",
+      "name": "CU4"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * n8n Code node:\n * Sort by most recent → take top 2 → clean to title + snippet\n */\n\n// Normalize date parsing\nfunction getDate(i) {\n  const d = i.isoDate || i.pubDate || \"\";\n  return new Date(d).getTime() || 0;\n}\n\n// Flatten the data\nlet all = items.map(i => i.json || i);\n\n// Sort newest → oldest\nall.sort((a, b) => getDate(b) - getDate(a));\n\n// Take top 2\nall = all.slice(0, 1);\n\n// Clean each item\nconst cleaned = all.map(d => {\n  const snippet =\n    d[\"content:encodedSnippet\"] ||\n    d.contentEncodedSnippet ||\n    d.contentSnippet ||\n    \"\";\n\n  return {\n    json: {\n      title: d.title || \"\",\n      contentSnippet: snippet\n    }\n  };\n});\n\nreturn cleaned;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        704
+      ],
+      "id": "9ab673cc-1815-4395-9b3a-97a9ef8385c4",
+      "name": "CU5"
+    },
+    {
+      "parameters": {
+        "url": "https://techcrunch.com/tag/artificial-intelligence/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        256,
+        368
+      ],
+      "id": "ff3eab33-bcc5-4397-b705-d525aa85fddc",
+      "name": "TC AI ",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://cryptonews.com/news/altcoin-news/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        256,
+        528
+      ],
+      "id": "5e8189f4-6b24-4831-b8bd-8fc9ffbe8147",
+      "name": "TC General",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://quantumcomputingreport.com/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        256,
+        704
+      ],
+      "id": "8d945e37-0b2c-428d-b6c4-edf1c30abd13",
+      "name": "QC",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Coin Telegraph RSS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Altcoin Blast",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Crypto Slate Pull",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "TC AI ",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "TC General",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "QC",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Altcoin Blast": {
+      "main": [
+        [
+          {
+            "node": "CU2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Coin Telegraph RSS": {
+      "main": [
+        [
+          {
+            "node": "CU1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crypto Slate Pull": {
+      "main": [
+        [
+          {
+            "node": "CU3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CU1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CU2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "CU3": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Spam group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spam group": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CU": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "CU4": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "CU5": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "TC AI ": {
+      "main": [
+        [
+          {
+            "node": "CU",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TC General": {
+      "main": [
+        [
+          {
+            "node": "CU4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "QC": {
+      "main": [
+        [
+          {
+            "node": "CU5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6358faad-d8f0-4fe7-98a3-05b7fda0f6b1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e8d5d3c793044974044ac40ebfc05ca36add08e0322b22ed8648412f6f9e17bf"
+  },
+  "id": "5jjmUSz4vI1ucHDy",
+  "tags": [
+    {
+      "updatedAt": "2025-11-27T15:34:31.654Z",
+      "createdAt": "2025-11-27T15:34:31.654Z",
+      "id": "sqcZlHe0wWzYiWIB",
+      "name": "Free Resource"
+    }
+  ]
+}

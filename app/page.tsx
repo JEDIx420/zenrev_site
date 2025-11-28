@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section - Premium Design */}
-      <section className="relative flex min-h-[calc(100vh-5rem)] items-center justify-center overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-white px-6 py-20 lg:px-8">
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-white px-6 py-20 lg:px-8">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-brand-blue/10 blur-3xl animate-float"></div>

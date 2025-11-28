@@ -1,0 +1,563 @@
+{
+  "name": "X Content Automation - Crypto",
+  "nodes": [
+    {
+      "parameters": {
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        0
+      ],
+      "id": "7213c0ee-5517-4ca4-8dc0-5716b35823a8",
+      "name": "Create Tweet"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "5750a611-c4e9-4fb3-a4b1-d64db4efe84c",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 16
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        192
+      ],
+      "id": "9266231e-d9a6-457b-bfb1-bd18990c6220",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "url": "https://cryptoslate.com/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        192
+      ],
+      "id": "13abb494-60ae-4d38-a825-f0d50eb4dcc1",
+      "name": "Cryptoslate"
+    },
+    {
+      "parameters": {
+        "url": "https://cointelegraph.com/editors_pick_rss",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "6362b236-91c3-46b6-a747-1a6c55624fe9",
+      "name": "Editor's pick"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const data = item.json;\n\n  return {\n    json: {\n      title: data.title,\n      content: data.content,\n      contentSnippet: data.contentSnippet\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        608,
+        192
+      ],
+      "id": "d9300b2e-80b2-436d-8bf6-5b2ff5da9065",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const d = item.json;\n\n  return {\n    json: {\n      title: d.title,\n      content: d.content,\n      contentSnippet: d.contentSnippet\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        608,
+        0
+      ],
+      "id": "4ff18cae-f23c-4159-af69-83a83e8fba18",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        192
+      ],
+      "id": "3099d442-6ed6-4e4d-94f6-00333f52f4b6",
+      "name": "Create Tweet1",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "6GpU1aY4r4Xur4C4",
+          "name": "X account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a crypto market analyst who writes short, sharp, high-signal tweets.\n\nYou will receive a JSON array of news items containing:\n\ntitle\n\ncontent\n\ncontentSnippet\n\nYour job:\n\nRead the entire list.\n\nChoose only one news item — the single most important one for X.\n\nIgnore all other items completely.\n\nWrite one tweet only. Never produce more than one tweet.\n\nThe tweet must:\n\ncontain no emojis\n\nbe under 280 characters\n\nsound like a seasoned crypto expert\n\nprovide a clear insight, implication or narrative takeaway\n\navoid hype, memes, slang, links, hashtags, or formatting\n\nbe self-contained and readable without context\n\nOutput only the tweet, nothing else. No explanations.\n\nAlways return exactly one tweet and nothing more.\n\nhere are the data points to use\n\n {{ $json.title }}\n{{ $json.content }}\n{{ $json.contentSnippet }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        816,
+        0
+      ],
+      "id": "5608e454-e96f-4bb6-a9cc-bba0ff5fc90c",
+      "name": "AI Agent",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        768,
+        -144
+      ],
+      "id": "0875b1a9-fdf4-469e-94a9-d272719dbfe3",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "twpKyq4QmhAtglJU",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Schedule Trigger').item.json.timestamp }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        896,
+        -144
+      ],
+      "id": "1eb6e526-a382-404f-bf39-b03f7b0f2086",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a crypto market analyst who writes short, sharp, high-signal tweets.\n\nYou will receive a JSON array of news items. Each item includes:\n\n* title\n* content  (may contain HTML and links)\n* contentSnippet (plain text summary)\n\nYour job:\n\n1. Read the full list.\n2. Identify the single most important narrative for serious crypto traders and allocators (for example: extreme sentiment, ETF flow rotation, structural ETH/BTC shifts, macro pressure, or regulatory/institutional moves).\n3. You may base the narrative on ONE primary item, optionally enhanced by one or two supporting items, but you must output ONLY ONE tweet.\n4. Ignore HTML tags, boilerplate, and link text like “appeared first on…”. Use contentSnippet as your primary signal.\n5. Write ONE tweet that:\n\n   * contains no emojis\n   * is under 280 characters\n   * has no hashtags, no links, no bullet points\n   * sounds like a seasoned crypto expert, not a retail trader\n   * focuses on real implications: flows, positioning, risk sentiment, or long-term thesis\n   * is self-contained and understandable without seeing the articles\n6. Do not mention that you were given JSON. Do not reference “this article” or “these headlines.” Speak directly about the market.\n7. Output ONLY the tweet text, nothing else.\n\n\nhere is the data to use\n\n {{ $json.title }}\n{{ $json.content }}\n{{ $json.contentSnippet }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        816,
+        192
+      ],
+      "id": "6dd030a9-2b89-4567-8459-075fb20d56f2",
+      "name": "AI Agent1",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        768,
+        352
+      ],
+      "id": "a372f277-0f3b-4a60-8947-858a079165c5",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "twpKyq4QmhAtglJU",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Schedule Trigger1').item.json.timestamp }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        912,
+        400
+      ],
+      "id": "2f70fbb9-9a19-433a-9147-65fd50dbe9db",
+      "name": "Simple Memory1"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 22
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        528
+      ],
+      "id": "0823b2aa-cc48-4814-8342-6c1ea90507b5",
+      "name": "Schedule Trigger3"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const data = item.json;\n\n  return {\n    json: {\n      title: data.title,\n      content: data.content,\n      contentSnippet: data.contentSnippet\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        608,
+        528
+      ],
+      "id": "f5a62fd3-f84d-46ee-a4f0-777f4547079b",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        528
+      ],
+      "id": "d4885f67-e617-43b7-b105-a3e36d54ea0b",
+      "name": "Create Tweet2",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "6GpU1aY4r4Xur4C4",
+          "name": "X account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a crypto market analyst who writes short, sharp, high-signal tweets.\n\nYou will receive a JSON array of news items. Each item includes:\n\n* title\n* content  (may contain HTML and links)\n* contentSnippet (plain text summary)\n\nYour job:\n\n1. Read the full list.\n2. Identify the single most important narrative for serious crypto traders and allocators (for example: extreme sentiment, ETF flow rotation, structural ETH/BTC shifts, macro pressure, or regulatory/institutional moves).\n3. You may base the narrative on ONE primary item, optionally enhanced by one or two supporting items, but you must output ONLY ONE tweet.\n4. Ignore HTML tags, boilerplate, and link text like “appeared first on…”. Use contentSnippet as your primary signal.\n5. Write ONE tweet that:\n\n   * contains no emojis\n   * is under 280 characters\n   * has no hashtags, no links, no bullet points\n   * sounds like a seasoned crypto expert, not a retail trader\n   * focuses on real implications: flows, positioning, risk sentiment, or long-term thesis\n   * is self-contained and understandable without seeing the articles\n6. Do not mention that you were given JSON. Do not reference “this article” or “these headlines.” Speak directly about the market.\n7. Output ONLY the tweet text, nothing else.\n\n\nhere is the data to use\n\n {{ $json.title }}\n{{ $json.content }}\n{{ $json.contentSnippet }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        816,
+        528
+      ],
+      "id": "499af291-08de-4e47-ab27-e2121872785a",
+      "name": "AI Agent2",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        768,
+        688
+      ],
+      "id": "d4364018-9b71-4522-8efe-34d74531452c",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "twpKyq4QmhAtglJU",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Schedule Trigger3').item.json.timestamp }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        912,
+        736
+      ],
+      "id": "cdb44907-cd81-447b-b054-32d0f3bc8933",
+      "name": "Simple Memory2"
+    },
+    {
+      "parameters": {
+        "url": "https://dailycoin.com/altcoins/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        528
+      ],
+      "id": "b0f98564-4567-42a4-b45b-b56d689fe4e7",
+      "name": "Dailycoin"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Editor's pick",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Cryptoslate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Editor's pick": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cryptoslate": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Create Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Create Tweet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger3": {
+      "main": [
+        [
+          {
+            "node": "Dailycoin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "Create Tweet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory2": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dailycoin": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "26cc6554-8eb3-4741-bef7-95936c4ebd51",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e8d5d3c793044974044ac40ebfc05ca36add08e0322b22ed8648412f6f9e17bf"
+  },
+  "id": "hcyaQmxsJkUaniq9",
+  "tags": [
+    {
+      "updatedAt": "2025-11-27T15:34:31.654Z",
+      "createdAt": "2025-11-27T15:34:31.654Z",
+      "id": "sqcZlHe0wWzYiWIB",
+      "name": "Free Resource"
+    }
+  ]
+}

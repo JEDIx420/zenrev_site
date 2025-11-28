@@ -1,0 +1,422 @@
+{
+  "name": "LinkedIn Content Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        144,
+        208
+      ],
+      "id": "15733117-3233-4fae-aa9c-aac90a366a58",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://gtmengineerschool.substack.com/feed",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        32
+      ],
+      "id": "340fd52d-911b-44df-bdd9-7f6db2a9f343",
+      "name": "GTME School"
+    },
+    {
+      "parameters": {
+        "jsCode": "// This Code node assumes each incoming item looks like your sample:\n// items[i].json.isoDate (preferred) or items[i].json.pubDate\n\n// Use current execution time (equivalent to {{$now}})\nconst now = new Date();\n\nlet closestIndex = -1;\nlet closestDiff = Infinity;\n\nfor (let i = 0; i < items.length; i++) {\n  const data = items[i].json;\n\n  // Prefer isoDate, fall back to pubDate if needed\n  const dateStr = data.isoDate || data.pubDate;\n  if (!dateStr) continue;\n\n  const itemDate = new Date(dateStr);\n  if (isNaN(itemDate.getTime())) continue;\n\n  const diff = Math.abs(now.getTime() - itemDate.getTime());\n\n  if (diff < closestDiff) {\n    closestDiff = diff;\n    closestIndex = i;\n  }\n}\n\n// If nothing matched, just return all items (or [] if you prefer)\nif (closestIndex === -1) {\n  return items;\n}\n\n// Return only the closest one as a single-item array\nreturn [items[closestIndex]];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        32
+      ],
+      "id": "e3fccba6-e66c-4193-afe5-2142413aada5",
+      "name": "Cleanup 1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Find the item whose isoDate or pubDate is closest to \"now\"\nconst now = new Date(); // equivalent to {{$now}} at execution time\n\nlet closestIndex = -1;\nlet closestDiff = Infinity;\n\nfor (let i = 0; i < items.length; i++) {\n  const data = items[i].json;\n\n  // Prefer isoDate, fall back to pubDate\n  const dateStr = data.isoDate || data.pubDate;\n  if (!dateStr) continue;\n\n  const itemDate = new Date(dateStr);\n  if (isNaN(itemDate.getTime())) continue;\n\n  const diff = Math.abs(now.getTime() - itemDate.getTime());\n\n  if (diff < closestDiff) {\n    closestDiff = diff;\n    closestIndex = i;\n  }\n}\n\n// If nothing matched, return all or [] depending on your preference\nif (closestIndex === -1) {\n  return items; // or: return [];\n}\n\n// Return only the closest one\nreturn [items[closestIndex]];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        208
+      ],
+      "id": "6ce10ef1-5a41-4c0c-91de-a1d0199cd622",
+      "name": "Cleanup 2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Code node: pick the RSS item whose isoDate/pubDate is closest to \"now\"\n\nconst now = new Date(); // same as {{$now}} at execution\n\nlet closestIndex = -1;\nlet closestDiff = Infinity;\n\nfor (let i = 0; i < items.length; i++) {\n  const data = items[i].json;\n\n  // Prefer isoDate, fall back to pubDate\n  const dateStr = data.isoDate || data.pubDate;\n  if (!dateStr) continue;\n\n  const itemDate = new Date(dateStr);\n  if (isNaN(itemDate.getTime())) continue;\n\n  const diff = Math.abs(now.getTime() - itemDate.getTime());\n\n  if (diff < closestDiff) {\n    closestDiff = diff;\n    closestIndex = i;\n  }\n}\n\n// If nothing matched, return all or empty depending on what you want\nif (closestIndex === -1) {\n  return items; // or: return [];\n}\n\n// Return only the closest item\nreturn [items[closestIndex]];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        384
+      ],
+      "id": "db94760d-ac29-464b-b5f4-4d3489607dee",
+      "name": "Cleanup 3"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        768,
+        192
+      ],
+      "id": "d64fe40e-68e7-4754-aaed-259d9479426b",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Code node\n// INPUT: multiple raw RSS items from your 3 feeds\n// OUTPUT: 1 item with:\n//   - json.items      -> cleaned list of posts\n//   - json.combinedText -> single big text blob for the AI\n\nfunction stripHtml(raw) {\n  if (!raw || typeof raw !== 'string') return '';\n  let text = raw.replace(/<[^>]+>/g, ' ');\n  text = text\n    .replace(/&nbsp;/g, ' ')\n    .replace(/&#8217;/g, \"'\")\n    .replace(/&#8220;|&#8221;/g, '\"')\n    .replace(/&amp;/g, '&');\n  return text.replace(/\\s+/g, ' ').trim();\n}\n\nfunction truncate(text, maxChars = 600) {\n  if (!text) return '';\n  if (text.length <= maxChars) return text;\n  return text.slice(0, maxChars) + '…';\n}\n\n// 1) Clean each incoming item\nconst cleaned = items.map(item => {\n  const src = item.json || {};\n\n  const rawSummary =\n    src['content:encodedSnippet'] ||\n    src.contentSnippet ||\n    src.description ||\n    src.content ||\n    '';\n\n  const cleanSummary = truncate(stripHtml(rawSummary));\n\n  return {\n    title: src.title || '',\n    url: src.link || src.guid || '',\n    creator: src.creator || src['dc:creator'] || '',\n    source: src.creator || src['dc:creator'] || '',\n    summary: cleanSummary,\n    pubDate: src.isoDate || src.pubDate || '',\n  };\n});\n\n// 2) Turn ALL posts into ONE big text block for the AI\nconst combinedText = cleaned\n  .map((p, index) => {\n    return [\n      `Post ${index + 1}`,\n      `Title: ${p.title}`,\n      p.creator ? `Author: ${p.creator}` : '',\n      p.pubDate ? `Published: ${p.pubDate}` : '',\n      `Summary: ${p.summary}`,\n      `URL: ${p.url}`\n    ].filter(Boolean).join('\\n');\n  })\n  .join('\\n\\n---\\n\\n');\n\n// 3) Return exactly ONE item\nreturn [\n  {\n    json: {\n      items: cleaned,\n      combinedText\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        208
+      ],
+      "id": "8f9bf427-3a46-4658-a105-5be83ef69c93",
+      "name": "Merge cleanup"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Use the summary provided in {{ $json.items[0].summary }} to identify one topic that is genuinely useful for GTM engineers, sales teams, and marketers.\nSelect the topic that has the highest strategic value for modern GTM operations: automation, agentic workflows, market signals, AI-powered research, or revenue-stack improvements.\n\nWrite a LinkedIn post that reflects the voice of a senior GTM engineer: direct, analytical, clear, and grounded in practical insights.\nDo not recap the news. Instead, extract the underlying lesson, shift the angle to what it means for GTM execution, and articulate why it matters now.\nAvoid generic praise, announcements, or press-release style language.\n\nStructure the output as:\n\nA strong hook rooted in a GTM problem or shift.\n\nA body that breaks down the insight with specificity, relevance, and simple but authoritative language.\n\nA closing line that guides readers to think or act, without calls for likes or comments.\n\nDo not include emojis, hashtags, hype language, or congratulatory tones.\nDo not mention that the content comes from news sources.\nReturn only the final LinkedIn post as plain text.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        1168,
+        208
+      ],
+      "id": "ee9f38d1-e5b4-4272-99e9-0204b899040d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        384
+      ],
+      "id": "580fb28c-db14-41ec-92c7-133b0c6d79bf",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "twpKyq4QmhAtglJU",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0f189287-5c4c-4423-a19a-937d7777aa4e",
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1728,
+        208
+      ],
+      "id": "671288a8-a974-49a5-80b3-b98593a62080",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "person": "GJTx1aCUDa",
+        "text": "={{ $('AI Agent').item.json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1936,
+        112
+      ],
+      "id": "12a9062b-3a1d-4b08-b1a6-38a5bdcfd6a6",
+      "name": "Create a post",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "PhWpOxhl1LnXD40d",
+          "name": "LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "chatId": "5888194675",
+        "message": "=Check out this linkedin post setup for today\n\n {{ $json.output }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double"
+          }
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1520,
+        208
+      ],
+      "id": "9aa0aaf5-8cf9-46ea-9938-f5dbd8e224b7",
+      "name": "Approval from Jay",
+      "webhookId": "3497df40-d294-47f9-8638-1450bac244ce",
+      "credentials": {
+        "telegramApi": {
+          "id": "1jnxdfGPjPuWzaOu",
+          "name": "zenrev_main"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://thegtme.com/feed",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        208
+      ],
+      "id": "978a521a-f390-4031-9443-f2d808973da2",
+      "name": "Clay RSS"
+    },
+    {
+      "parameters": {
+        "url": "https://blog.n8n.io/rss",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        384
+      ],
+      "id": "974c02be-2c70-484b-bc4c-c22983af780f",
+      "name": "n8n RSS"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "GTME School",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Clay RSS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "n8n RSS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GTME School": {
+      "main": [
+        [
+          {
+            "node": "Cleanup 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cleanup 3": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Cleanup 2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Cleanup 1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Merge cleanup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge cleanup": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Approval from Jay",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approval from Jay": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clay RSS": {
+      "main": [
+        [
+          {
+            "node": "Cleanup 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "n8n RSS": {
+      "main": [
+        [
+          {
+            "node": "Cleanup 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7a39a096-c156-4d3b-b1d1-a575265aa720",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e8d5d3c793044974044ac40ebfc05ca36add08e0322b22ed8648412f6f9e17bf"
+  },
+  "id": "pybGc6lychaCRfiz",
+  "tags": [
+    {
+      "updatedAt": "2025-11-27T15:34:31.654Z",
+      "createdAt": "2025-11-27T15:34:31.654Z",
+      "id": "sqcZlHe0wWzYiWIB",
+      "name": "Free Resource"
+    }
+  ]
+}
