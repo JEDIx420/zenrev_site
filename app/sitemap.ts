@@ -62,5 +62,41 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'weekly',
             priority: 0.9,
         },
+        {
+            url: 'https://zenrev.org/resources/n8n-mcp-bridge-agentic-workflows',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: 'https://zenrev.org/resources/2025-gtm-engineer-stack',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: 'https://zenrev.org/resources/signals-to-revenue-live-orchestrator',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: 'https://zenrev.org/resources/research-agent-autonomous-market-intelligence',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: 'https://zenrev.org/resources/semantic-search-transformers-js',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: 'https://zenrev.org/resources/gtm-automation-economics',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
     ]
 }
