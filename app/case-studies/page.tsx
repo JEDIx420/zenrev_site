@@ -1,4 +1,4 @@
-import { caseStudies } from "@/lib/case-studies";
+import resources from "@/data/resources.json";
 import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, TrendingUp } from "lucide-react";
@@ -28,33 +28,32 @@ export default function CaseStudiesPage() {
                 </div>
 
                 <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                    {caseStudies.map((study) => (
+                    {resources.map((resource) => (
                         <article
-                            key={study.slug}
-                            className="flex flex-col items-start justify-between rounded-2xl bg-white p-8 shadow-lg ring-1 ring-gray-200 transition-all hover:shadow-xl hover:ring-brand-blue/50"
-                        >
+                            key={resource.slug}
+                            className="flex flex-col items-start justify-between rounded-2xl bg-white p-8 shadow-lg ring-1 ring-gray-200 transition-all hover:shadow-xl hover:ring-brand-blue/50">
                             <div className="flex items-center gap-x-2 text-xs mb-4">
                                 <span className="rounded-full bg-brand-blue/10 px-3 py-1 font-medium text-brand-blue">
-                                    {study.client}
+                                    {resource.client || resource.category || 'Case Study'}
                                 </span>
-                                <span className="text-gray-500">{study.industry}</span>
+                                <span className="text-gray-500">{resource.industry || resource.date || ''}</span>
                             </div>
 
                             <div className="group relative flex-1">
                                 <h3 className="text-xl font-bold leading-6 text-gray-900 group-hover:text-brand-blue transition-colors">
-                                    <Link href={`/case-studies/${study.slug}`}>
+                                    <Link href={`/case-studies/${resource.slug}`}>
                                         <span className="absolute inset-0" />
-                                        {study.title}
+                                        {resource.title}
                                     </Link>
                                 </h3>
                                 <p className="mt-4 text-sm leading-6 text-gray-600 line-clamp-3">
-                                    {study.description}
+                                    {resource.description}
                                 </p>
                             </div>
 
-                            {study.metrics && study.metrics.length > 0 && (
+                            {resource.metrics && resource.metrics.length > 0 && (
                                 <div className="mt-6 flex w-full gap-4 border-t border-gray-100 pt-6">
-                                    {study.metrics.slice(0, 2).map((metric) => (
+                                    {resource.metrics.slice(0, 2).map((metric) => (
                                         <div key={metric.label} className="flex-1">
                                             <div className="text-2xl font-bold text-brand-blue">
                                                 {metric.value}
@@ -69,7 +68,7 @@ export default function CaseStudiesPage() {
 
                             <div className="mt-6 w-full">
                                 <Link
-                                    href={`/case-studies/${study.slug}`}
+                                    href={`/case-studies/${resource.slug}`}
                                     className="inline-flex items-center text-sm font-medium text-brand-blue hover:text-brand-dark transition-colors"
                                 >
                                     Read case study
