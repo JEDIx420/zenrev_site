@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         },
         {
-            url: 'https://zenrev.ai/resources',
+            url: 'https://zenrev.org/resources',
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.8,
@@ -61,6 +61,48 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.9,
+        },
+        {
+            url: 'https://zenrev.org/faq',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
+        {
+            url: 'https://zenrev.org/learn/what-is-gtm-engineering',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
+        {
+            url: 'https://zenrev.org/case-studies',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
+            url: 'https://zenrev.org/case-studies/zenrev-story',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: 'https://zenrev.org/case-studies/ai-in-gtm',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: 'https://zenrev.org/case-studies/b2b-outreach-mastery',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: 'https://zenrev.org/services/capabilities',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
         },
         {
             url: 'https://zenrev.org/resources/n8n-mcp-bridge-agentic-workflows',
