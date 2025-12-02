@@ -33,7 +33,7 @@ export default function ServicesPage() {
     return (
         <div className="flex min-h-screen flex-col">
             {/* Hero Section */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand-blue to-brand-dark py-24 text-white sm:py-32">
+            <section className="relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand-blue to-brand-dark py-16 text-white sm:py-20">
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
                 <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto max-w-2xl text-center">
@@ -67,15 +67,15 @@ export default function ServicesPage() {
             </section>
 
             {/* Services Grid */}
-            <section className="py-24 sm:py-32 bg-white">
+            <section className="bg-white py-14 sm:py-18">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-6 lg:grid-cols-3 lg:px-8">
                         {services.map((service, index) => (
                             <motion.article
                                 key={service.title}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                                className="flex flex-col items-start justify-between rounded-3xl bg-white p-8 shadow-lg ring-1 ring-gray-200 transition-all hover:shadow-xl hover:ring-brand-blue/30"
+                                className="flex flex-col justify-between rounded-3xl bg-white p-6 shadow-xl ring-1 ring-gray-200 transition-all hover:shadow-2xl hover:ring-brand-blue/50"
                             >
                                 <div className="w-full">
                                     <h3 className="text-xl font-bold leading-6 text-gray-900">

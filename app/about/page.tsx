@@ -38,7 +38,7 @@ const jsonLd = {
 
 export default function AboutPage() {
     return (
-        <div className="bg-white py-24 sm:py-32">
+        <div className="bg-white py-14 sm:py-18">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -48,15 +48,15 @@ export default function AboutPage() {
                 {/* Hero Section */}
                 <div className="mx-auto max-w-2xl lg:mx-0">
                     <h1 className="text-4xl font-bold tracking-tight text-brand-dark sm:text-5xl font-heading">About zenrev</h1>
-                    <p className="mt-6 text-xl leading-8 text-gray-600">
+                    <p className="mt-4 text-xl leading-8 text-gray-600">
                         The premier <strong className="text-brand-blue">GTM engineering studio</strong> building agentic workflows that turn signals into revenue.
                     </p>
                 </div>
 
                 {/* What We Do */}
-                <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+                <div className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                     <div>
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">What zenrev Does</h2>
+                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-4">What zenrev Does</h2>
                         <p className="text-base leading-7 text-gray-600 mb-4">
                             <strong>zenrev is a GTM (Go-to-Market) engineering studio</strong> specializing in B2B SaaS automation. We replace manual sales and operations tasks with intelligent automation, custom code, and AI agents.
                         </p>
@@ -69,7 +69,7 @@ export default function AboutPage() {
                     </div>
 
                     <div>
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">Our Core Niche</h2>
+                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-4">Our Core Niche</h2>
                         <div className="space-y-4">
                             <div className="flex gap-3">
                                 <Zap className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
@@ -98,8 +98,8 @@ export default function AboutPage() {
 
                 {/* Who We Serve */}
                 <div className="mt-16 border-t border-gray-200 pt-16">
-                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-8">Who We Serve</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">Who We Serve</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-200">
                             <h3 className="font-bold text-gray-900 mb-2">Company Stage</h3>
                             <p className="text-sm text-gray-600">B2B SaaS companies from Seed to Series C, with a focus on Series A/B looking to scale efficiently.</p>
@@ -117,21 +117,21 @@ export default function AboutPage() {
 
                 {/* All Services */}
                 <div className="mt-16 border-t border-gray-200 pt-16">
-                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-8">Our Services</h2>
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">Our Services</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Link href="/gtm-engineer" className="group rounded-2xl bg-white p-6 ring-1 ring-gray-200 transition-all hover:shadow-lg hover:ring-brand-blue/50">
+                        <Link href="/gtm-engineer" className="group rounded-2xl bg-white p-5 ring-1 ring-gray-200 transition-all hover:shadow-lg hover:ring-brand-blue/50">
                             <h3 className="text-xl font-bold text-gray-900 group-hover:text-brand-blue transition-colors">GTM Engineering</h3>
                             <p className="mt-2 text-sm text-gray-600">End-to-end architecture of sales and marketing stacks with API integration and custom scripting.</p>
                         </Link>
-                        <Link href="/ai-engineer" className="group rounded-2xl bg-white p-6 ring-1 ring-gray-200 transition-all hover:shadow-lg hover:ring-brand-blue/50">
+                        <Link href="/ai-engineer" className="group rounded-2xl bg-white p-5 ring-1 ring-gray-200 transition-all hover:shadow-lg hover:ring-brand-blue/50">
                             <h3 className="text-xl font-bold text-gray-900 group-hover:text-brand-blue transition-colors">AI Engineering</h3>
                             <p className="mt-2 text-sm text-gray-600">Custom LLM agents, RAG systems, autonomous research agents, and prompt engineering.</p>
                         </Link>
-                        <Link href="/clay-expert" className="group rounded-2xl bg-white p-6 ring-1 ring-gray-200 transition-all hover:shadow-lg hover:ring-brand-blue/50">
+                        <Link href="/clay-expert" className="group rounded-2xl bg-white p-5 ring-1 ring-gray-200 transition-all hover:shadow-lg hover:ring-brand-blue/50">
                             <h3 className="text-xl font-bold text-gray-900 group-hover:text-brand-blue transition-colors">Clay Expert Services</h3>
                             <p className="mt-2 text-sm text-gray-600">Advanced Clay.com implementation with waterfall enrichment, Claygent scraping, and CRM sync.</p>
                         </Link>
-                        <Link href="/n8n-developer" className="group rounded-2xl bg-white p-6 ring-1 ring-gray-200 transition-all hover:shadow-lg hover:ring-brand-blue/50">
+                        <Link href="/n8n-developer" className="group rounded-2xl bg-white p-5 ring-1 ring-gray-200 transition-all hover:shadow-lg hover:ring-brand-blue/50">
                             <h3 className="text-xl font-bold text-gray-900 group-hover:text-brand-blue transition-colors">n8n Development</h3>
                             <p className="mt-2 text-sm text-gray-600">Production-grade workflow automation with custom nodes, error handling, and API connectivity.</p>
                         </Link>
@@ -144,9 +144,9 @@ export default function AboutPage() {
                 </div>
 
                 {/* Philosophy */}
-                <div className="mt-16 border-t border-gray-200 pt-16">
-                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-8">Our Philosophy</h2>
-                    <div className="space-y-6">
+                <div className="mt-12 border-t border-gray-200 pt-12">
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">Our Philosophy</h2>
+                    <div className="space-y-5">
                         <div className="flex gap-4">
                             <div className="flex-shrink-0 w-12 h-12 rounded-full bg-brand-blue/10 flex items-center justify-center">
                                 <span className="text-brand-blue font-bold">1</span>
@@ -179,11 +179,11 @@ export default function AboutPage() {
 
                 {/* Team */}
                 <div className="mt-16 border-t border-gray-200 pt-16">
-                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">Who We Are</h2>
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-4">Who We Are</h2>
                     <p className="text-base leading-7 text-gray-600 mb-6">
                         We are engineers, data scientists, and GTM strategists obsessed with efficiency. Our founder is a <strong>GTM engineer</strong> specializing in B2B SaaS automation, with deep expertise in:
                     </p>
-                    <ul className="list-disc pl-5 space-y-2 text-base leading-7 text-gray-600 mb-6">
+                    <ul className="list-disc pl-5 space-y-1.5 text-base leading-7 text-gray-600 mb-4">
                         <li><strong>Clay Automation:</strong> Waterfall enrichment and complex table architecture</li>
                         <li><strong>n8n Development:</strong> Self-hosted workflow orchestration and API integration</li>
                         <li><strong>AI Agents:</strong> Custom LLM agents for research and outbound personalization</li>
@@ -214,7 +214,7 @@ export default function AboutPage() {
                 </div>
 
                 {/* CTA */}
-                <div className="mt-16 border-t border-gray-200 pt-16 text-center">
+                <div className="mt-12 border-t border-gray-200 pt-12 text-center">
                     <h2 className="text-3xl font-bold text-gray-900 mb-6">Ready to Engineer Your Revenue?</h2>
                     <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
                         Book a 30-minute consultation and we'll show you exactly how to deploy agentic systems in your GTM stack.

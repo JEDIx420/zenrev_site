@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section - Premium Design */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-white px-6 py-20 lg:px-8">
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-white px-6 py-16 lg:px-8">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-brand-blue/10 blur-3xl animate-float"></div>
@@ -36,7 +36,7 @@ export default function Home() {
 
 
           <motion.h1
-            className="bg-gradient-to-br from-brand-dark via-brand-blue to-brand-dark bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-7xl lg:text-8xl"
+            className="bg-gradient-to-br from-brand-dark via-brand-blue to-brand-dark bg-clip-text text-4xl font-bold leading-tight text-transparent sm:text-6xl lg:text-7xl pb-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -46,7 +46,7 @@ export default function Home() {
           </motion.h1>
 
           <motion.p
-            className="mt-8 text-lg leading-relaxed text-gray-600 sm:text-2xl"
+            className="mt-6 text-lg leading-relaxed text-gray-600 sm:text-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -57,7 +57,7 @@ export default function Home() {
           </motion.p>
 
           <motion.div
-            className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
+            className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -80,7 +80,7 @@ export default function Home() {
 
 
       {/* Three Pillars - Premium Cards */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50 py-24 sm:py-32">
+      <section className="relative overflow-hidden bg-gray-50 py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <motion.div
@@ -95,13 +95,13 @@ export default function Home() {
             <h2 className="text-4xl font-bold tracking-tight text-brand-dark sm:text-5xl">
               The Complete GTM Stack
             </h2>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
+            <p className="mt-4 text-lg leading-8 text-gray-600">
               From data acquisition to automated outreach, we engineer every layer.
             </p>
           </div>
 
           <motion.div
-            className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+            className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-6 lg:mx-0 lg:max-w-none lg:grid-cols-3"
             variants={stagger}
             initial="initial"
             whileInView="animate"
@@ -130,7 +130,7 @@ export default function Home() {
               <motion.div
                 key={pillar.title}
                 variants={fadeIn}
-                className="group relative overflow-hidden rounded-2xl bg-white p-8 shadow-lg ring-1 ring-gray-200 transition-all hover:shadow-2xl hover:ring-brand-blue/50"
+                className="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200 transition-all hover:shadow-2xl hover:ring-brand-blue/50"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${pillar.gradient} opacity-0 transition-opacity group-hover:opacity-5`}></div>
                 <div className="relative">
@@ -150,7 +150,7 @@ export default function Home() {
       <ProcessScroll />
 
       {/* Testimonials - Dark Premium Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand-blue to-brand-dark py-24 text-white sm:py-32">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand-blue to-brand-dark py-16 text-white sm:py-20">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
@@ -168,7 +168,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+          <div className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-6 lg:mx-0 lg:max-w-none lg:grid-cols-2">
             {[
               {
                 quote: "zenrev transformed our outbound. We went from booking 2 meetings a week to 15, completely on autopilot.",
@@ -189,7 +189,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="relative rounded-2xl bg-white/10 p-8 backdrop-blur-sm ring-1 ring-white/20 transition-all hover:bg-white/15"
+                className="relative rounded-2xl bg-white/10 p-6 backdrop-blur-sm ring-1 ring-white/20 transition-all hover:bg-white/15"
               >
                 <div className="absolute -top-4 -left-4 text-6xl font-bold text-white/10">"</div>
                 <blockquote className="relative text-lg font-medium leading-8">
@@ -214,7 +214,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-br from-gray-50 to-white py-24 sm:py-32">
+      <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -227,10 +227,10 @@ export default function Home() {
               <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                 Ready to automate your GTM?
               </h2>
-              <p className="mt-6 text-lg leading-8 text-blue-100">
+              <p className="mt-4 text-lg leading-8 text-blue-100">
                 Book a 30-minute consultation and we'll show you exactly how to deploy agents in your stack.
               </p>
-              <div className="mt-10">
+              <div className="mt-8">
                 <Button size="lg" variant="secondary" className="bg-white text-brand-blue hover:bg-gray-100 w-full sm:w-auto" asChild>
                   <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
                     Book Your Consultation

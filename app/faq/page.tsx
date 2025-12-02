@@ -87,7 +87,7 @@ const jsonLd = {
 
 export default function FAQPage() {
     return (
-        <div className="min-h-screen bg-white pt-24 pb-16">
+        <div className="min-h-screen bg-white pt-20 pb-12">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -104,7 +104,7 @@ export default function FAQPage() {
                     </Link>
                 </div>
 
-                <header className="mb-12 text-center">
+                <header className="mb-10 text-center">
                     <div className="mb-4 flex items-center justify-center">
                         <div className="rounded-full bg-brand-blue/10 p-3">
                             <HelpCircle className="h-8 w-8 text-brand-blue" />
@@ -118,11 +118,11 @@ export default function FAQPage() {
                     </p>
                 </header>
 
-                <div className="space-y-8">
+                <div className="space-y-6">
                     {faqs.map((faq, index) => (
                         <div
                             key={index}
-                            className="rounded-2xl bg-gray-50 p-8 ring-1 ring-gray-200 transition-all hover:shadow-md"
+                            className="rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-200 transition-all hover:shadow-md"
                         >
                             <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-start gap-3">
                                 <span className="flex-shrink-0 flex h-8 w-8 items-center justify-center rounded-full bg-brand-blue text-white text-sm font-bold">
@@ -137,11 +137,11 @@ export default function FAQPage() {
                     ))}
                 </div>
 
-                <div className="mt-16 border-t border-gray-100 pt-12 text-center">
+                <div className="mt-12 border-t border-gray-100 pt-10 text-center">
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">
                         Still have questions?
                     </h3>
-                    <p className="text-base text-gray-600 mb-8">
+                    <p className="text-base text-gray-600 mb-6">
                         Book a 30-minute consultation and we'll answer all your questions about GTM automation.
                     </p>
                     <Button size="lg" asChild>
