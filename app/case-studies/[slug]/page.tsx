@@ -1,4 +1,4 @@
-import { caseStudies } from "@/lib/case-studies";
+import resources from "@/data/resources.json";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -10,28 +10,28 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-    return caseStudies.map((study) => ({
-        slug: study.slug,
+    return resources.map((resource) => ({
+        slug: resource.slug,
     }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
-    const study = caseStudies.find((s) => s.slug === slug);
+    const resource = resources.find((s) => s.slug === slug);
 
-    if (!study) {
+    if (!resource) {
         return {
             title: "Case Study Not Found",
         };
     }
 
     return {
-        title: study.metadata.title,
-        description: study.metadata.description,
-        keywords: study.metadata.keywords,
+        title: resource.metadata.title,
+        description: resource.metadata.description,
+        keywords: resource.metadata.keywords,
         openGraph: {
-            title: study.metadata.title,
-            description: study.metadata.description,
+            title: resource.metadata.title,
+            description: resource.metadata.description,
             type: "article",
         },
     };
@@ -39,20 +39,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CaseStudyPage({ params }: Props) {
     const { slug } = await params;
-    const study = caseStudies.find((s) => s.slug === slug);
+    const resource = resources.find((s) => s.slug === slug);
 
-    if (!study) {
+    if (!resource) {
         notFound();
     }
 
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "Article",
-        "headline": study.title,
-        "description": study.description,
+        "headline": resource.title,
+        "description": resource.description,
         "author": {
             "@type": "Person",
-            "name": study.author
+            "name": resource.author
         },
         "publisher": {
             "@type": "Organization",
@@ -85,18 +85,18 @@ export default async function CaseStudyPage({ params }: Props) {
                 <header className="mb-12 text-center">
                     <div className="mb-4 flex items-center justify-center gap-2">
                         <span className="rounded-full bg-brand-blue/10 px-3 py-1 text-xs font-medium text-brand-blue">
-                            {study.client}
+                            {resource.client || resource.category || 'Case Study'}
                         </span>
                         <span className="text-gray-300">•</span>
                         <span className="text-xs font-medium text-gray-500">
-                            {study.industry}
+                            {resource.industry || resource.date || ''}
                         </span>
                     </div>
                     <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-6">
-                        {study.title}
+                        {resource.title}
                     </h1>
                     <p className="text-lg leading-8 text-gray-600">
-                        {study.description}
+                        {resource.description}
                     </p>
                 </header>
 
@@ -107,13 +107,13 @@ export default async function CaseStudyPage({ params }: Props) {
                         Outcome Snapshot
                     </h3>
                     <p className="text-gray-700 leading-relaxed font-medium">
-                        {study.outcomeSnapshot}
+                        {resource.outcomeSnapshot}
                     </p>
                 </div>
 
-                {study.metrics && study.metrics.length > 0 && (
+                {resource.metrics && resource.metrics.length > 0 && (
                     <div className="my-12 grid grid-cols-3 gap-4 border-y border-gray-100 py-8">
-                        {study.metrics.map((metric) => (
+                        {resource.metrics.map((metric) => (
                             <div key={metric.label} className="text-center">
                                 <div className="text-2xl font-bold text-brand-blue sm:text-3xl">
                                     {metric.value}
@@ -128,7 +128,7 @@ export default async function CaseStudyPage({ params }: Props) {
 
                 <div
                     className="prose prose-lg prose-blue mx-auto prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-600 prose-blockquote:border-l-brand-blue prose-blockquote:text-gray-700 prose-blockquote:font-medium prose-blockquote:not-italic"
-                    dangerouslySetInnerHTML={{ __html: study.content }}
+                    dangerouslySetInnerHTML={{ __html: resource.content || '' }}
                 />
 
                 <div className="mt-16 border-t border-gray-100 pt-12 text-center">
