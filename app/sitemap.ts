@@ -105,6 +105,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         },
         {
+            url: 'https://zenrev.org/services/lead-generation',
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: 'https://zenrev.org/services/ai-agents',
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: 'https://zenrev.org/services/revops-automation',
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
             url: 'https://zenrev.org/resources/n8n-mcp-bridge-agentic-workflows',
             lastModified: new Date(),
             changeFrequency: 'monthly',

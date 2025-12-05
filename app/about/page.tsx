@@ -4,9 +4,9 @@ import { Metadata } from "next"
 import { MapPin, Users, Zap, Target } from "lucide-react"
 
 export const metadata: Metadata = {
-    title: "About zenrev | GTM Engineering Studio",
-    description: "zenrev is a GTM engineering studio specializing in Clay automation, n8n workflows, and agentic AI systems for B2B SaaS companies. Based in Bangalore, serving global markets.",
-    keywords: ["zenrev", "GTM engineering", "Clay expert", "n8n developer", "AI agents", "B2B SaaS automation", "Bangalore"],
+    title: "About zenrev | GTM Engineering Studio Dubai | UAE, India & Global",
+    description: "zenrev is Dubai's premier GTM engineering studio specializing in Clay automation, n8n workflows, and AI agents for B2B SaaS. Serving UAE, India, GCC, and global markets.",
+    keywords: ["zenrev", "GTM engineering Dubai", "GTM automation UAE", "Clay expert Dubai", "n8n developer UAE", "AI agents Dubai", "B2B automation UAE", "sales automation Dubai", "lead generation UAE"],
 };
 
 const jsonLd = {
@@ -14,16 +14,32 @@ const jsonLd = {
     "@type": "Organization",
     "name": "zenrev",
     "url": "https://zenrev.org",
-    "description": "GTM engineering studio specializing in Clay automation, n8n workflows, and agentic AI systems for B2B SaaS companies.",
+    "description": "Dubai-based GTM engineering studio specializing in Clay automation, n8n workflows, and agentic AI systems for B2B SaaS companies across UAE, India, and global markets.",
     "logo": "https://zenrev.org/zrlogo.png",
     "foundingDate": "2024",
     "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Bangalore",
-        "addressCountry": "IN"
+        "streetAddress": "Dubai Internet City",
+        "addressLocality": "Dubai",
+        "addressRegion": "Dubai",
+        "addressCountry": "AE"
     },
-    "areaServed": ["US", "IN", "AE", "Global"],
-    "serviceType": ["GTM Engineering", "Clay Automation", "n8n Development", "AI Agent Development"],
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "25.0930",
+        "longitude": "55.1562"
+    },
+    "areaServed": [
+        { "@type": "Country", "name": "United Arab Emirates" },
+        { "@type": "Country", "name": "India" },
+        { "@type": "Country", "name": "United States" },
+        { "@type": "Country", "name": "Saudi Arabia" },
+        { "@type": "Country", "name": "Qatar" },
+        { "@type": "Country", "name": "Bahrain" },
+        { "@type": "Country", "name": "Kuwait" },
+        { "@type": "Country", "name": "Oman" }
+    ],
+    "serviceType": ["GTM Engineering", "Clay Automation", "n8n Development", "AI Agent Development", "Lead Generation", "Sales Automation", "RevOps Automation"],
     "sameAs": [
         "https://twitter.com/zenrev",
         "https://linkedin.com/company/zenrev"
@@ -49,8 +65,12 @@ export default function AboutPage() {
                 <div className="mx-auto max-w-2xl lg:mx-0">
                     <h1 className="text-4xl font-bold tracking-tight text-brand-dark sm:text-5xl font-heading">About zenrev</h1>
                     <p className="mt-4 text-xl leading-8 text-gray-600">
-                        The premier <strong className="text-brand-blue">GTM engineering studio</strong> building agentic workflows that turn signals into revenue.
+                        Dubai's premier <strong className="text-brand-blue">GTM engineering studio</strong> building agentic workflows that turn signals into revenue across UAE, India, GCC, and global markets.
                     </p>
+                    <div className="mt-6 flex items-center gap-2 text-sm text-gray-500">
+                        <MapPin className="h-4 w-4 text-brand-blue" />
+                        <span>Headquartered in Dubai, UAE • Serving Global Markets</span>
+                    </div>
                 </div>
 
                 {/* What We Do */}

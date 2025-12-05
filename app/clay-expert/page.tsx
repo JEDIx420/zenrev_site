@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/Button"
 import { CheckCircle2, ArrowRight, Table, Database, Filter, Zap, Globe2, Search } from "lucide-react"
 
 export const metadata: Metadata = {
-    title: "Clay Expert | Hire Top Clay.com Developers & Consultants",
-    description: "Hire a Clay Expert to automate your outbound prospecting. We build advanced waterfall enrichment tables, custom scrapers, and AI personalization workflows.",
+    title: "Clay Expert Dubai | Clay Automation Specialist UAE & India | Hire Clay Developer",
+    description: "Dubai-based Clay Expert for B2B SaaS. We build waterfall enrichment tables, AI personalization workflows, and custom scrapers for UAE, India, and global markets.",
     alternates: {
         canonical: "https://zenrev.org/clay-expert",
     },
     openGraph: {
-        title: "Clay Expert | Hire Top Clay.com Developers",
-        description: "Master Clay.com with expert help. We build waterfall enrichment, AI scoring, and automated outbound tables.",
+        title: "Clay Expert Dubai | Clay Automation Specialist UAE & India",
+        description: "Master Clay.com with Dubai's top Clay experts. Waterfall enrichment, AI scoring, and automated outbound for UAE, India, and GCC markets.",
         url: "https://zenrev.org/clay-expert",
     },
 }
@@ -72,7 +72,7 @@ export default function ClayExpertPage() {
                             Clay Expert
                         </h1>
                         <p className="mt-6 text-xl leading-8 text-gray-600">
-                            Scale your outbound with the world's most powerful data enrichment tool. We are Clay Experts who build complex waterfall enrichments and AI-scored lead lists.
+                            Dubai's premier Clay Expert for B2B SaaS. We build complex waterfall enrichments, AI-scored lead lists, and custom data workflows for UAE, India, and global markets.
                         </p>
                         <div className="mt-10 flex items-center justify-center gap-x-6">
                             <Button size="lg" asChild>
