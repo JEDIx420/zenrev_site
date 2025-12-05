@@ -478,5 +478,113 @@
             ]
         },
         "content": "<h2>The Challenge: Generic Spam Doesn't Work</h2><p>Most <strong>b2b lead generation services in India</strong> rely on spraying generic emails to purchased lists. This results in domain burn and zero meetings. Our client needed a smarter approach.</p><h2>The Solution: Intent-Based Outreach</h2><p>We implemented an <strong>intent based lead generation india</strong> strategy:</p><ul><li><strong>Hiring Signals:</strong> We targeted companies hiring for 'Head of Sales'.</li><li><strong>Tech Stack:</strong> We filtered for companies using HubSpot (via BuiltWith).</li><li><strong>News Events:</strong> We referenced recent funding rounds.</li></ul><h2>Why We Are the Best Cold Outreach Agency in India</h2><p>We combine data engineering with copywriting. As a <strong>sales automation agency in Bangalore</strong>, we use tools like Clay and Smartlead to automate the personalization at scale, ensuring every email looks 100% handwritten.</p>"
+    },
+    {
+        "slug": "smartlead-agency-scaling",
+        "title": "Scaling to $50k/MRR with Smartlead.ai Infrastructure",
+        "description": "How we built a white-label cold email infrastructure for a lead gen agency using Smartlead's API.",
+        "client": "GrowthPartner Agency",
+        "industry": "Marketing Agency",
+        "metrics": [
+            {
+                "label": "Mailboxes Managed",
+                "value": "500+"
+            },
+            {
+                "label": "Client Onboarding",
+                "value": "5 mins"
+            },
+            {
+                "label": "Deliverability",
+                "value": "98%"
+            }
+        ],
+        "quote": "The API integration allowed us to build our own client dashboard. We look like a tech company now.",
+        "author": "Agency Founder",
+        "outcomeSnapshot": "Built a custom agency dashboard on top of Smartlead.ai. Automated mailbox warmup, campaign creation, and white-label reporting. Positioned the client as a 'smartlead expert' and 'cold email infrastructure' provider.",
+        "metadata": {
+            "title": "Smartlead Expert | White Label Cold Email Infrastructure",
+            "description": "Case study: Building a scalable, white-label cold email infrastructure for an agency using Smartlead.ai and n8n.",
+            "keywords": [
+                "smartlead expert",
+                "white label cold email",
+                "cold email infrastructure",
+                "smartlead api developer",
+                "agency automation"
+            ]
+        },
+        "content": "<h2>The Challenge: Agency Operations Hell</h2><p>Managing 50 clients with 10 mailboxes each meant logging into 500 Google Workspaces. Our client, a scaling lead gen agency, was drowning in spreadsheets and login credentials. They needed a <strong>cold email infrastructure</strong> that could scale.</p><h2>The Solution: Smartlead + n8n Automation</h2><p>We migrated them to <strong>Smartlead.ai</strong> and built a custom management layer:</p><ul><li><strong>Automated Onboarding:</strong> A Typeform triggers an n8n workflow that buys domains, sets up DNS (DKIM/DMARC), and adds them to Smartlead.</li><li><strong>Unified Inbox:</strong> All client replies are routed to a custom Slack channel for faster response times.</li><li><strong>White Label Reporting:</strong> We pull campaign stats via Smartlead API into a custom Looker Studio dashboard embedded in their client portal.</li></ul><h2>Why Smartlead for Agencies?</h2><p>As a <strong>smartlead expert</strong>, we recommend it for its 'Unlimited Warmup' and robust API. It allows agencies to focus on strategy while the infrastructure runs on autopilot.</p>"
+    },
+    {
+        "slug": "instantly-volume-outreach",
+        "title": "Sending 100k Emails/Month Safely with Instantly.ai",
+        "description": "Achieving massive scale without landing in spam. A masterclass in volume cold email.",
+        "client": "SaaS Unicorn (Series C)",
+        "industry": "B2B SaaS",
+        "metrics": [
+            {
+                "label": "Monthly Volume",
+                "value": "100k"
+            },
+            {
+                "label": "Open Rate",
+                "value": "65%"
+            },
+            {
+                "label": "Domains Used",
+                "value": "200"
+            }
+        ],
+        "quote": "We thought volume killed deliverability. zenrev proved us wrong.",
+        "author": "VP of Demand Gen",
+        "outcomeSnapshot": "Implemented a high-volume 'instantly.ai expert' setup. Rotated 200 domains to send 100k emails/month while maintaining 65% open rates. Solved 'cold email deliverability' at scale.",
+        "metadata": {
+            "title": "Instantly.ai Expert | High Volume Cold Email Services",
+            "description": "Case study: How to send 100k cold emails per month without spam issues using Instantly.ai and domain rotation.",
+            "keywords": [
+                "instantly.ai expert",
+                "mass email outreach",
+                "cold email deliverability",
+                "instantly setup service",
+                "bulk email automation"
+            ]
+        },
+        "content": "<h2>The Challenge: The Volume-Spam Trap</h2><p>Our client wanted to scale from 10k to 100k emails/month. But every time they increased volume, open rates tanked. They needed an <strong>instantly.ai expert</strong> to architect a system that could handle the load.</p><h2>The Solution: Horizontal Scale Architecture</h2><p>We didn't just add more emails; we added more <em>infrastructure</em>:</p><ul><li><strong>Domain Rotation:</strong> We set up 200 secondary domains (e.g., get-brand.com, try-brand.net).</li><li><strong>Warmup Pools:</strong> We used Instantly's warmup pool to build reputation for 3 weeks before sending a single email.</li><li><strong>Spintax Mastery:</strong> We used advanced Spintax to ensure no two emails were identical, bypassing spam filters.</li></ul><h2>The Results</h2><p>The system now sends 100k emails/month with a 65% open rate. By treating <strong>mass email outreach</strong> as an engineering challenge, we achieved scale without sacrificing quality.</p>"
+    },
+    {
+        "slug": "heyreach-linkedin-automation",
+        "title": "Multi-Account LinkedIn Scale with HeyReach",
+        "description": "How to run 10 LinkedIn accounts simultaneously without getting banned.",
+        "client": "Recruitment Firm",
+        "industry": "Recruitment / Staffing",
+        "metrics": [
+            {
+                "label": "Accounts Managed",
+                "value": "15"
+            },
+            {
+                "label": "Connection Rate",
+                "value": "35%"
+            },
+            {
+                "label": "Bans/Restrictions",
+                "value": "0"
+            }
+        ],
+        "quote": "Finally, a way to scale LinkedIn that doesn't feel like playing Russian roulette with our accounts.",
+        "author": "Director of Sourcing",
+        "outcomeSnapshot": "Deployed a 'heyreach agency' setup for a recruitment firm. Managed 15 recruiter profiles from one dashboard, automating connection requests and follow-ups. Established 'safe linkedin outreach' protocols.",
+        "metadata": {
+            "title": "HeyReach Agency | LinkedIn Automation Expert",
+            "description": "Case study: Scaling LinkedIn outreach using HeyReach. Managing multiple accounts safely for a recruitment agency.",
+            "keywords": [
+                "heyreach agency",
+                "linkedin automation expert",
+                "safe linkedin outreach",
+                "multi-account linkedin",
+                "cloud based linkedin automation"
+            ]
+        },
+        "content": "<h2>The Challenge: The Limits of Personal Profiles</h2><p>LinkedIn restricts users to ~100 connection requests per week. For a recruitment firm needing to source hundreds of candidates, this was a bottleneck. They needed a <strong>linkedin automation expert</strong> to bypass these limits safely.</p><h2>The Solution: HeyReach Cloud Automation</h2><p>We implemented <strong>HeyReach</strong>, a cloud-based tool that uses residential proxies to simulate human behavior.</p><ul><li><strong>Unified Inbox:</strong> The team manages 15 LinkedIn accounts from one screen.</li><li><strong>Safe Scaling:</strong> We rotated IP addresses to match the location of each recruiter.</li><li><strong>Smart Sequences:</strong> If a candidate accepts a request, the system automatically waits 2 hours before sending a personalized message.</li></ul><h2>Why HeyReach?</h2><p>Unlike Chrome extensions which are easily detected, HeyReach is a <strong>safe linkedin outreach</strong> solution. It allowed our client to send 1,500 requests/week (across 15 accounts) with zero account restrictions.</p>"
     }
 ]

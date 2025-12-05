@@ -123,6 +123,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         },
         {
+            url: 'https://zenrev.org/case-studies/smartlead-agency-scaling',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
+            url: 'https://zenrev.org/case-studies/instantly-volume-outreach',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
+            url: 'https://zenrev.org/case-studies/heyreach-linkedin-automation',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
             url: 'https://zenrev.org/services/capabilities',
             lastModified: new Date(),
             changeFrequency: 'monthly',
