@@ -51,9 +51,11 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Dubai's premier <span className="font-semibold text-brand-blue">GTM Engineering</span> studio. We build agentic workflows that turn signals into revenue for B2B SaaS across UAE, India, GCC, and global markets.
+            The premier <span className="font-semibold text-brand-blue">GTM Engineering</span> firm. We build agentic workflows that turn signals into revenue.
             <br />
             <span className="text-base sm:text-lg text-gray-500">Clay • n8n • Custom AI Agents</span>
+            <br />
+            <span className="text-sm text-gray-400 mt-2 block">Trusted by companies across UAE, KSA, USA, and India</span>
           </motion.p>
 
           <motion.div

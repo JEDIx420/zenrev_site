@@ -72,7 +72,9 @@ export default function ClayExpertPage() {
                             Clay Expert
                         </h1>
                         <p className="mt-6 text-xl leading-8 text-gray-600">
-                            Dubai's premier Clay Expert for B2B SaaS. We build complex waterfall enrichments, AI-scored lead lists, and custom data workflows for UAE, India, and global markets.
+                            The premier Clay Expert for B2B SaaS. We build complex waterfall enrichments, AI-scored lead lists, and custom data workflows.
+                            <br />
+                            <span className="text-sm text-gray-500 mt-2 block">Trusted by companies across UAE, KSA, USA, and India</span>
                         </p>
                         <div className="mt-10 flex items-center justify-center gap-x-6">
                             <Button size="lg" asChild>

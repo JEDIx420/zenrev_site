@@ -65,7 +65,10 @@ export default function AboutPage() {
                 <div className="mx-auto max-w-2xl lg:mx-0">
                     <h1 className="text-4xl font-bold tracking-tight text-brand-dark sm:text-5xl font-heading">About zenrev</h1>
                     <p className="mt-4 text-xl leading-8 text-gray-600">
-                        Dubai's premier <strong className="text-brand-blue">GTM engineering studio</strong> building agentic workflows that turn signals into revenue across UAE, India, GCC, and global markets.
+                        The premier <strong className="text-brand-blue">GTM engineering studio</strong> building agentic workflows that turn signals into revenue.
+                    </p>
+                    <p className="mt-4 text-base text-gray-500">
+                        Trusted by companies across UAE, KSA, USA, and India.
                     </p>
                     <div className="mt-6 flex items-center gap-2 text-sm text-gray-500">
                         <MapPin className="h-4 w-4 text-brand-blue" />
