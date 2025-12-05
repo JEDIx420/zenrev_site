@@ -160,7 +160,7 @@ export default function AboutPage() {
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Precision > Power</h3>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Precision &gt; Power</h3>
                                     <p className="text-gray-600 leading-relaxed">
                                         We don't believe in "spray and pray". We believe in finding the <em>right</em> 50 prospects and crafting the perfect message for them. Quality over quantity, always.
                                     </p>
@@ -173,7 +173,7 @@ export default function AboutPage() {
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Speed > Scale</h3>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Speed &gt; Scale</h3>
                                     <p className="text-gray-600 leading-relaxed">
                                         The faster you can iterate on your messaging and targeting, the faster you find product-market fit. Scale comes later. Speed of iteration is everything.
                                     </p>
