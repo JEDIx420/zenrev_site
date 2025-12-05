@@ -99,6 +99,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.7,
         },
         {
+            url: 'https://zenrev.org/case-studies/real-estate-lead-gen-india',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
+            url: 'https://zenrev.org/case-studies/hubspot-revops-dubai',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
+            url: 'https://zenrev.org/case-studies/exa-firecrawl-research-agent',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
+            url: 'https://zenrev.org/case-studies/cold-outreach-bangalore-saas',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
             url: 'https://zenrev.org/services/capabilities',
             lastModified: new Date(),
             changeFrequency: 'monthly',
