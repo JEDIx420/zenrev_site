@@ -85,11 +85,11 @@ export default async function CaseStudyPage({ params }: Props) {
                 <header className="mb-12 text-center">
                     <div className="mb-4 flex items-center justify-center gap-2">
                         <span className="rounded-full bg-brand-blue/10 px-3 py-1 text-xs font-medium text-brand-blue">
-                            {resource.client || resource.category || 'Case Study'}
+                            {(resource as any).client || (resource as any).category || 'Case Study'}
                         </span>
                         <span className="text-gray-300">•</span>
                         <span className="text-xs font-medium text-gray-500">
-                            {resource.industry || resource.date || ''}
+                            {(resource as any).industry || (resource as any).date || ''}
                         </span>
                     </div>
                     <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-6">

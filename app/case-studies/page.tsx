@@ -34,9 +34,9 @@ export default function CaseStudiesPage() {
                             className="flex flex-col items-start justify-between rounded-2xl bg-white p-8 shadow-lg ring-1 ring-gray-200 transition-all hover:shadow-xl hover:ring-brand-blue/50">
                             <div className="flex items-center gap-x-2 text-xs mb-4">
                                 <span className="rounded-full bg-brand-blue/10 px-3 py-1 font-medium text-brand-blue">
-                                    {resource.client || resource.category || 'Case Study'}
+                                    {(resource as any).client || (resource as any).category || 'Case Study'}
                                 </span>
-                                <span className="text-gray-500">{resource.industry || resource.date || ''}</span>
+                                <span className="text-gray-500">{(resource as any).industry || (resource as any).date || ''}</span>
                             </div>
 
                             <div className="group relative flex-1">
