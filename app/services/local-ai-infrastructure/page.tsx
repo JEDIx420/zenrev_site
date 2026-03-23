@@ -216,16 +216,16 @@ export default function LocalAIInfrastructurePage() {
                     <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                         {[
                             {
-                                quote: "zenrev transformed our outbound. We went from booking 2 meetings a week to 15, completely on autopilot.",
-                                author: "Sarah J.",
-                                role: "Founder @ TechFlow",
-                                metric: "7.5x meetings",
+                                quote: "Working with zenrev helped us to build our new site fast and get leads for our company with their chatbot",
+                                author: "Swaroop Reddy",
+                                role: "CEO @ Unizol",
+                                metric: "Fast Delivery",
                             },
                             {
-                                quote: "The depth of research their agents do is incredible. It feels like we hired a team of 10 SDRs overnight.",
-                                author: "Mike T.",
-                                role: "VP Sales @ CloudScale",
-                                metric: "$1.2M pipeline",
+                                quote: "The zenrev team helped us to make custom agents for our business that automated our reiew system and helped us be more visible online",
+                                author: "Jayakumar J",
+                                role: "CEO @ Anandam Buildings",
+                                metric: "Automated Reviews",
                             },
                         ].map((testimonial, i) => (
                             <motion.figure

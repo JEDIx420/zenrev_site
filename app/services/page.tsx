@@ -7,11 +7,11 @@ import { motion } from "framer-motion"
 
 const services = [
     {
-        title: "LinkedIn Automation",
-        description: "A complete, done-for-you system to turn LinkedIn into your primary revenue channel. Includes ICP definition, messaging, and CRM sync.",
-        price: "$1,500/mo",
-        link: "/services/linkedin-automation",
-        features: ["90-day pilot program", "1-1 personalized messaging", "Full CRM integration"]
+        title: "Website Design",
+        description: "Custom, high-conversion website design tailored for B2B SaaS. We build stunning, fast, and SEO-optimized sites that drive revenue.",
+        price: "$1,500",
+        link: "/services/web-design",
+        features: ["Modern responsive design", "SEO & performance optimized", "High-converting landing pages"]
     },
     {
         title: "Complete GTM Automation",

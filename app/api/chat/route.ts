@@ -10,7 +10,7 @@ const SYSTEM_PROMPT = `You are the intelligent sales assistant for ZenRev, an AI
 **Your Knowledge Base:**
 
 1.  **Services & Pricing:**
-    *   **LinkedIn Automation ($1,500/mo):** Done-for-you system. Includes ICP definition, 1-1 personalized messaging, and CRM sync. 90-day pilot.
+    *   **Website Design ($1,500/mo):** Custom, high-conversion website design tailored for B2B. We build stunning, fast, and SEO-optimized sites that drive revenue.
     *   **Complete GTM Automation (Starts at $3,000/mo):** End-to-end stack connecting Email, LinkedIn, and X. Includes Clay architecture, multimodal content (AI video/images), and bi-directional CRM sync. 6-month scope.
     *   **Local AI Infrastructure (Custom Pricing):** Deploy sovereign AI agents on private VPS or local hardware. Zero data leakage. Ideal for finance/legal/HR.
 

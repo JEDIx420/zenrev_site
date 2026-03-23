@@ -6,6 +6,7 @@ import { ArrowRight, Bot, Database, Zap, Search, Mail, Users, BarChart, Sparkles
 import { Button } from "@/components/ui/Button"
 
 import { ProcessScroll } from "@/components/ProcessScroll"
+import { FlickeringGrid } from "@/components/ui/flickering-grid"
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -24,59 +25,61 @@ const stagger = {
 export default function Home() {
   return (
     <div className="flex flex-col">
-      {/* Hero Section - Premium Design */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-white px-6 py-16 lg:px-8">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-brand-blue/10 blur-3xl animate-float"></div>
-          <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-brand-dark/10 blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+      {/* Hero Section - Upgraded Pattern */}
+      <section className="min-h-[80vh] w-full bg-white relative flex items-center justify-center overflow-hidden px-6 lg:px-8">
+        
+        {/* Background Layer with Grid Mask */}
+        <div className="absolute inset-0 z-0 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_80%)]">
+          <FlickeringGrid
+            color="rgb(37, 99, 235)"
+            maxOpacity={0.08}
+            flickerChance={0.2}
+            squareSize={4}
+            gridGap={6}
+          />
         </div>
 
-        <div className="relative mx-auto max-w-4xl text-center">
-
-
+        {/* Foreground Content */}
+        <motion.div
+          className="relative z-10 mx-auto max-w-4xl text-center flex flex-col items-center"
+          variants={stagger}
+          initial="initial"
+          animate="animate"
+        >
           <motion.h1
-            className="bg-gradient-to-br from-brand-dark via-brand-blue to-brand-dark bg-clip-text text-4xl font-bold leading-tight text-transparent sm:text-6xl lg:text-7xl pb-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            style={{ backgroundSize: '200% 200%' }}
+            variants={fadeIn}
+            className="text-5xl sm:text-7xl font-bold lowercase tracking-tight text-blue-600 pb-2"
           >
             from signals to revenue.
           </motion.h1>
 
           <motion.p
-            className="mt-6 text-lg leading-relaxed text-gray-600 sm:text-xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            variants={fadeIn}
+            className="mt-6 text-lg sm:text-xl leading-relaxed text-zinc-600 max-w-2xl"
           >
-            The premier <span className="font-semibold text-brand-blue">GTM Engineering</span> firm. We build agentic workflows that turn signals into revenue.
-            <br />
-            <span className="text-base sm:text-lg text-gray-500">Clay • n8n • Custom AI Agents</span>
-            <br />
-            <span className="text-sm text-gray-400 mt-2 block">Trusted by companies across UAE, KSA, USA, and India</span>
+            The premier <span className="font-bold text-blue-600">GTM Engineering</span> firm. We build agentic workflows that turn signals into revenue.
           </motion.p>
 
+          <motion.div variants={fadeIn} className="mt-4">
+            <span className="text-sm font-medium tracking-wide text-zinc-400">
+              Clay • n8n • Custom AI Agents
+            </span>
+          </motion.div>
+
           <motion.div
-            className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            variants={fadeIn}
+            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6 w-full"
           >
-            <Button size="lg" className="group relative overflow-hidden shadow-lg shadow-brand-blue/25 hover:shadow-xl hover:shadow-brand-blue/40 transition-all w-full sm:w-auto" asChild>
+            <Button size="lg" className="rounded-full bg-blue-600 text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/40 transition-all w-full sm:w-auto px-8" asChild>
               <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  Book 30-min Consultation
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
+                Book 30-min Consultation &rarr;
               </Link>
             </Button>
-            <Button variant="outline" size="lg" className="border-2 hover:bg-brand-blue/5 w-full sm:w-auto" asChild>
+            <Button variant="outline" size="lg" className="rounded-full bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 transition-all w-full sm:w-auto px-8" asChild>
               <Link href="/agents">View Our Agents</Link>
             </Button>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
 
@@ -173,16 +176,16 @@ export default function Home() {
           <div className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-6 lg:mx-0 lg:max-w-none lg:grid-cols-2">
             {[
               {
-                quote: "zenrev transformed our outbound. We went from booking 2 meetings a week to 15, completely on autopilot.",
-                author: "Sarah J.",
-                role: "Founder @ TechFlow",
-                metric: "7.5x meetings",
+                quote: "Working with zenrev helped us to build our new site fast and get leads for our company with their chatbot",
+                author: "Swaroop Reddy",
+                role: "CEO @ Unizol",
+                metric: "Fast Delivery",
               },
               {
-                quote: "The depth of research their agents do is incredible. It feels like we hired a team of 10 SDRs overnight.",
-                author: "Mike T.",
-                role: "VP Sales @ CloudScale",
-                metric: "$1.2M pipeline",
+                quote: "The zenrev team helped us to make custom agents for our business that automated our reiew system and helped us be more visible online",
+                author: "Jayakumar J",
+                role: "CEO @ Anandam Buildings",
+                metric: "Automated Reviews",
               },
             ].map((testimonial, i) => (
               <motion.figure

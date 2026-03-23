@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button"
 import Link from "next/link"
 import { ArrowRight, CheckCircle2, MessageSquare, Users, BarChart3, Database, Target, ShieldCheck, TrendingUp } from "lucide-react"
 
-export default function LinkedInAutomationPage() {
+export default function WebDesignPage() {
     return (
         <div className="flex min-h-screen flex-col">
             {/* Hero Section */}
@@ -20,7 +20,7 @@ export default function LinkedInAutomationPage() {
                             className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium backdrop-blur-sm border border-white/20"
                         >
                             <span className="flex h-2 w-2 rounded-full bg-blue-400"></span>
-                            High-Touch Outbound
+                            High-Converting Pages
                         </motion.div>
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
@@ -28,7 +28,7 @@ export default function LinkedInAutomationPage() {
                             transition={{ duration: 0.5, delay: 0.1 }}
                             className="text-4xl font-bold tracking-tight sm:text-6xl"
                         >
-                            LinkedIn Automation
+                            Website Design
                         </motion.h1>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
@@ -36,8 +36,8 @@ export default function LinkedInAutomationPage() {
                             transition={{ duration: 0.5, delay: 0.2 }}
                             className="mt-6 text-lg leading-8 text-blue-100"
                         >
-                            A complete, done-for-you system to turn LinkedIn into your primary revenue channel.
-                            From ICP definition to booked meetings.
+                            A complete, done-for-you website design and development service.
+                            From wireframes to SEO-optimized deployments.
                         </motion.p>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -65,33 +65,33 @@ export default function LinkedInAutomationPage() {
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                         {[
                             {
-                                title: "ICP & Messaging Strategy",
-                                description: "We build a comprehensive ICP document and create unique messaging angles based on deep research.",
+                                title: "UI/UX Strategy",
+                                description: "We build comprehensive user journey maps and design interfaces optimized for high conversion.",
                                 icon: Target
                             },
                             {
-                                title: "Signal Listeners",
-                                description: "We set up automated listeners to detect buying intent (hiring, funding, tech changes) in real-time.",
+                                title: "Modern Frameworks",
+                                description: "Built on Next.js, React, and Tailwind CSS for lightning-fast performance and seamless experiences.",
                                 icon: Database
                             },
                             {
-                                title: "Precision List Building",
-                                description: "Manual and automated verification to ensure we only target the right decision-makers.",
+                                title: "Responsive Design",
+                                description: "Flawless rendering and mobile-first approach ensuring a perfect view on all screen sizes.",
                                 icon: Users
                             },
                             {
-                                title: "1-1 Messaging",
-                                description: "Personalized outreach sequences that feel human and authentic, not like a bot.",
+                                title: "SEO Optimization",
+                                description: "Technical setup, structured data, and semantic HTML designed to rank highly on search engines.",
                                 icon: MessageSquare
                             },
                             {
-                                title: "CRM Integration",
-                                description: "All activity and leads are automatically pushed to your CRM (HubSpot, Salesforce, Pipedrive).",
+                                title: "CRM & Forms Integration",
+                                description: "Lead capture forms automatically synced with your CRM (HubSpot, Salesforce, Pipedrive).",
                                 icon: ShieldCheck
                             },
                             {
-                                title: "Full Reporting",
-                                description: "Weekly reports on connection rates, response rates, and meetings booked.",
+                                title: "Analytics Tracking",
+                                description: "Comprehensive setup for Google Analytics, PostHog, or any tracking tool to monitor engagement.",
                                 icon: BarChart3
                             }
                         ].map((feature, index) => (
@@ -136,16 +136,16 @@ export default function LinkedInAutomationPage() {
                     <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                         {[
                             {
-                                quote: "zenrev transformed our outbound. We went from booking 2 meetings a week to 15, completely on autopilot.",
-                                author: "Sarah J.",
-                                role: "Founder @ TechFlow",
-                                metric: "7.5x meetings",
+                                quote: "Working with zenrev helped us to build our new site fast and get leads for our company with their chatbot",
+                                author: "Swaroop Reddy",
+                                role: "CEO @ Unizol",
+                                metric: "Fast Delivery",
                             },
                             {
-                                quote: "The depth of research their agents do is incredible. It feels like we hired a team of 10 SDRs overnight.",
-                                author: "Mike T.",
-                                role: "VP Sales @ CloudScale",
-                                metric: "$1.2M pipeline",
+                                quote: "The zenrev team helped us to make custom agents for our business that automated our reiew system and helped us be more visible online",
+                                author: "Jayakumar J",
+                                role: "CEO @ Anandam Buildings",
+                                metric: "Automated Reviews",
                             },
                         ].map((testimonial, i) => (
                             <motion.figure

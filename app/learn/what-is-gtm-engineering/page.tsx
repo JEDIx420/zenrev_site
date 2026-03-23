@@ -216,7 +216,7 @@ export default function WhatIsGTMEngineeringPage() {
                     <h3>Execution Layer</h3>
                     <ul>
                         <li><strong>SendGrid/Instantly:</strong> Email delivery</li>
-                        <li><strong>LinkedIn automation:</strong> Phantombuster, Expandi</li>
+                        <li><strong>Website Design:</strong> Next.js, Framer Motion</li>
                         <li><strong>CRMs:</strong> HubSpot, Salesforce, Pipedrive</li>
                     </ul>
 

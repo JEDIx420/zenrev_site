@@ -100,7 +100,7 @@ const capabilities = [
         techStack: ["SendGrid", "Instantly", "Phantombuster", "Expandi", "Lemlist"],
         useCases: [
             "Cold email campaigns",
-            "LinkedIn automation",
+            "Website Design",
             "Multi-touch sequences",
             "Event-triggered outreach"
         ]

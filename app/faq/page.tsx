@@ -20,7 +20,7 @@ const faqs = [
     },
     {
         question: "What services does zenrev offer?",
-        answer: "We offer four core services: (1) GTM Engineering - end-to-end automation architecture, (2) AI Engineering - custom LLM agents and RAG systems, (3) Clay Expert Services - advanced enrichment and scraping, and (4) n8n Development - robust workflow automation. We also provide LinkedIn automation, complete GTM automation packages, and local AI infrastructure deployment."
+        answer: "We offer four core services: (1) GTM Engineering - end-to-end automation architecture, (2) AI Engineering - custom LLM agents and RAG systems, (3) Clay Expert Services - advanced enrichment and scraping, and (4) n8n Development - robust workflow automation. We also provide Website Design, complete GTM automation packages, and local AI infrastructure deployment."
     },
     {
         question: "Does zenrev build n8n workflows?",
@@ -32,7 +32,7 @@ const faqs = [
     },
     {
         question: "How much does zenrev cost?",
-        answer: "Pricing varies by scope. LinkedIn Automation starts at $1,500/month. Complete GTM Automation starts at $3,000/month. Local AI Infrastructure is custom priced based on requirements. We also offer project-based engagements. Book a consultation to discuss your specific needs and get a tailored quote."
+        answer: "Pricing varies by scope. Website Design starts at $1,500. Complete GTM Automation starts at $3,000/month. Local AI Infrastructure is custom priced based on requirements. We also offer project-based engagements. Book a consultation to discuss your specific needs and get a tailored quote."
     },
     {
         question: "Where is zenrev located?",
@@ -48,7 +48,7 @@ const faqs = [
     },
     {
         question: "How long does implementation take?",
-        answer: "Timeline depends on scope. A LinkedIn automation pilot runs for 90 days. Complete GTM automation projects typically take 3-6 months. Simple n8n workflows can be delivered in 1-2 weeks. We provide detailed timelines during the consultation phase."
+        answer: "Timeline depends on scope. A Website Design project typically takes 4-8 weeks. Complete GTM automation projects typically take 3-6 months. Simple n8n workflows can be delivered in 1-2 weeks. We provide detailed timelines during the consultation phase."
     },
     {
         question: "Do you work with early-stage startups?",
