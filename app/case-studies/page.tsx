@@ -87,7 +87,7 @@ export default function CaseStudiesPage() {
                         Book a consultation and we'll show you how to implement GTM engineering in your stack.
                     </p>
                     <Button size="lg" asChild>
-                        <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                        <Link href="/contact">
                             Book Free Consultation
                         </Link>
                     </Button>

@@ -50,7 +50,7 @@ export default function LeadGenerationPage() {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button size="lg" asChild>
-                            <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                            <Link href="/contact">
                                 Book Strategy Call
                             </Link>
                         </Button>
@@ -165,7 +165,7 @@ export default function LeadGenerationPage() {
                         Book a free strategy call and we'll show you how to automate your outbound and generate qualified leads on autopilot.
                     </p>
                     <Button size="lg" asChild>
-                        <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                        <Link href="/contact">
                             Book Free Strategy Call
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>

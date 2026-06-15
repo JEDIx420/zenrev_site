@@ -71,8 +71,8 @@ export default function Home() {
             className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6 w-full"
           >
             <Button size="lg" className="rounded-full bg-blue-600 text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/40 transition-all w-full sm:w-auto px-8" asChild>
-              <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
-                Book 30-min Consultation &rarr;
+              <Link href="/contact">
+                Book Consultation &rarr;
               </Link>
             </Button>
             <Button variant="outline" size="lg" className="rounded-full bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 transition-all w-full sm:w-auto px-8" asChild>
@@ -237,7 +237,7 @@ export default function Home() {
               </p>
               <div className="mt-8">
                 <Button size="lg" variant="secondary" className="bg-white text-brand-blue hover:bg-gray-100 w-full sm:w-auto" asChild>
-                  <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                  <Link href="/contact">
                     Book Your Consultation
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>

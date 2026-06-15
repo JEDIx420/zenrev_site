@@ -95,7 +95,7 @@ export function Chatbot() {
                     id: Date.now().toString(),
                     role: "assistant",
                     content:
-                        "Sorry, I'm having trouble connecting. Please try again or visit https://cal.com/jayanand-j-ywq8ls/30min to book a consultation.",
+                        "Sorry, I'm having trouble connecting. Please try again or visit our /contact page to submit an enquiry.",
                 },
             ])
         } finally {
@@ -235,7 +235,7 @@ export function Chatbot() {
                                 </Button>
                             </div>
                             <p className="mt-2 text-center text-xs text-gray-500">
-                                Powered by Gemini • <a href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank" className="text-brand-blue hover:underline">Book a call</a>
+                                Powered by Gemini • <a href="/contact" className="text-brand-blue hover:underline">Contact us</a>
                             </p>
                         </form>
                     </motion.div>

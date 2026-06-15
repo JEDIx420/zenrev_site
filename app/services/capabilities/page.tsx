@@ -265,7 +265,7 @@ export default function ServiceCapabilitiesPage() {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button size="lg" variant="secondary" className="bg-white text-brand-blue hover:bg-gray-100" asChild>
-                                <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                                <Link href="/contact">
                                     Book Consultation
                                 </Link>
                             </Button>

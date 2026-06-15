@@ -50,7 +50,7 @@ export default function RevOpsAutomationPage() {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button size="lg" asChild>
-                            <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                            <Link href="/contact">
                                 Book RevOps Consultation
                             </Link>
                         </Button>
@@ -188,7 +188,7 @@ export default function RevOpsAutomationPage() {
                         Book a free RevOps audit and we'll show you exactly how to automate your revenue operations and increase pipeline velocity.
                     </p>
                     <Button size="lg" asChild>
-                        <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                        <Link href="/contact">
                             Book Free RevOps Audit
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>

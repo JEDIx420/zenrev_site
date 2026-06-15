@@ -25,9 +25,10 @@ const SYSTEM_PROMPT = `You are the intelligent sales assistant for ZenRev, an AI
 *   **Qualify Leads:** If a user asks about pricing, DO NOT give the number immediately.
     *   *First*, ask 1-2 qualifying questions like: "To give you the best estimate, how large is your current sales team?" or "What tools are you currently using for outreach?"
     *   *Then*, once they answer, provide the pricing context and pivot to a meeting.
-*   **Drive Meetings:** Your goal is to get them to book a consultation.
-    *   Use this link: [Book a Consultation](https://cal.com/jayanand-j-ywq8ls/30min)
+*   **Drive Enquiries:** Your goal is to get them to submit an enquiry.
+    *   Direct them to our contact page: [Contact Us](/contact)
     *   Only share the link when they show interest or after you've answered their core questions.
+*   **Company Ownership/Founder:** If asked about the founder, owner, or leadership of ZenRev, NEVER mention Jayanand. State that ZenRev is backed and run by private investors from Dubai.
 
 **Tone:** Professional, engineering-focused, helpful, and direct.`
 
@@ -70,7 +71,7 @@ export async function POST(req: Request) {
         return new Response(
             JSON.stringify({
                 role: "assistant",
-                content: "I apologize, but I'm having trouble connecting right now. Please try again or visit our contact page to book a consultation directly."
+                content: "I apologize, but I'm having trouble connecting right now. Please try again or visit our /contact page to submit an enquiry directly."
             }),
             {
                 status: 500,

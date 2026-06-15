@@ -372,7 +372,7 @@ export default function WhatIsGTMEngineeringPage() {
                             Book a consultation and we'll show you exactly how to implement GTM engineering in your stack.
                         </p>
                         <Button size="lg" variant="secondary" className="bg-white text-brand-blue hover:bg-gray-100" asChild>
-                            <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                            <Link href="/contact">
                                 Book Free Consultation
                             </Link>
                         </Button>

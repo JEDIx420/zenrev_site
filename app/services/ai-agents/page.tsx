@@ -50,7 +50,7 @@ export default function AIAgentsPage() {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button size="lg" asChild>
-                            <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                            <Link href="/contact">
                                 Book AI Agent Consultation
                             </Link>
                         </Button>
@@ -188,7 +188,7 @@ export default function AIAgentsPage() {
                         Book a consultation and we'll show you how AI agents can automate your prospecting and research workflows.
                     </p>
                     <Button size="lg" asChild>
-                        <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                        <Link href="/contact">
                             Book AI Agent Consultation
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>

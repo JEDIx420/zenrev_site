@@ -98,7 +98,7 @@ export default function ServicesPage() {
                                 </div>
                                 <div className="mt-8 w-full space-y-3">
                                     <Button className="w-full" asChild>
-                                        <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                                        <Link href="/contact">
                                             Book Consultation
                                         </Link>
                                     </Button>

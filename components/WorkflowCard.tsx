@@ -4,6 +4,7 @@ import * as React from "react"
 import { Download, FileJson, Activity } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { motion } from "framer-motion"
+import Link from "next/link"
 
 interface WorkflowCardProps {
     title: string
@@ -75,10 +76,10 @@ export function WorkflowCard({ title, description, jsonPath, nodeCount, tags, in
                     className="flex-1 gap-2 bg-gradient-to-r from-brand-blue to-blue-600 text-white shadow-md hover:shadow-2xl hover:shadow-brand-blue/40 hover:scale-[1.02] transition-all duration-500 ease-out"
                     asChild
                 >
-                    <a href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank" rel="noopener noreferrer">
+                    <Link href="/contact">
                         <Activity className="h-4 w-4" />
                         Implement
-                    </a>
+                    </Link>
                 </Button>
                 <Button
                     className="flex-1 gap-2"

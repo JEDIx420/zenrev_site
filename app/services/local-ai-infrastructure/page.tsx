@@ -46,7 +46,7 @@ export default function LocalAIInfrastructurePage() {
                             className="mt-10 flex items-center justify-center gap-x-6"
                         >
                             <Button size="lg" className="bg-white text-brand-blue hover:bg-blue-50" asChild>
-                                <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                                <Link href="/contact">
                                     Book Consultation <ArrowRight className="ml-2 h-4 w-4" />
                                 </Link>
                             </Button>
@@ -293,7 +293,7 @@ export default function LocalAIInfrastructurePage() {
                                         <span className="text-4xl font-bold tracking-tight text-white">Custom Quote</span>
                                     </p>
                                     <Button size="lg" className="mt-10 w-full bg-brand-blue hover:bg-blue-600" asChild>
-                                        <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                                        <Link href="/contact">
                                             Book Consultation
                                         </Link>
                                     </Button>

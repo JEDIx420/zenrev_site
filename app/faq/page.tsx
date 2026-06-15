@@ -145,7 +145,7 @@ export default function FAQPage() {
                         Book a 30-minute consultation and we'll answer all your questions about GTM automation.
                     </p>
                     <Button size="lg" asChild>
-                        <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                        <Link href="/contact">
                             Book Free Consultation
                         </Link>
                     </Button>

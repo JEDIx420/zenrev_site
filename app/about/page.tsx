@@ -278,7 +278,7 @@ export default function AboutPage() {
                         Book a 30-minute consultation and we'll show you exactly how to deploy agentic systems in your GTM stack.
                     </p>
                     <Button size="lg" asChild>
-                        <Link href="https://cal.com/jayanand-j-ywq8ls/30min" target="_blank">
+                        <Link href="/contact">
                             Book Free Consultation
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>
